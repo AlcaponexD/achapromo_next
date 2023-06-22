@@ -1,6 +1,6 @@
 import Layout from "../src/components/Layout";
 import Cabecalho from "../src/components/cabecalho";
-import Categories from "../src/components/categories/categories";
+import Categories from "../src/components/categories";
 const Index = (props) => {
   return (
     <Layout>
