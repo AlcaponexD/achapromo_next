@@ -19,9 +19,12 @@ export default () => {
   ];
   return (
     <ul className="flex flex-wrap justify-center ">
-      {categories.map((category) => {
+      {categories.map((category, index) => {
         return (
-          <li className="mr-4 mt-2 p-2 border dark:border-dark-sidebar hover:bg-slate-300 hover:dark:text-light-primary dark:text-dark-text hover:text-dark-primary text-light-text  rounded-lg">
+          <li
+            key={index}
+            className="mr-4 mt-2 p-2 border dark:border-dark-sidebar hover:bg-slate-300 hover:dark:text-light-primary dark:text-dark-text hover:text-dark-primary text-light-text  rounded-lg"
+          >
             <a href="#">{category}</a>
           </li>
         );

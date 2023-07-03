@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <div className="flex text-light-text dark:text-dark-text bg-light-background dark:bg-dark-background h-full">
       <Sidebar isOpen={open} />
-      <main className="w-full h-screen p-3">{children}</main>
+      <main className="w-full min-h-screen p-3">{children}</main>
     </div>
   );
 };
