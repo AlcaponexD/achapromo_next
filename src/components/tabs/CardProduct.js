@@ -12,13 +12,15 @@ export default ({ product }) => {
         <div className="flex justify-between flex-wrap">
           <span className="text-xs mt-2">{product.update}</span>
           <div className="flex justify-between flex-wrap">
-            <span className="bg-light-primary rounded p-1 m-2">
+            <span className="bg-light-primary rounded p-1 m-2 px-4">
               {product.total_comments} Comentarios
             </span>
-            <span className="bg-yellow-500 rounded m-2 p-1">
+            <span className="bg-yellow-500 rounded m-2 p-1 px-4">
               {product.total_stars} Stars
             </span>
-            <span className="bg-blue-600 m-2 rounded p-1">Ver produto</span>
+            <span className="bg-blue-600 m-2 rounded p-1 px-4">
+              Ver produto
+            </span>
           </div>
         </div>
       </div>
