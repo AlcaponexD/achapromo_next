@@ -3,6 +3,8 @@ import { CgProfile } from "react-icons/cg";
 import { HiBellAlert } from "react-icons/hi2";
 import { BiDoorOpen } from "react-icons/bi";
 import DarkButtton from "../darkmode/toogle";
+import Link from "next/link";
+
 const Sidebar = ({ isOpen }) => {
   return (
     <div className="relative h-screen">
@@ -15,10 +17,15 @@ const Sidebar = ({ isOpen }) => {
 
         <ul className={`w-full py-6 `}>
           <li className="mb-2 px-2 py-1 bg-light-primary hover:opacity-80">
-            <a href="#" className="text-white flex items-center">
+            <Link
+              href={{
+                pathname: "/",
+              }}
+              className="text-white flex items-center"
+            >
               <AiOutlineHome className="mr-4" />
               Início
-            </a>
+            </Link>
           </li>
           <li className="mb-2 px-2 py-1">
             <a href="#" className="text-white flex items-center">

@@ -18,7 +18,7 @@ module.exports = {
         light: {
           background: "#F5F5F5",
           primary: "#4CAF50",
-          secondary: "#FF4081",
+          secondary: "#408042",
           highlight: "#3F51B5",
           text: "#333333",
           sidebar: "#282a36",

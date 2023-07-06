@@ -3,10 +3,19 @@ import useSideBarData from "../hooks/useSideBarData";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { HiBellAlert } from "react-icons/hi2";
+import { BiLogIn } from "react-icons/bi";
+import LoginModal from "./LoginModal";
+import { useState } from "react";
 
 const Cabecalho = (props) => {
   //Sim é function
   const { open, toogleSideBar } = useSideBarData();
+
+  const [loginModal, setLogin] = useState(false);
+
+  function openLogin() {
+    setLogin(!loginModal);
+  }
 
   return (
     <header>
@@ -45,9 +54,15 @@ const Cabecalho = (props) => {
               3
             </span>
           </div>
+          <span>
+            <BiLogIn onClick={openLogin} size={38} />
+          </span>
         </div>
       </div>
       <style jsx>{``}</style>
+      {loginModal ? (
+        <LoginModal open={openLogin} loginModal={loginModal}></LoginModal>
+      ) : null}
     </header>
   );
 };

@@ -1,10 +1,13 @@
 import "./globals.css";
 import { SideBarContextProvider } from "../src/contexts/SidebarContext";
+import Layout from "../src/components/Layout";
 
 function MyApp({ Component, pageProps }) {
   return (
     <SideBarContextProvider>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </SideBarContextProvider>
   );
 }
