@@ -5,6 +5,7 @@ import {
   AiFillFacebook,
   AiFillGoogleCircle,
 } from "react-icons/ai";
+import axios from "../config/axiosConfig";
 
 export default (props) => {
   const [modalMode, setModalMode] = useState("login");
@@ -15,24 +16,45 @@ export default (props) => {
     setModalMode(mode);
   };
 
+  const validate = (data) => {
+    return data;
+  };
+
+  const loginExec = (e) => {
+    e.preventDefault();
+
+    // Read the form data
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+    //Valida dados antes de enviar
+
+    const data = validate(formJson);
+    axios
+      .post("/sessions", data)
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log(formJson);
+  };
+
   return (
     <div>
-      <div class="fixed top-0 left-0 right-0 z-40 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full bg-gray-900 opacity-70"></div>
-      <div
-        id="defaultModal"
-        tabindex="-1"
-        aria-hidden="true"
-        class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-100% max-h-full flex justify-center items-center"
-      >
-        <div class="relative w-full max-w-lg max-h-full opacity-100">
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 border border-2 border-light-primary">
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+      <div className="fixed top-0 left-0 right-0 z-40 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full bg-gray-900 opacity-70"></div>
+      <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-100% max-h-full flex justify-center items-center">
+        <div className="relative w-full max-w-lg max-h-full opacity-100">
+          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 border-2 border-light-primary">
+            <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 Login
               </h3>
               <button
                 type="button"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-hide="defaultModal"
               >
                 <AiFillCloseCircle size={28} onClick={props.open} />
@@ -40,18 +62,20 @@ export default (props) => {
             </div>
             {/* Body modal */}
             <div className={`${modalMode == "login" ? "block" : "hidden"}`}>
-              <form>
+              <form method="post" onSubmit={loginExec}>
                 {/* Login component  */}
                 <div className="flex flex-col p-4">
                   <span>Endereço de e-mail</span>
                   <input
-                    className="p-2 border border-light-primary border-2 rounded-md hover:border-light-secondary"
+                    name="email"
+                    className="p-2 border-light-primary border-2 rounded-md hover:border-light-secondary"
                     placeholder="Seu email@provedor.com.br"
                     type="text"
                   ></input>
                   <span>Sua senha</span>
                   <input
-                    className="p-2 border border-light-primary border-2 rounded-md hover:border-light-secondary"
+                    name="password"
+                    className="p-2 border-light-primary border-2 rounded-md hover:border-light-secondary"
                     placeholder="Sua senha"
                     type="password"
                   ></input>
@@ -69,7 +93,10 @@ export default (props) => {
                     </Link>
                   </div>
 
-                  <button className="bg-light-primary rounded-md p-2 mt-4 hover:bg-light-secondary">
+                  <button
+                    type="submit"
+                    className="bg-light-primary rounded-md p-2 mt-4 hover:bg-light-secondary"
+                  >
                     Entrar
                   </button>
                 </div>
