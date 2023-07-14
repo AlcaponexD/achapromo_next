@@ -1,14 +1,14 @@
 import "./globals.css";
-import { SideBarContextProvider } from "../src/contexts/SidebarContext";
+import { AppContextProvider } from "../src/contexts/AppContext";
 import Layout from "../src/components/Layout";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <SideBarContextProvider>
+    <AppContextProvider>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </SideBarContextProvider>
+    </AppContextProvider>
   );
 }
 

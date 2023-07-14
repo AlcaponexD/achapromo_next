@@ -1,15 +1,15 @@
 import Head from "next/head";
-import useSideBarData from "../hooks/useSideBarData";
+import useAppData from "../hooks/useAppData";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { HiBellAlert } from "react-icons/hi2";
 import { BiLogIn } from "react-icons/bi";
-import LoginModal from "./LoginModal";
+import LoginModal from "./login/Modal";
 import { useState } from "react";
 
 const Cabecalho = (props) => {
   //Sim é function
-  const { open, toogleSideBar } = useSideBarData();
+  const { data, handleData } = useAppData();
 
   const [loginModal, setLogin] = useState(false);
 
@@ -18,12 +18,18 @@ const Cabecalho = (props) => {
   }
 
   return (
-    <header>
+    <header className="w-full px-2">
       <Head>
         <title>The page title aa</title>
       </Head>
-      <div className="flex flex-wrap justify-between  items-center h-full border-b py-2 dark:border-b-gray-700 border-b-gray-300">
-        <button onClick={toogleSideBar}>
+      <div className="flex flex-wrap justify-between  items-center h-full border-b py-2 dark:border-b-gray-700 border-b-gray-300 w-full">
+        <button
+          onClick={() => {
+            handleData({
+              sidebar_open: !data.sidebar_open,
+            });
+          }}
+        >
           <AiOutlineMenu size={24} />
         </button>
         <div>
@@ -54,9 +60,22 @@ const Cabecalho = (props) => {
               3
             </span>
           </div>
-          <span>
-            <BiLogIn onClick={openLogin} size={38} />
-          </span>
+          {!data.user ? (
+            <span>
+              <BiLogIn onClick={openLogin} size={38} />
+            </span>
+          ) : (
+            <span>
+              <img
+                src={
+                  data.user.avatar
+                    ? data.user.avatar
+                    : "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"
+                }
+                className="w-8 rounded-full"
+              ></img>
+            </span>
+          )}
         </div>
       </div>
       <style jsx>{``}</style>

@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 
 function DarkModeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(null);
 
   useEffect(() => {
-    const prefersDarkMode = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setIsDarkMode(prefersDarkMode);
+    const dark_mode = localStorage.getItem("dark_mode") === "true";
+    setIsDarkMode(!dark_mode);
+    toggleDarkMode();
   }, []);
 
   const toggleDarkMode = () => {
@@ -16,6 +15,9 @@ function DarkModeToggle() {
       document.documentElement.classList.remove("dark");
     } else {
       document.documentElement.classList.add("dark");
+    }
+    if (typeof window !== "undefined" && window.localStorage) {
+      localStorage.setItem("dark_mode", !isDarkMode);
     }
   };
 
