@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Login from "./Login";
 import Register from "./Register";
-import Recovery from "./recovery";
+import Recovery from "./Recovery";
 
 export default (props) => {
   const [modalMode, setModalMode] = useState("login");
