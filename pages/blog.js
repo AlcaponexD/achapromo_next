@@ -3,7 +3,7 @@ import posts from "../posts.json";
 
 const Blog = () => (
   <div>
-    <h1>Blog</h1>
+    <h1>Blog </h1>
 
     <ul>
       {Object.entries(posts).map((value, index) => {
