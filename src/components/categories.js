@@ -1,6 +1,6 @@
 export default () => {
   const categories = [
-    "Eletrônicos",
+    "Eletrônicosaaaaa",
     "Games e PC Gamer",
     "Casa e cozinha",
     "Moda",
