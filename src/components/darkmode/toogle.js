@@ -5,8 +5,10 @@ function DarkModeToggle() {
 
   useEffect(() => {
     const dark_mode = localStorage.getItem("dark_mode") === "true";
-    setIsDarkMode(!dark_mode);
-    toggleDarkMode();
+    setIsDarkMode(dark_mode);
+    if (dark_mode) {
+      toggleDarkMode();
+    }
   }, []);
 
   const toggleDarkMode = () => {

@@ -58,7 +58,7 @@ export default function Login({ toogleLoginMode, closeModal }) {
             type="password"
           ></input>
 
-          <div className="flex justify-between mt-2">
+          <div className="flex justify-between mt-2 cursor-pointer">
             <span>
               <input type="checkbox"></input> Lembrar
             </span>

@@ -6,6 +6,7 @@ import { HiBellAlert } from "react-icons/hi2";
 import { BiLogIn } from "react-icons/bi";
 import LoginModal from "./login/Modal";
 import { useState } from "react";
+import Link from "next/link";
 
 const Cabecalho = (props) => {
   //Sim é function
@@ -34,7 +35,14 @@ const Cabecalho = (props) => {
         </button>
         <div>
           <span className=" cursor-pointer roboto-300 text-light-primary dark:text-dark-primary text-2xl">
-            Achapromo
+            <Link
+              href={{
+                pathname: "/",
+              }}
+            >
+              {" "}
+              Achapromo
+            </Link>
           </span>
         </div>
         <div>

@@ -1,7 +1,10 @@
+import { useState } from "react";
 import axios from "../../config/axiosConfig";
 
 export default function Register({ toogleLoginMode }) {
-  const validate = (data) => {
+  const [messageValidation, setMessageValidation] = useState({});
+
+  const validate_password = (data) => {
     if (!data) {
       return {
         error: true,
@@ -18,11 +21,12 @@ export default function Register({ toogleLoginMode }) {
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-    //Valida dados antes de enviar
 
-    const body_req = validate(formJson);
+    //Valida dados antes de enviar
+    const body_req = validate_password(formJson);
     if (body_req.error) {
       console.log(body_req);
+      return;
     }
 
     //Delete confirmation
@@ -38,6 +42,11 @@ export default function Register({ toogleLoginMode }) {
         toogleLoginMode("login");
       })
       .catch((err) => {
+        const response = err.response.data;
+        const keys = response.validation.body.keys;
+        var msg = {};
+        msg[keys[0]] = response.validation.body.message;
+        setMessageValidation(msg);
         console.log(err);
       });
   };
@@ -48,28 +57,44 @@ export default function Register({ toogleLoginMode }) {
         <div className="flex flex-col p-4">
           <span>Nome completo</span>
           <input
-            className="p-2 border-light-primary border-2 rounded-md hover:border-light-secondary  text-light-text"
+            className={`p-2 ${
+              messageValidation.name
+                ? "border-red-500 border-2 rounded-md hover:border-red-900"
+                : "border-light-primary border-2 rounded-md hover:border-light-secondary"
+            }   text-light-text`}
             placeholder="Seu nome completo"
             type="text"
             name="name"
           ></input>
           <span>Endereço de e-mail</span>
           <input
-            className="p-2 border-light-primary border-2 rounded-md hover:border-light-secondary  text-light-text"
+            className={`p-2 ${
+              messageValidation.email
+                ? "border-red-500 border-2 rounded-md hover:border-red-900"
+                : "border-light-primary border-2 rounded-md hover:border-light-secondary"
+            }   text-light-text`}
             placeholder="Seu email@provedor.com.br"
             type="email"
             name="email"
           ></input>
           <span>Sua senha</span>
           <input
-            className="p-2 border-light-primary border-2 rounded-md hover:border-light-secondary  text-light-text"
+            className={`p-2 ${
+              messageValidation.password
+                ? "border-red-500 border-2 rounded-md hover:border-red-900"
+                : "border-light-primary border-2 rounded-md hover:border-light-secondary"
+            }   text-light-text`}
             placeholder="Sua senha"
             name="password"
             type="password"
           ></input>
           <span>Repita sua senha</span>
           <input
-            className="p-2 border-light-primary border-2 rounded-md hover:border-light-secondary  text-light-text"
+            className={`p-2 ${
+              messageValidation.password_confirmation
+                ? "border-red-500 border-2 rounded-md hover:border-red-900"
+                : "border-light-primary border-2 rounded-md hover:border-light-secondary"
+            }   text-light-text`}
             placeholder="Sua senha"
             name="password_confirmation"
             type="password"
