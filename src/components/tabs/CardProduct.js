@@ -16,7 +16,7 @@ export default ({ product }) => {
         </div>
         <div className="w-5/6 p-4">
           <h1 className="text-lg font-bold">{product.title}</h1>
-          <p className="md:text-base sm:text-sm line-clamp-3">
+          <p className="md:text-base b  sm:text-sm line-clamp-3">
             {product.description}
           </p>
           <div className="flex justify-between flex-wrap">
