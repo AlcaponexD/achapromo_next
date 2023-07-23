@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "http://168.75.95.236:3333";
+//const BASE_URL = "http://localhost:3333";
+const BASE_URL = "https://api.achapromo.com.br";
+
 let headers = {
   "Content-Type": "application/json",
 };
