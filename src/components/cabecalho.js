@@ -5,12 +5,28 @@ import { BsPlusSquareFill } from "react-icons/bs";
 import { HiBellAlert } from "react-icons/hi2";
 import { BiLogIn } from "react-icons/bi";
 import LoginModal from "./login/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "../config/axiosConfig";
 
 const Cabecalho = (props) => {
   //Sim é function
   const { data, handleData } = useAppData();
+
+  const getUser = () => {
+    axios
+      .get("/users/me")
+      .then((response) => {
+        handleData({
+          user: response.data,
+        });
+      })
+      .catch((err) => {
+        handleData({
+          user: false,
+        });
+      });
+  };
 
   const [loginModal, setLogin] = useState(false);
 
@@ -18,10 +34,13 @@ const Cabecalho = (props) => {
     setLogin(!loginModal);
   }
 
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <header className="w-full px-2">
       <Head>
-        <title>The page title aa</title>
+        <title>Achapromo.com.br</title>
       </Head>
       <div className="flex flex-wrap justify-between  items-center h-full border-b py-2 dark:border-b-gray-700 border-b-gray-300 w-full">
         <button
