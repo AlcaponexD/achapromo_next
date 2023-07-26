@@ -3,23 +3,28 @@ import axios from "axios";
 const BASE_URL = "http://localhost:3333";
 //const BASE_URL = "https://api.achapromo.com.br";
 
-let headers = {
-  "Content-Type": "application/json",
-};
+const instance = axios.create({
+  baseURL: BASE_URL,
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-if (typeof window !== "undefined") {
-  const token = localStorage.getItem("token");
+export function setAuthorizationHeader() {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("token");
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+    if (token) {
+      instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete instance.defaults.headers.common["Authorization"];
+    }
   }
 }
 
-const instance = axios.create({
-  baseURL: BASE_URL, // Altere para a URL base da sua API
-  timeout: 10000, // Tempo máximo de espera para uma requisição (em milissegundos)
-  headers: headers,
-});
+// Chamar a função de atualização do token no momento da criação da instância
+setAuthorizationHeader();
 
 //JWT Expired interceptor
 instance.interceptors.response.use(

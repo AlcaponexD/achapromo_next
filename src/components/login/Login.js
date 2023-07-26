@@ -1,5 +1,5 @@
 import { AiFillFacebook, AiFillGoogleCircle } from "react-icons/ai";
-import axios from "../../config/axiosConfig";
+import axios, { setAuthorizationHeader } from "../../config/axiosConfig";
 import useAppData from "../../hooks/useAppData";
 
 export default function Login({ toogleLoginMode, closeModal }) {
@@ -29,6 +29,7 @@ export default function Login({ toogleLoginMode, closeModal }) {
           user: resp.data.user,
         });
         localStorage.setItem("token", resp.data.token);
+        setAuthorizationHeader();
         closeModal();
       })
       .catch((err) => {

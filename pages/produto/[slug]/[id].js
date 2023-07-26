@@ -9,10 +9,12 @@ const Product = ({ query }) => {
   const { id } = router.query;
 
   useEffect(() => {
-    axios.get(`/products/${id}`).then((response) => {
-      setProduct(response.data);
-    });
-  }, []);
+    if (id) {
+      axios.get(`/products/${id}`).then((response) => {
+        setProduct(response.data);
+      });
+    }
+  }, id);
   return (
     <div className="w-full flex justify-between mt-4 max-[600px]:flex-wrap">
       <div className="w-1/3 p-3 flex justify-center">
@@ -23,7 +25,7 @@ const Product = ({ query }) => {
           {product.title}
         </h1>
         <p>
-          Por{" "}
+          Por
           <span className="text-light-primary cursor-pointer">
             {product.user?.name}
           </span>

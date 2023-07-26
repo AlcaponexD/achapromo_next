@@ -92,7 +92,11 @@ const Cabecalho = (props) => {
               <BiLogIn onClick={openLogin} size={38} />
             </span>
           ) : (
-            <span>
+            <Link
+              href={{
+                pathname: "/perfil/editar",
+              }}
+            >
               <img
                 src={
                   data.user.avatar
@@ -101,7 +105,7 @@ const Cabecalho = (props) => {
                 }
                 className="w-8 rounded-full"
               ></img>
-            </span>
+            </Link>
           )}
         </div>
       </div>
