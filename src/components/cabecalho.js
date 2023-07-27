@@ -41,6 +41,7 @@ const Cabecalho = (props) => {
     <header className="w-full px-2">
       <Head>
         <title>Achapromo.com.br</title>
+        <link rel="icon" href="https://nextjs.org/favicon.ico" sizes="any" />
       </Head>
       <div className="flex flex-wrap justify-between  items-center h-full border-b py-2 dark:border-b-gray-700 border-b-gray-300 w-full">
         <button
