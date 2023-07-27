@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3333";
-//const BASE_URL = "https://api.achapromo.com.br";
+//const BASE_URL = "http://localhost:3333";
+const BASE_URL = "https://api.achapromo.com.br";
 
 const instance = axios.create({
   baseURL: BASE_URL,
