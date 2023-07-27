@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import useAppData from "../../src/hooks/useAppData";
 import axios from "../../src/config/axiosConfig";
 import { MdAddAPhoto } from "react-icons/md";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Editar = ({ user }) => {
   const router = useRouter();
@@ -49,8 +51,6 @@ const Editar = ({ user }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("avatar", selectedFile);
-    console.log(selectedFile);
-    console.log(formData);
     axios
       .patch("/users/avatar", formData, {
         headers: {
@@ -58,11 +58,55 @@ const Editar = ({ user }) => {
         },
       })
       .then((response) => {
-        console.log(response);
+        data.notify("Avatar atualizado com sucesso");
+        setTimeout(() => {
+          location.reload();
+        }, 5000);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  function validate(body) {
+    if (body.password || body.password_confirmation) {
+      if (body.password !== body.password_confirmation) {
+        data.notify_error(
+          "Senha e/ou confirmação de senha precisam ser idênticos"
+        );
+        return false;
+      }
+    }
+    return body;
+  }
+
+  const updateExec = (e) => {
+    e.preventDefault();
+
+    // Read the form data
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+    //Valida dados antes de enviar
+
+    const body_req = validate(formJson);
+
+    if (body_req) {
+      axios
+        .put("/users", body_req)
+        .then((resp) => {
+          if (!resp) {
+            data.notify("Ocorreu um erro ao atualizar perfil");
+          }
+          data.notify("Perfil atualizado com sucesso");
+          handleData({
+            user: resp.data,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -105,7 +149,7 @@ const Editar = ({ user }) => {
             </button>
           </form>
         </div>
-        <form method="post" className="md:w-3/4">
+        <form method="post" className="md:w-3/4" onSubmit={updateExec}>
           {/* Login component  */}
           <div className="flex flex-col p-4">
             <span>Nome completo</span>
@@ -147,6 +191,18 @@ const Editar = ({ user }) => {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

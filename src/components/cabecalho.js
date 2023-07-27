@@ -78,7 +78,7 @@ const Cabecalho = (props) => {
           <span>
             <BsPlusSquareFill size={28} />
           </span>
-          <div className="relative">
+          <div className="relative hidden">
             <HiBellAlert
               size={36}
               className="border-b-light-highlight border-b-2"

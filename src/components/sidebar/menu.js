@@ -45,7 +45,7 @@ const Sidebar = ({ isOpen }) => {
             </li>
           ) : null}
           {data.user ? (
-            <li className="mb-2 px-2 py-1">
+            <li className="mb-2 px-2 py-1 hidden">
               <a href="#" className="text-white flex items-center">
                 <HiBellAlert className="mr-4" />
                 Alertas
