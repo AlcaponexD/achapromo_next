@@ -18,17 +18,17 @@ export default () => {
     getCategories();
   }, []);
   return (
-    <ul className="flex flex-wrap justify-center ">
+    <div className="flex flex-wrap justify-center  ">
       {categories.map((category, index) => {
         return (
-          <li
+          <span
             key={index}
-            className="mr-4 mt-2 p-2 border dark:border-dark-sidebar hover:bg-slate-300 hover:dark:text-light-primary dark:text-dark-text hover:text-dark-primary text-light-text  rounded-lg"
+            className="flex justify-center items-center w-[150px] h-[150px] mr-4 mt-2 p-2 border dark:border-dark-sidebar hover:bg-slate-300 hover:dark:text-light-primary dark:text-dark-text hover:text-dark-primary text-light-text  rounded-lg"
           >
-            <a href="#">{category.title}</a>
-          </li>
+            <span className="text-center">{category.title}</span>
+          </span>
         );
       })}
-    </ul>
+    </div>
   );
 };

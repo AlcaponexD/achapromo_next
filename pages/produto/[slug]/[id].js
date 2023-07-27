@@ -16,7 +16,7 @@ const Product = ({ query }) => {
     }
   }, id);
   return (
-    <div className="w-full flex justify-between mt-4 max-[600px]:flex-wrap">
+    <div className="w-full flex justify-between mt-4 max-[600px]:flex-wrap dark:bg-dark-sidebar bg-white rounded-2xl">
       <div className="w-1/3 p-3 flex justify-center">
         <img className="img_prod" src={product.avatar}></img>
       </div>

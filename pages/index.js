@@ -10,7 +10,6 @@ const Index = (props) => {
   return (
     <div>
       <main className="">
-        <Categories></Categories>
         <div className="flex justify-normal">
           <span
             className="bg-light-primary rounded p-1 m-2 px-4 cursor-pointer"

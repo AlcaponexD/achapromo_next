@@ -6,6 +6,7 @@ import DarkButtton from "../darkmode/toogle";
 import Link from "next/link";
 import useAppData from "../../hooks/useAppData";
 import { FaWindowClose } from "react-icons/fa";
+import { TbCategory } from "react-icons/tb";
 
 const Sidebar = ({ isOpen }) => {
   const { data, handleData } = useAppData();
@@ -34,6 +35,17 @@ const Sidebar = ({ isOpen }) => {
             >
               <AiOutlineHome className="mr-4" />
               Início
+            </Link>
+          </li>
+          <li className="mb-2 px-2 py-1  hover:opacity-80">
+            <Link
+              href={{
+                pathname: "/categoria/todos",
+              }}
+              className="text-white flex items-center"
+            >
+              <TbCategory className="mr-4" />
+              Categorias
             </Link>
           </li>
           {data.user ? (

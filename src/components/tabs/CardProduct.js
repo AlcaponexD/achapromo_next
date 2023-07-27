@@ -10,7 +10,7 @@ export default ({ product }) => {
         query: { id: product.id, slug: product_slug },
       }}
     >
-      <div className="flex p-2 border-2 dark:border-dark-sidebar mt-4">
+      <div className="flex p-2 border-2 dark:border-dark-sidebar mt-4 dark:bg-dark-sidebar bg-white rounded-2xl">
         <div className="flex items-center w-[160px] border-r-2 dark:border-dark-sidebar">
           <img className="img_prod w-full" src={product.avatar}></img>
         </div>
