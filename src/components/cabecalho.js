@@ -60,7 +60,6 @@ const Cabecalho = (props) => {
                 pathname: "/",
               }}
             >
-              {" "}
               Achapromo
             </Link>
           </span>

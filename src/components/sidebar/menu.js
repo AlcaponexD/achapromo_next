@@ -7,9 +7,18 @@ import Link from "next/link";
 import useAppData from "../../hooks/useAppData";
 import { FaWindowClose } from "react-icons/fa";
 import { TbCategory } from "react-icons/tb";
+import { useRouter } from "next/router";
 
 const Sidebar = ({ isOpen }) => {
   const { data, handleData } = useAppData();
+  const router = new useRouter();
+  const logout = () => {
+    localStorage.removeItem("token");
+    handleData({
+      user: null,
+    });
+    router.push("/");
+  };
 
   return (
     <div className="fixed h-screen z-20">
@@ -19,14 +28,23 @@ const Sidebar = ({ isOpen }) => {
         }`}
       >
         <FaWindowClose
-          className="absolute right-0 my-2 z-10 cursor-pointer"
+          className="absolute right-1 my-2 z-10 cursor-pointer"
           onClick={() => handleData({ sidebar_open: !data.sidebar_open })}
           size={32}
         ></FaWindowClose>
         {/* Conteúdo do menu */}
 
         <ul className={`w-full py-2 `}>
-          <li className="mb-2 px-2 py-1 bg-light-primary hover:opacity-80">
+          <li
+            onClick={() => {
+              handleData({
+                sidebar_open: !data.sidebar_open,
+              });
+            }}
+            className={`mb-2 px-2 py-1 hover:opacity-80 ${
+              router.pathname === "/" ? "bg-light-primary" : ""
+            }`}
+          >
             <Link
               href={{
                 pathname: "/",
@@ -37,7 +55,16 @@ const Sidebar = ({ isOpen }) => {
               Início
             </Link>
           </li>
-          <li className="mb-2 px-2 py-1  hover:opacity-80">
+          <li
+            onClick={() => {
+              handleData({
+                sidebar_open: !data.sidebar_open,
+              });
+            }}
+            className={`mb-2 px-2 py-1 hover:opacity-80 ${
+              router.pathname === "/categoria/todos" ? "bg-light-primary" : ""
+            }`}
+          >
             <Link
               href={{
                 pathname: "/categoria/todos",
@@ -49,15 +76,33 @@ const Sidebar = ({ isOpen }) => {
             </Link>
           </li>
           {data.user ? (
-            <li className="mb-2 px-2 py-1">
-              <a href="#" className="text-white flex items-center">
+            <li
+              onClick={() => {
+                handleData({
+                  sidebar_open: !data.sidebar_open,
+                });
+              }}
+              className={`mb-2 px-2 py-1 hover:opacity-80 ${
+                router.pathname === "/perfil/editar" ? "bg-light-primary" : ""
+              }`}
+            >
+              <Link
+                href={{
+                  pathname: "/perfil/editar",
+                }}
+                className="text-white flex items-center"
+              >
                 <CgProfile className="mr-4" />
                 Perfil
-              </a>
+              </Link>
             </li>
           ) : null}
           {data.user ? (
-            <li className="mb-2 px-2 py-1 hidden">
+            <li
+              className={`mb-2 px-2 py-1 hover:opacity-80 hidden ${
+                router.pathname === "/" ? "bg-light-primary" : ""
+              }`}
+            >
               <a href="#" className="text-white flex items-center">
                 <HiBellAlert className="mr-4" />
                 Alertas
@@ -65,7 +110,7 @@ const Sidebar = ({ isOpen }) => {
             </li>
           ) : null}
           {data.user ? (
-            <li className="mb-2 px-2 py-1">
+            <li onClick={logout} className={`mb-2 px-2 py-1 hover:opacity-80`}>
               <a href="#" className="text-white flex items-center">
                 <BiDoorOpen className="mr-4" />
                 Sair
