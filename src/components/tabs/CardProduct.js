@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { string_to_slug } from "../../utils/helper";
+import { string_to_slug, formatarReal } from "../../utils/helper";
 
 export default ({ product }) => {
   const product_slug = string_to_slug(product.title);
+
   return (
     <Link
       href={{
@@ -15,7 +16,12 @@ export default ({ product }) => {
           <img className="img_prod w-full" src={product.avatar}></img>
         </div>
         <div className="w-5/6 p-4">
-          <h1 className="text-lg font-bold">{product.title}</h1>
+          <div className="flex justify-between">
+            <h1 className="text-lg font-bold">{product.title}</h1>
+            <h2 className="text-dark-primary text-2xl font-bold">
+              {formatarReal(product.price / 100)}
+            </h2>
+          </div>
           <p className="md:text-base b  sm:text-sm line-clamp-3">
             {product.description}
           </p>

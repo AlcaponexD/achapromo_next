@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { AiFillStar, AiOutlineComment } from "react-icons/ai";
 import axios from "../../../src/config/axiosConfig";
 import { useEffect, useState } from "react";
+import { formatarReal } from "../../../src/utils/helper";
 
 const Product = ({ query }) => {
   const [product, setProduct] = useState({});
@@ -41,7 +42,7 @@ const Product = ({ query }) => {
       <div className="w-1/5 flex flex-col p-3 text-center content-center">
         <div className="flex flex-col p-2">
           <span className="text-3xl font-bold text-light-primary">
-            R$ ${product.price}
+            {formatarReal(product.price / 100)}
           </span>
         </div>
         <div>

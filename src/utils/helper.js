@@ -16,3 +16,12 @@ export function string_to_slug(str) {
 
   return str;
 }
+export function formatarReal(numero) {
+  console.log(numero);
+  const formato = {
+    minimumFractionDigits: 2,
+    style: "currency",
+    currency: "BRL",
+  };
+  return numero.toLocaleString("pt-BR", formato);
+}
