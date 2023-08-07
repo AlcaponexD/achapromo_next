@@ -13,11 +13,9 @@ const Produto = () => {
   const [product, setProduct] = useState({});
   const { data, handleData } = useAppData();
   const [categories, setCategories] = useState([]);
-  const [categorySelected, setCategorySelected] = useState({});
 
   const [manualForm, setManualForm] = useState(true);
   const [imagePreview, setImagePreview] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
   const router = useRouter();
 
   const handleImageChange = (e) => {
@@ -31,11 +29,6 @@ const Produto = () => {
     reader.onloadend = () => {
       setImagePreview(reader.result);
     };
-
-    if (file) {
-      reader.readAsDataURL(file);
-      setSelectedFile(file);
-    }
   };
   const sendProductAuto = (e) => {
     e.preventDefault();
@@ -50,7 +43,6 @@ const Produto = () => {
           }, 5000);
         } else {
           setSending(false);
-
           setManualForm(true);
         }
       })
@@ -73,6 +65,54 @@ const Produto = () => {
       });
   };
 
+  const validate = (data) => {
+    if (
+      !data.price ||
+      !data.title ||
+      !data.avatar ||
+      !data.title ||
+      !data.category_name
+    ) {
+      data.notify_error("Revise os campos, todos são obrigatórios");
+    }
+
+    data.price = data.price.replace(/\D/g, "");
+
+    return data;
+  };
+
+  const sendProductManual = (e) => {
+    e.preventDefault();
+    //setSending(true);
+
+    // Read the form data
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+    //Valida dados antes de enviar
+
+    const body_req = validate(formJson);
+    if (body_req) {
+      axios
+        .post("/products", body_req)
+        .then((resp) => {
+          if (!resp) {
+            data.notify_error("Ocorreu um erro ao enviar a promo");
+            setSending(false);
+          }
+          data.notify("Promo enviada com sucesso !");
+          setTimeout(() => {
+            router.push("/perfil/editar");
+          }, 5000);
+        })
+        .catch((err) => {
+          console.log(err);
+          data.notify_error("Ocorreu um erro ao enviar a promo");
+          setSending(false);
+        });
+    }
+  };
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -83,9 +123,10 @@ const Produto = () => {
       <form
         method="post"
         className={`w-full ${manualForm ? "hidden" : ""}`}
-        onSubmit={sendProductAuto}
+        onSubmit={sendProductManual}
+        encType="multipart/form-data"
       >
-        {/* Login component  */}
+        {/* component  */}
         <div className="flex flex-col p-4">
           <span>Link da promo</span>
           <input
@@ -103,47 +144,23 @@ const Produto = () => {
             name="price"
             decimalsLimit="2"
             defaultValue={product.price}
-            onValueChange={(value, name) => {
-              setProduct({
-                ...product,
-                ...{
-                  price: value,
-                },
-              });
-            }}
           />
           <span>Nome</span>
           <input
             className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
             placeholder="Link completo da promo"
             type="text"
-            name="url"
+            name="title"
             defaultValue={product.title}
           ></input>
           <span>Categoria</span>
           <select
             className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
-            value={categorySelected.id}
-            defaultValue={categorySelected.id}
-            onChange={(e) => {
-              //Filter
-              const cat_select = categories.filter((category) => {
-                return category.id === e.target.value;
-              });
-              console.log(categorySelected);
-              setCategorySelected(cat_select);
-              setProduct({
-                ...product,
-                ...{
-                  category: e.target.value,
-                },
-              });
-              console.log(product);
-            }}
+            name="category_name"
           >
             <option value="">Selecione uma categoria</option>
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category.title} value={category.title}>
                 {category.title}
               </option>
             ))}
@@ -207,7 +224,6 @@ const Produto = () => {
             className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
             placeholder="Link completo da promo"
             type="text"
-            name="url"
             onChange={(e) => {
               setUrl(e.target.value);
             }}
