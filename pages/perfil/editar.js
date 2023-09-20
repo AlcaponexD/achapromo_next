@@ -5,6 +5,7 @@ import axios from "../../src/config/axiosConfig";
 import { MdAddAPhoto } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProductList from "../../src/components/products/profile/list";
 
 const Editar = ({ user }) => {
   const router = useRouter();
@@ -203,6 +204,7 @@ const Editar = ({ user }) => {
         pauseOnHover
         theme="colored"
       />
+      <ProductList></ProductList>
     </div>
   );
 };

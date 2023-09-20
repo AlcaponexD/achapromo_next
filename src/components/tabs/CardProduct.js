@@ -1,24 +1,29 @@
 import Link from "next/link";
 import { string_to_slug, formatarReal } from "../../utils/helper";
 
-export default ({ product }) => {
+export default (props) => {
+  console.log(props);
+  const product = props.product;
   const product_slug = string_to_slug(product.title);
 
+  let dataLink = {
+    pathname: "/produto/[slug]/[id]",
+    query: { id: product.id, slug: product_slug },
+  };
+
+  if (props.dataLink) {
+    dataLink = props.dataLink;
+  }
   return (
-    <Link
-      href={{
-        pathname: "/produto/[slug]/[id]",
-        query: { id: product.id, slug: product_slug },
-      }}
-    >
+    <Link href={dataLink}>
       <div className="flex p-2 border-2 dark:border-dark-sidebar mt-4 dark:bg-dark-sidebar bg-white rounded-2xl">
         <div className="flex items-center w-[160px] border-r-2 dark:border-dark-sidebar">
           <img className="img_prod w-full" src={product.avatar}></img>
         </div>
         <div className="w-5/6 p-4">
           <div className="flex justify-between">
-            <h1 className="text-lg font-bold">{product.title}</h1>
-            <h2 className="text-dark-primary text-2xl font-bold">
+            <h1 className="font-bold lg:text-lg text-xs">{product.title}</h1>
+            <h2 className="text-dark-primary lg:text-2xl text-base font-bold">
               {formatarReal(product.price / 100)}
             </h2>
           </div>
