@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "../../../config/axiosConfig";
 import CardProduct from "../../tabs/CardProduct";
+import { string_to_slug } from "../../../utils/helper";
+
 const ProductList = () => {
   const [products, setProduct] = useState([]);
-  const data_link = {
-    pathname: "/produto/[slug]/[id]",
-    query: { id: "product.id", slug: "product_slug " },
-  };
   useEffect(() => {
     axios.get("products/show/me").then((response) => {
       setProduct(response.data);
@@ -18,7 +16,10 @@ const ProductList = () => {
         return (
           <CardProduct
             product={product}
-            dataLink={data_link}
+            dataLink={{
+              pathname: "/perfil/produto/[slug]/[id]",
+              query: { id: product.id, slug: string_to_slug(product.title) },
+            }}
             key={index}
           ></CardProduct>
         );
