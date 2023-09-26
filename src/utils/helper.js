@@ -17,11 +17,22 @@ export function string_to_slug(str) {
   return str;
 }
 export function formatarReal(numero) {
-  console.log(numero);
+  if (isNaN(numero)) {
+    return "";
+  }
   const formato = {
     minimumFractionDigits: 2,
     style: "currency",
     currency: "BRL",
   };
   return numero.toLocaleString("pt-BR", formato);
+}
+
+export function cleanNumber(input) {
+  if (typeof input !== "string") {
+    return "";
+  }
+
+  // Remove todos os caracteres não numéricos usando uma expressão regular
+  return input.replace(/[^0-9]/g, "");
 }
