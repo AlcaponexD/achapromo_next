@@ -53,20 +53,21 @@ const ProductUpdate = ({ id }) => {
     }
   };
 
-  const validate = (data) => {
+  const validate = (data_form) => {
+    console.log(data_form);
     if (
-      !data.price ||
-      !data.title ||
-      !data.avatar ||
-      !data.title ||
-      !data.category_name
+      !data_form.price ||
+      !data_form.title ||
+      !data_form.description ||
+      !data_form.category_name
     ) {
       data.notify_error("Revise os campos, todos são obrigatórios");
+      return false;
     }
 
-    data.price = data.price.replace(/\D/g, "");
+    data_form.price = data_form.price.replace(/\D/g, "");
 
-    return data;
+    return data_form;
   };
 
   const sendProductManual = (e) => {
@@ -79,23 +80,21 @@ const ProductUpdate = ({ id }) => {
     const formJson = Object.fromEntries(formData.entries());
     //Valida dados antes de enviar
 
+    console.log(formJson);
     const body_req = validate(formJson);
     if (body_req) {
       axios
-        .post("/products", body_req)
+        .put(`/products/${product.id}`, body_req)
         .then((resp) => {
           if (!resp) {
-            data.notify_error("Ocorreu um erro ao enviar a promo");
+            data.notify_error("Ocorreu um erro ao atualizar a promo");
             setSending(false);
           }
-          data.notify("Promo enviada com sucesso !");
-          setTimeout(() => {
-            router.push("/perfil/editar");
-          }, 5000);
+          data.notify("Promo atualizada com sucesso !");
         })
         .catch((err) => {
           console.log(err);
-          data.notify_error("Ocorreu um erro ao enviar a promo");
+          data.notify_error("Ocorreu um erro ao atualizar a promo");
           setSending(false);
         });
     }
@@ -113,10 +112,26 @@ const ProductUpdate = ({ id }) => {
     setProduct(updatedProduct);
   };
 
+  const updateCategory = (event) => {
+    const categ = event.target.value;
+    // Cria uma cópia do objeto product
+    const updatedProduct = { ...product };
+    updatedProduct.category = {
+      title: categ,
+    };
+
+    console.log(updatedProduct);
+
+    // Define a cópia atualizada como o novo estado
+    setProduct(updatedProduct);
+  };
+
   const setProductData = (product) => {
     setProduct(product);
     setImagePreview(product.avatar);
   };
+
+  const send = () => {};
 
   useEffect(() => {
     axios
@@ -135,16 +150,13 @@ const ProductUpdate = ({ id }) => {
   }, id);
   return (
     <div className="container w-full">
-      <h1 className="text-2xl text-light-primary">Postar nova promo</h1>
-      <form
-        method="post"
-        className={`w-full`}
-        onSubmit={sendProductManual}
-        encType="multipart/form-data"
-      >
+      <h1 className="text-2xl text-light-primary">
+        Atualizar : {product.title}
+      </h1>
+      <div>
         {/* component  */}
         <div className="flex flex-col lg:flex-row p-4">
-          <div className="flex justify-center">
+          <div className="flex justify-center p-4">
             <label htmlFor="avatar" className="cursor-pointer">
               Selecione uma imagem
               <MdAddAPhoto size={28}></MdAddAPhoto>
@@ -164,21 +176,12 @@ const ProductUpdate = ({ id }) => {
               id="avatar"
             ></input>
           </div>
-          <div className="flex flex-col w-full">
-            <span>Link da promo</span>
-            <input
-              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
-              placeholder="Link completo da promo"
-              type="text"
-              name="url"
-              defaultValue={product.url}
-            ></input>
-            <span>Preço R$</span>
-            <input
-              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
-              value={formatarReal(product.price / 100)}
-              onChange={updatePrice}
-            ></input>
+          <form
+            method="post"
+            className="flex flex-col w-full"
+            onSubmit={sendProductManual}
+            encType="multipart/form-data"
+          >
             <span>Nome</span>
             <input
               className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
@@ -187,11 +190,35 @@ const ProductUpdate = ({ id }) => {
               name="title"
               defaultValue={product.title}
             ></input>
+            <span>Descrição</span>
+            <textarea
+              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
+              placeholder="Descrição da promo"
+              name="description"
+              defaultValue={product.description}
+            ></textarea>
+            <span>Link da promo</span>
+            <input
+              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
+              placeholder="Link completo da promo"
+              type="text"
+              name="url"
+              defaultValue={product.url}
+              disabled="disabled"
+            ></input>
+            <span>Preço R$</span>
+            <input
+              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
+              value={formatarReal(product.price / 100)}
+              onChange={updatePrice}
+              name="price"
+            ></input>
             <span>Categoria</span>
             <select
               className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
               name="category_name"
               value={product.category ? product.category.title : ""}
+              onChange={updateCategory}
             >
               <option value="">Selecione uma categoria</option>
               {categories.map((category) => (
@@ -204,6 +231,7 @@ const ProductUpdate = ({ id }) => {
               type="submit"
               className="bg-light-primary rounded-md p-2 mt-4 hover:bg-light-secondary w-full"
               disabled={sending}
+              onClick={send}
             >
               <svg
                 aria-hidden="true"
@@ -226,9 +254,9 @@ const ProductUpdate = ({ id }) => {
               </svg>
               Enviar
             </button>
-          </div>
+          </form>
         </div>
-      </form>
+      </div>
 
       <ToastContainer
         position="top-right"
