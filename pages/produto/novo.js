@@ -24,11 +24,19 @@ const Produto = () => {
     if (!file) {
       return false;
     }
-    const reader = new FileReader();
 
-    reader.onloadend = () => {
+    const reader = new FileReader();
+    console.log(reader);
+
+    reader.onloadend = (eee) => {
+      console.log(eee);
+
       setImagePreview(reader.result);
     };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
   const sendProductAuto = (e) => {
     e.preventDefault();
