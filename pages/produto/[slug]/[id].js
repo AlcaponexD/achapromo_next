@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import { AiFillStar, AiOutlineComment } from "react-icons/ai";
 import axios from "../../../src/config/axiosConfig";
 import { useEffect, useState } from "react";
-import { formatarReal } from "../../../src/utils/helper";
+import { formatarReal, translateDatePtBr } from "../../../src/utils/helper";
+import Comments from "../../../src/components/products/comments";
 
 const Product = ({ query }) => {
   const [product, setProduct] = useState({});
@@ -15,7 +16,7 @@ const Product = ({ query }) => {
         setProduct(response.data);
       });
     }
-  }, id);
+  }, [id]);
   return (
     <div className="w-full flex justify-between mt-4 max-[600px]:flex-wrap dark:bg-dark-sidebar bg-white rounded-2xl">
       <div className="w-1/3 p-3 flex justify-center">
@@ -26,12 +27,11 @@ const Product = ({ query }) => {
           {product.title}
         </h1>
         <p>
-          Por
-          <span className="text-light-primary cursor-pointer">
+          <span className="text-light-primary  text-sm cursor-pointer">
             {product.user?.name}
           </span>
         </p>
-        <span className="text-sm">{product.created_at}</span>
+        <span className="text-sm">{translateDatePtBr(product.created_at)}</span>
         <p
           title={product.description}
           className="text-justify text-base line-clamp-4"
@@ -39,13 +39,13 @@ const Product = ({ query }) => {
           {product.description}
         </p>
       </div>
-      <div className="w-1/5 flex flex-col p-3 text-center content-center">
+      <div className="flex flex-col p-3 text-center content-center">
         <div className="flex flex-col p-2">
           <span className="text-3xl font-bold text-light-primary">
             {formatarReal(product.price / 100)}
           </span>
         </div>
-        <div>
+        <div className="w-[200px] mb-2">
           <a
             href={product.url}
             className="bg-light-primary rounded-md p-2 px-8 text-white hover:bg-light-secondary"
@@ -64,6 +64,7 @@ const Product = ({ query }) => {
           </span>
         </div>
       </div>
+      <Comments comments={product.comments}></Comments>
       <style jsx>{`
         .img_prod {
           height: 200px;

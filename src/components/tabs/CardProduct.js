@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { string_to_slug, formatarReal } from "../../utils/helper";
+import {
+  string_to_slug,
+  formatarReal,
+  translateDatePtBr,
+} from "../../utils/helper";
 
 export default (props) => {
   console.log(props);
@@ -31,7 +35,9 @@ export default (props) => {
             {product.description}
           </p>
           <div className="flex justify-between flex-wrap">
-            <span className="text-xs mt-2">{product.created_at}</span>
+            <span className="text-xs mt-2">
+              {translateDatePtBr(product.created_at)}
+            </span>
             <div className="flex justify-between flex-wrap">
               <span className="bg-light-primary rounded p-1 m-2 px-4">
                 {product.total_comments} Comentarios

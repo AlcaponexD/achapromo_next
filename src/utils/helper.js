@@ -36,3 +36,35 @@ export function cleanNumber(input) {
   // Remove todos os caracteres não numéricos usando uma expressão regular
   return input.replace(/[^0-9]/g, "");
 }
+export function translateDatePtBr(data) {
+  const diasSemana = [
+    "Domingo",
+    "Segunda-feira",
+    "Terça-feira",
+    "Quarta-feira",
+    "Quinta-feira",
+    "Sexta-feira",
+    "Sábado",
+  ];
+  const meses = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
+  const date = new Date(data);
+  const diaSemana = diasSemana[date.getDay()];
+  const dia = date.getDate();
+  const mes = meses[date.getMonth()];
+  const ano = date.getFullYear();
+
+  return `${diaSemana}, ${dia} de ${mes} de ${ano}`;
+}
