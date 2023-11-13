@@ -40,12 +40,12 @@ export default (props) => {
             </span>
             <div className="flex justify-between flex-wrap">
               <span className="bg-light-primary rounded p-1 m-2 px-4">
-                {product.total_comments} Comentarios
+                {product ? product.comments.length : 0} Comentarios
               </span>
               <span className="bg-yellow-500 rounded m-2 p-1 px-4">
-                {product.total_stars} Stars
+                {product ? product.classification ?? 0 : 0} Stars
               </span>
-              <span className="bg-blue-600 m-2 rounded p-1 px-4">
+              <span className="bg-blue-600 hover:bg-blue-900 m-2 rounded p-1 px-4">
                 Ver produto
               </span>
             </div>

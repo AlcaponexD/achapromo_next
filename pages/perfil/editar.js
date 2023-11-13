@@ -116,7 +116,9 @@ const Editar = ({ user }) => {
 
   return (
     <div className="container w-full">
-      <h1 className="text-2xl text-light-primary">Editar perfil</h1>
+      <h1 className="bg-gray-200 dark:bg-gray-950 p-2 text-2xl text-light-primary border border-dark-primary rounded-md">
+        Editar perfil
+      </h1>
       <div className="flex flex-col md:flex-row">
         <div className="p-4 md:w-1/4 flex justify-center md:justify-start">
           <form

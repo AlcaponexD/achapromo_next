@@ -127,7 +127,9 @@ const Produto = () => {
 
   return (
     <div className="container w-full">
-      <h1 className="text-2xl text-light-primary">Postar nova promo</h1>
+      <h1 className="bg-gray-200 dark:bg-gray-950 p-2 text-2xl text-light-primary border border-dark-primary rounded-md">
+        Postar nova promo
+      </h1>
       <form
         method="post"
         className={`w-full ${manualForm ? "hidden" : ""}`}

@@ -61,10 +61,12 @@ export function translateDatePtBr(data) {
     "Dezembro",
   ];
   const date = new Date(data);
+  date.toLocaleString("pt-br");
+  const arr_date = date.toTimeString().split(" ");
   const diaSemana = diasSemana[date.getDay()];
   const dia = date.getDate();
   const mes = meses[date.getMonth()];
   const ano = date.getFullYear();
 
-  return `${diaSemana}, ${dia} de ${mes} de ${ano}`;
+  return `${diaSemana}, ${dia} de ${mes} de ${ano} as ${arr_date[0]}`;
 }

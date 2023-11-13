@@ -150,7 +150,7 @@ const ProductUpdate = ({ id }) => {
   }, id);
   return (
     <div className="container w-full">
-      <h1 className="text-2xl text-light-primary">
+      <h1 className="bg-gray-200 dark:bg-gray-950 p-2 text-2xl text-light-primary border border-dark-primary rounded-md">
         Atualizar : {product.title}
       </h1>
       <div>
