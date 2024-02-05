@@ -5,11 +5,36 @@ import { useEffect, useState } from "react";
 import { formatarReal, translateDatePtBr } from "../../../src/utils/helper";
 import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
+import useAppData from "../../../src/hooks/useAppData";
 
 const Product = ({ query }) => {
+  const { data, handleData } = useAppData();
+
   const [product, setProduct] = useState({});
   const router = useRouter();
   const { id } = router.query;
+
+  const changeStarsCountFromTrigger = (action) => {
+    if (action === 'up') {
+      setProduct((prevProduct) => {
+        return { ...prevProduct, classification: prevProduct.classification + 1 };
+      });
+    } else {
+      setProduct((prevProduct) => {
+        return { ...prevProduct, classification: Math.max(0, prevProduct.classification - 1) };
+      });
+    }
+  };
+
+
+  const change_star = () => {
+    if (!data.user) {
+      return
+    }
+    axios.put(`/products/${product.id}/classification`).then((response) => {
+      changeStarsCountFromTrigger(response.data)
+    })
+  }
 
   useEffect(() => {
     if (id) {
@@ -58,8 +83,8 @@ const Product = ({ query }) => {
             </a>
           </div>
           <div className="flex justify-center text-2xl">
-            <span className="flex items-center">
-              {product.classification}{" "}
+            <span className="flex items-center cursor-pointer" onClick={change_star}>
+              {product.classification}
               <AiFillStar className="text-light-primary"></AiFillStar>
             </span>
             <span className="flex items-center ml-2">
@@ -69,7 +94,7 @@ const Product = ({ query }) => {
           </div>
         </div>
       </div>
-      <CommentsComponents comments={product.comments}></CommentsComponents>
+      <CommentsComponents comments={product.comments} product_id={product.id}></CommentsComponents>
       <style jsx>{`
         .img_prod {
           max-height: 200px;
