@@ -9,6 +9,16 @@ const CommentsComponents = ({ comments, product_id }) => {
   const { data, handleData } = useAppData();
   const [comentaries, setComment] = useState([]);
 
+  //Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 6;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = comentaries.slice(indexOfFirstItem, indexOfLastItem);
+
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   const sortComments = (comments) => {
     console.log(comments)
@@ -57,28 +67,48 @@ const CommentsComponents = ({ comments, product_id }) => {
         <h3>Todos os comentarios ({comentaries ? comentaries.length : 0})</h3>
       </div>
       <div className="m-2 p-2rounded-sm">
-        {comentaries
-          ? comentaries.map((comment, index) => {
+        {currentItems
+          ? currentItems.map((comment, index) => {
             return (
               <div
                 key={index}
                 className="flex flex-col my-2 p-2 bg-light-background dark:bg-dark-background "
               >
-                <div className="flex justify-between mb-1">
-                  <span className="text-base text-dark-primary">
-                    {comment.user.name}
-                  </span>
-                  <span className="text-[11px]">
-                    {translateDatePtBr(comment.created_at)}
-                  </span>
+                <div className="flex">
+                  <div>
+                    <img className="max-h-10 border rounded-full" src={comment.user.avatar} />
+                  </div>
+                  <div className="w-full">
+                    <div className="flex justify-between mb-1 pl-2">
+                      <span className="text-base text-dark-primary">
+                        {comment.user.name}
+                      </span>
+                      <span className="text-[11px]">
+                        {translateDatePtBr(comment.created_at)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <span>{comment.content}</span>
+
+                <span className="ml-12">{comment.content}</span>
               </div>
             );
           })
           : null}
+        <div className="flex justify-end">
+          <ul className="flex flex-row gap-1">
+            {Array.from({ length: Math.ceil(comentaries.length / itemsPerPage) }, (_, index) => (
+              <li key={index} className={currentPage === index + 1 ? 'bg-dark-primary px-2 border border-dark-primary rounded-sm' : 'px-1 border border-dark-primary rounded-sm'}>
+                <button onClick={() => paginate(index + 1)}>{index + 1}</button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
+
   );
 };
+
+
 export default CommentsComponents;
