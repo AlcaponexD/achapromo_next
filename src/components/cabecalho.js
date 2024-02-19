@@ -8,10 +8,12 @@ import LoginModal from "./login/Modal";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "../config/axiosConfig";
+import { useRouter } from "next/router";
 
 const Cabecalho = (props) => {
   //Sim é function
   const { data, handleData } = useAppData();
+  const router = new useRouter();
 
   const getUser = () => {
     axios
@@ -32,6 +34,12 @@ const Cabecalho = (props) => {
 
   function openLogin() {
     setLogin(!loginModal);
+  }
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      router.push(`/buscar/${e.target.value}`)
+    }
   }
 
   useEffect(() => {
@@ -69,6 +77,7 @@ const Cabecalho = (props) => {
             className="text-black xl:w-96 md:w-full p-2 rounded-md border"
             type="seach"
             placeholder="Busque aqui uma promoção"
+            onKeyPress={handleSearch}
           ></input>
         </div>
         <div
