@@ -8,7 +8,7 @@ const Search = () => {
     const [products, setProducts] = useState([]);
     const [nextPage, setNextPage] = useState(false);
     const [page, setPage] = useState(1);
-    let per_page = 1
+    let per_page = 10
     let last_term_searched;
     const { term } = router.query;
 
@@ -41,6 +41,7 @@ const Search = () => {
     }, [term, page]);
     return (
         <div>
+            {products.length < 1 ? `Nada encontrado com a palavra ${term}` : null}
             {products.map((product, index) => {
                 return <CardProduct product={product} key={index}></CardProduct>;
             })}
