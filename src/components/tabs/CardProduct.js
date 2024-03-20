@@ -6,7 +6,6 @@ import {
 } from "../../utils/helper";
 
 export default (props) => {
-  console.log(props);
   const product = props.product;
   const product_slug = string_to_slug(product.title);
 

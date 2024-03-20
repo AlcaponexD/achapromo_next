@@ -40,7 +40,6 @@ export function AppContextProvider({ children }) {
       ...data,
       ...value,
     });
-    console.log(data);
   }
 
   return (
