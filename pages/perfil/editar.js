@@ -206,7 +206,7 @@ const Editar = ({ user }) => {
         pauseOnHover
         theme="colored"
       />
-      <ProductList></ProductList>
+      {/* <ProductList></ProductList> */}
     </div>
   );
 };

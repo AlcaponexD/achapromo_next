@@ -84,7 +84,7 @@ const Cabecalho = (props) => {
           className="gap-4 cursor-pointer text-light-primary dark:text-dark-primary flex justify-center 
         items-center"
         >
-          <Link
+          {/* <Link
             className={`${data.user ? "" : "hidden"}`}
             href={{
               pathname: "/produto/novo",
@@ -93,7 +93,7 @@ const Cabecalho = (props) => {
             <span>
               <BsPlusSquareFill size={28} />
             </span>
-          </Link>
+          </Link> */}
           <div className="relative hidden">
             <HiBellAlert
               size={36}

@@ -1,3 +1,5 @@
+import "chart.js/auto";
+import { Line } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 import { AiFillStar, AiOutlineComment } from "react-icons/ai";
 import axios from "../../../src/config/axiosConfig";
@@ -6,10 +8,10 @@ import { formatarReal, translateDatePtBr } from "../../../src/utils/helper";
 import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
 import useAppData from "../../../src/hooks/useAppData";
+import HistoryGrapics from "../../../src/components/products/HistoryGrapics";
 
 const Product = ({ query }) => {
   const { data, handleData } = useAppData();
-
   const [product, setProduct] = useState({});
   const router = useRouter();
   const { id } = router.query;
@@ -36,6 +38,7 @@ const Product = ({ query }) => {
     })
   }
 
+
   useEffect(() => {
     if (id) {
       axios.get(`/products/${id}`).then((response) => {
@@ -44,7 +47,7 @@ const Product = ({ query }) => {
     }
   }, [id]);
   return (
-    <div className="w-full flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl">
+    <div className="w-full container flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl">
       <div className="flex justify-center w-full  max-[600px]:flex-wrap">
         <div className="w-1/3 p-3 flex justify-center">
           <img className="img_prod" src={product.avatar}></img>
@@ -94,12 +97,13 @@ const Product = ({ query }) => {
           </div>
         </div>
       </div>
+      <HistoryGrapics data={product.history} width={600} />
       <CommentsComponents comments={product.comments} product_id={product.id}></CommentsComponents>
       <style jsx>{`
-        .img_prod {
-          max-height: 200px;
-        }
-      `}</style>
+      .img_prod {
+        max-height: 200px;
+      }
+    `}</style>
     </div>
   );
 };

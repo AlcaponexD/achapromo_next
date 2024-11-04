@@ -70,3 +70,29 @@ export function translateDatePtBr(data) {
 
   return `${diaSemana}, ${dia} de ${mes} de ${ano} as ${arr_date[0]}`;
 }
+
+
+export function translateDateMonthYear(data) {
+
+  const meses = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
+  const date = new Date(data);
+  date.toLocaleString("pt-br");
+  const arr_date = date.toTimeString().split(" ");
+  const mes = meses[date.getMonth()];
+  const ano = date.getFullYear();
+
+  return `${mes} de ${ano} `;
+}

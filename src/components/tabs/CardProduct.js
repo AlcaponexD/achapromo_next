@@ -34,23 +34,27 @@ export default (props) => {
             {product.description}
           </p>
           <div className="flex justify-between flex-wrap">
-            <span className="text-xs mt-2">
+            <span className="text-xs mt-2 flex justify-center flex-col">
               {translateDatePtBr(product.created_at)}
+              <span className="text-base font-semibold text-dark-primary mt-2">
+                {product.store.title}
+              </span>
             </span>
+
             <div className="flex justify-between flex-wrap">
-              <span className="bg-light-primary rounded p-1 m-2 px-4">
+              <span className="bg-light-primary rounded p-2 m-2 px-4">
                 {product ? product.comments.length : 0} Comentarios
               </span>
-              <span className="bg-yellow-500 rounded m-2 p-1 px-4">
+              <span className="bg-yellow-500 rounded m-2 p-2 px-4">
                 {product ? product.classification ?? 0 : 0} Stars
               </span>
-              <span className="bg-blue-600 hover:bg-blue-900 m-2 rounded p-1 px-4">
+              <span className="bg-blue-600 hover:bg-blue-900 m-2 rounded p-2 px-4">
                 Ver produto
               </span>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+    </Link >
   );
 };
