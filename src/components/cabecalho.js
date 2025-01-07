@@ -9,11 +9,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "../config/axiosConfig";
 import { useRouter } from "next/router";
+import { LiaSearchDollarSolid } from "react-icons/lia";
+import { AiOutlineClose } from "react-icons/ai"; // Ícone de fechar
 
 const Cabecalho = (props) => {
   //Sim é function
   const { data, handleData } = useAppData();
   const router = new useRouter();
+  const [isVisible, setIsVisible] = useState(false);
 
   const getUser = () => {
     axios
@@ -41,6 +44,10 @@ const Cabecalho = (props) => {
       router.push(`/buscar/${e.target.value}`)
     }
   }
+  // Função para alternar o estado
+  const toggleDiv = () => {
+    setIsVisible(!isVisible);
+  };
 
   useEffect(() => {
     getUser();
@@ -72,28 +79,21 @@ const Cabecalho = (props) => {
             </Link>
           </span>
         </div>
-        <div>
+        <div className="block sm:hidden">
+          <LiaSearchDollarSolid size={28} onClick={toggleDiv} />
+        </div>
+        <div className="hidden md:block">
           <input
             className="text-black xl:w-96 md:w-full p-2 rounded-md border"
-            type="seach"
+            type="search"
             placeholder="Busque aqui uma promoção"
             onKeyPress={handleSearch}
-          ></input>
+          />
         </div>
         <div
           className="gap-4 cursor-pointer text-light-primary dark:text-dark-primary flex justify-center 
-        items-center"
+      items-center"
         >
-          {/* <Link
-            className={`${data.user ? "" : "hidden"}`}
-            href={{
-              pathname: "/produto/novo",
-            }}
-          >
-            <span>
-              <BsPlusSquareFill size={28} />
-            </span>
-          </Link> */}
           <div className="relative hidden">
             <HiBellAlert
               size={36}
@@ -123,6 +123,23 @@ const Cabecalho = (props) => {
               ></img>
             </Link>
           )}
+          {isVisible && (
+            <div className="relative">
+              <input
+                className="block md:hidden text-black xl:w-96 md:w-full p-2 rounded-md border fixed left-2 top-2 w-[95vw]"
+                type="search"
+                placeholder="Busque aqui uma promoção"
+                onKeyPress={handleSearch}
+              />
+              {/* Ícone de fechar dentro do input */}
+              <AiOutlineClose
+                className="block md:hidden absolute right-4 top-[-5px] text-gray-500 cursor-pointer"
+                size={20}
+                onClick={toggleDiv}
+              />
+            </div>
+          )}
+
         </div>
       </div>
       <style jsx>{``}</style>
