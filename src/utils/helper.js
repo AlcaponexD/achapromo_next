@@ -90,9 +90,10 @@ export function translateDateMonthYear(data) {
   ];
   const date = new Date(data);
   date.toLocaleString("pt-br");
-  const arr_date = date.toTimeString().split(" ");
+  const dia = date.getDate();
   const mes = meses[date.getMonth()];
   const ano = date.getFullYear();
 
-  return `${mes} de ${ano} `;
+
+  return `${dia} de ${mes} de ${ano} `;
 }

@@ -19,6 +19,9 @@ const HistoryGrapics = ({ data, width }) => {
             return item.created_at;
         })
 
+        console.log(labels)
+        console.log(data)
+
         setCfg({
             labels,
             datasets: [

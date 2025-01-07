@@ -53,7 +53,7 @@ const Product = ({ query }) => {
           <img className="img_prod" src={product.avatar}></img>
         </div>
         <div className="w-2/3 p-3">
-          <h1 className="text-2xl font-bold	text-light-primary">
+          <h1 className="text-sm md:text-2xl font-bold	text-light-primary">
             {product.title}
           </h1>
           <p>
@@ -61,7 +61,7 @@ const Product = ({ query }) => {
               {product.user?.name}
             </span>
           </p>
-          <span className="text-sm">
+          <span className="text-[11px] md:text-sm">
             {translateDatePtBr(product.created_at)}
           </span>
           <p
@@ -73,14 +73,14 @@ const Product = ({ query }) => {
         </div>
         <div className="flex flex-col p-3 text-center content-center">
           <div className="flex flex-col p-2">
-            <span className="text-3xl font-bold text-light-primary">
+            <span className="text-xl md:text-3xl font-bold text-light-primary">
               {formatarReal(product.price / 100)}
             </span>
           </div>
           <div className="w-[200px] mb-2">
             <a
               href={product.url}
-              className="bg-light-primary rounded-md p-2 px-8 text-white hover:bg-light-secondary"
+              className="text-sm md:text-2x1 bg-light-primary rounded-md p-2 px-8 text-white hover:bg-light-secondary"
             >
               Pegar promo
             </a>

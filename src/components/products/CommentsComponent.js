@@ -56,14 +56,14 @@ const CommentsComponents = ({ comments, product_id }) => {
       <form className="relative m-2" method="POST" onSubmit={sendComment}>
         <textarea
           placeholder="Comente sua opnião sobre o produto"
-          className="w-full h-[40px] p-2 text-dark-primary font-bold border border-dark-primary"
+          className="text-[12px]/[25px] md:text-2x1 w-full h-[40px] p-2 text-dark-primary font-bold border border-dark-primary"
           name="content"
         ></textarea>
         <button className="p-2 bg-light-primary border rounded-sm absolute w-[30px] h-[40px] right-0 top-0">
           <AiOutlineSend></AiOutlineSend>
         </button>
       </form>
-      <div className="m-2">
+      <div className="text-sm md:text-2x1 m-2">
         <h3>Todos os comentarios ({comentaries ? comentaries.length : 0})</h3>
       </div>
       <div className="m-2 p-2rounded-sm">
