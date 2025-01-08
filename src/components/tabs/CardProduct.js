@@ -45,7 +45,7 @@ export default (props) => {
               <span className="bg-light-primary rounded p-[1px] md:p-2 m-1 md:m-2 px-4 text-[12px] md:text-[15px]">
                 {product ? product.comments.length : 0} Comentarios
               </span>
-              <span className="bg-yellow-500 rounded p-[1px] md:p-2 m-1 md:m-1 px-4 text-[12px] md:text-[15px]">
+              <span className="bg-yellow-500 rounded p-[1px] md:p-2 m-1 md:m-2 px-4 text-[12px] md:text-[15px]">
                 {product ? product.classification ?? 0 : 0} Stars
               </span>
               <span className="bg-blue-600 hover:bg-blue-900 p-[1px] md:p-2 m-1 md:m-2 px-4 text-[12px] md:text-[15px]">

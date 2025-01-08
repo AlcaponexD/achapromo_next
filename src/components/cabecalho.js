@@ -133,7 +133,7 @@ const Cabecalho = (props) => {
               />
               {/* Ícone de fechar dentro do input */}
               <AiOutlineClose
-                className="block md:hidden absolute right-4 top-[-5px] text-gray-500 cursor-pointer"
+                className="block md:hidden absolute right-4 top-[-7px] text-gray-500 cursor-pointer"
                 size={20}
                 onClick={toggleDiv}
               />

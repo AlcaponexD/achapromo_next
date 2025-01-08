@@ -1,6 +1,8 @@
 import { AiFillFacebook, AiFillGoogleCircle } from "react-icons/ai";
 import axios, { setAuthorizationHeader } from "../../config/axiosConfig";
 import useAppData from "../../hooks/useAppData";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login({ toogleLoginMode, closeModal }) {
   const { data, handleData } = useAppData();
@@ -34,6 +36,11 @@ export default function Login({ toogleLoginMode, closeModal }) {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status == 401) {
+          data.notify_error(
+            err.response.data.message
+          );
+        }
       });
 
     console.log(data);
@@ -99,6 +106,18 @@ export default function Login({ toogleLoginMode, closeModal }) {
           </span>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }

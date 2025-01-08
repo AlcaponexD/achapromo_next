@@ -5,7 +5,7 @@ const BASE_URL = "http://localhost:3333";
 
 const instance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: 40000,
   headers: {
     "Content-Type": "application/json",
   },

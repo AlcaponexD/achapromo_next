@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "../../config/axiosConfig";
+import useAppData from "../../hooks/useAppData";
+import { ToastContainer } from "react-toastify";
 
 export default function Recovery({ toogleLoginMode }) {
+  const { data, handleData } = useAppData();
   const [code_recovery, setCodeRecovery] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -28,10 +31,14 @@ export default function Recovery({ toogleLoginMode }) {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err)
+        if (err.response.status == 400) {
+          console.log(err.response.data.message)
+          data.notify_error(
+            err.response.data.message
+          );
+        }
         setLoading(false);
-
-        alert("Ocorreu um erro ao solicitar reset de senhas");
       });
   };
 
@@ -50,14 +57,22 @@ export default function Recovery({ toogleLoginMode }) {
       .post("/password/reset", body_req)
       .then((resp) => {
         console.log(resp);
-        if (resp.status == 204) {
-          toogleLoginMode("login");
+        if (resp.status == 200) {
+          console.log(resp)
+          data.notify(resp.data.message);
           setLoading(false);
+          setTimeout(() => {
+            toogleLoginMode("login");
+          }, 3000);
         }
       })
       .catch((err) => {
-        console.log(err);
-        setLoading(false);
+        if (err.response.status == 400) {
+          console.log(err.response.data.message)
+          data.notify_error(
+            err.response.data.message
+          );
+        } setLoading(false);
       });
   };
 
@@ -131,6 +146,18 @@ export default function Recovery({ toogleLoginMode }) {
           </span>
         </h4>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }
