@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
     <div className="flex flex-wrap relative text-light-text dark:text-dark-text bg-light-background dark:bg-dark-background h-full">
       <Sidebar isOpen={data.sidebar_open} />
       <Cabecalho />
-      <main className="w-full min-h-screen p-3 px-6 flex justify-center">
+      <main className="container mx-auto min-h-screen p-3 px-6 flex justify-center">
         {children}
       </main>
     </div>

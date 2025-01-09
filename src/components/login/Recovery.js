@@ -72,7 +72,8 @@ export default function Recovery({ toogleLoginMode }) {
           data.notify_error(
             err.response.data.message
           );
-        } setLoading(false);
+        }
+        setLoading(false);
       });
   };
 

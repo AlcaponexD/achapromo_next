@@ -30,7 +30,7 @@ const Index = (props) => {
             className={active_tab == 'top' ? 'bg-light-primary rounded p-1 m-2 lg:px-4 cursor-pointer' : 'border-light-primary border rounded p-1 lg:px-4 m-2 hover:bg-light-primary cursor-pointer'}
             onClick={() => toogleActiveBar("top")}
           >
-            Top stars
+            Melhores descontos
           </span>
         </div>
         {active_tab == "recommended" ? (

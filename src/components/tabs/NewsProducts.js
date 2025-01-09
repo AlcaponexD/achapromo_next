@@ -11,7 +11,7 @@ export default (props) => {
     });
   }, []);
   return (
-    <div>
+    <div className="container w-screen p-2">
       {products.map((product, index) => {
         return <CardProduct product={product} key={index}></CardProduct>;
       })}
