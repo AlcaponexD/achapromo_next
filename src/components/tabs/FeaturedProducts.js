@@ -6,7 +6,7 @@ export default (props) => {
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const per_page = 2;
+  const per_page = 25;
 
   const getProducts = (page = currentPage) => {
     axios
