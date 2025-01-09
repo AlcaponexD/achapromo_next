@@ -91,10 +91,7 @@ const Cabecalho = (props) => {
             onKeyPress={handleSearch}
           />
         </div>
-        <div
-          className="gap-4 cursor-pointer text-light-primary dark:text-dark-primary flex justify-center 
-      items-center"
-        >
+        <div className="gap-4 cursor-pointer text-light-primary dark:text-dark-primary flex justify-center items-center">
           <div className="relative hidden">
             <HiBellAlert
               size={36}
