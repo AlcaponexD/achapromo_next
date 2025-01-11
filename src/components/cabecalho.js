@@ -70,8 +70,9 @@ const Cabecalho = (props) => {
           <AiOutlineMenu size={24} />
         </button>
         <div>
-          <span className=" cursor-pointer roboto-300 text-light-primary dark:text-dark-primary text-2xl">
+          <span className="cursor-pointer roboto-300 text-light-primary dark:text-dark-primary">
             <Link
+              className="font-extrabold text-2xl"
               href={{
                 pathname: "/",
               }}

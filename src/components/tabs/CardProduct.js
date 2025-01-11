@@ -19,8 +19,12 @@ export default (props) => {
   }
   return (
     <Link href={dataLink}>
-      <div className="flex p-2 border-2 dark:border-dark-sidebar mt-4 dark:bg-dark-sidebar bg-white rounded-2xl">
-        <div className="flex items-center w-[160px] border-r-2 dark:border-dark-sidebar">
+      <div className="flex p-2 border-2 dark:border-dark-sidebar mt-4 dark:bg-dark-sidebar bg-white rounded-2xl relative">
+        {product.discount_percentage && product.discount_percentage > 0 && (
+          <div className="absolute px-1 bg-dark-primary rounded-xl right-[0.25rem] text-[11px] font-semibold">
+            {-product.discount_percentage.toFixed(2)}% OFF
+          </div>
+        )}        <div className="flex items-center w-[160px] border-r-2 dark:border-dark-sidebar">
           <img className="img_prod w-full" src={product.avatar}></img>
         </div>
         <div className="w-5/6 p-4">
