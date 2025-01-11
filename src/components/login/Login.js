@@ -67,7 +67,7 @@ export default function Login({ toogleLoginMode, closeModal }) {
           ></input>
 
           <div className="flex justify-between mt-2 cursor-pointer">
-            <span>
+            <span className="hidden">
               <input type="checkbox"></input> Lembrar
             </span>
             <a onClick={() => toogleLoginMode("recovery")}>

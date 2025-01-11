@@ -5,7 +5,7 @@ import TopProducts from "../src/components/tabs/TopProducts";
 import NewsProducts from "../src/components/tabs/NewsProducts";
 
 const Index = (props) => {
-  const [active_tab, setActiveTab] = useState("recommended");
+  const [active_tab, setActiveTab] = useState("top");
 
   function toogleActiveBar(tab) {
     setActiveTab(tab);
@@ -14,6 +14,12 @@ const Index = (props) => {
     <div>
       <main className="">
         <div className="flex justify-normal">
+          <span
+            className={active_tab == 'top' ? 'bg-light-primary rounded p-1 m-2 lg:px-4 cursor-pointer' : 'border-light-primary border rounded p-1 lg:px-4 m-2 hover:bg-light-primary cursor-pointer'}
+            onClick={() => toogleActiveBar("top")}
+          >
+            Melhores descontos
+          </span>
           <span
             className={active_tab == 'recommended' ? 'bg-light-primary rounded p-1 m-2 lg:px-4 cursor-pointer' : 'border-light-primary border rounded p-1 lg:px-4 m-2 hover:bg-light-primary cursor-pointer'}
             onClick={() => toogleActiveBar("recommended")}
@@ -26,12 +32,7 @@ const Index = (props) => {
           >
             Recentes
           </span>
-          <span
-            className={active_tab == 'top' ? 'bg-light-primary rounded p-1 m-2 lg:px-4 cursor-pointer' : 'border-light-primary border rounded p-1 lg:px-4 m-2 hover:bg-light-primary cursor-pointer'}
-            onClick={() => toogleActiveBar("top")}
-          >
-            Melhores descontos
-          </span>
+
         </div>
         {active_tab == "recommended" ? (
           <FeaturedProducts></FeaturedProducts>
