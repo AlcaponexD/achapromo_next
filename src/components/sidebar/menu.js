@@ -23,9 +23,8 @@ const Sidebar = ({ isOpen }) => {
   return (
     <div className="fixed h-screen z-20">
       <div
-        className={`h-full overflow-x-hidden transition-all duration-300 bg-light-sidebar dark:bg-dark-sidebar  text-white relative ${
-          isOpen ? "w-52" : "w-0"
-        }`}
+        className={`h-full overflow-x-hidden transition-all duration-300 bg-light-sidebar dark:bg-dark-sidebar  text-white relative ${isOpen ? "w-52" : "w-0"
+          }`}
       >
         <FaWindowClose
           className="absolute right-1 my-2 z-10 cursor-pointer"
@@ -41,9 +40,8 @@ const Sidebar = ({ isOpen }) => {
                 sidebar_open: !data.sidebar_open,
               });
             }}
-            className={`mb-2 px-2 py-1 hover:opacity-80 ${
-              router.pathname === "/" ? "bg-light-primary" : ""
-            }`}
+            className={`mb-2 px-2 py-1 hover:opacity-80 ${router.pathname === "/" ? "bg-light-primary" : ""
+              }`}
           >
             <Link
               href={{
@@ -61,9 +59,8 @@ const Sidebar = ({ isOpen }) => {
                 sidebar_open: !data.sidebar_open,
               });
             }}
-            className={`mb-2 px-2 py-1 hover:opacity-80 ${
-              router.pathname === "/categoria/todos" ? "bg-light-primary" : ""
-            }`}
+            className={`mb-2 px-2 py-1 hover:opacity-80 ${router.pathname === "/categoria/todos" ? "bg-light-primary" : ""
+              }`}
           >
             <Link
               href={{
@@ -82,9 +79,8 @@ const Sidebar = ({ isOpen }) => {
                   sidebar_open: !data.sidebar_open,
                 });
               }}
-              className={`mb-2 px-2 py-1 hover:opacity-80 ${
-                router.pathname === "/perfil/editar" ? "bg-light-primary" : ""
-              }`}
+              className={`mb-2 px-2 py-1 hover:opacity-80 ${router.pathname === "/perfil/editar" ? "bg-light-primary" : ""
+                }`}
             >
               <Link
                 href={{
@@ -99,9 +95,8 @@ const Sidebar = ({ isOpen }) => {
           ) : null}
           {data.user ? (
             <li
-              className={`mb-2 px-2 py-1 hover:opacity-80 hidden ${
-                router.pathname === "/" ? "bg-light-primary" : ""
-              }`}
+              className={`mb-2 px-2 py-1 hover:opacity-80 hidden ${router.pathname === "/" ? "bg-light-primary" : ""
+                }`}
             >
               <a href="#" className="text-white flex items-center">
                 <HiBellAlert className="mr-4" />
@@ -119,9 +114,8 @@ const Sidebar = ({ isOpen }) => {
           ) : null}
         </ul>
         <div
-          className={`w-full flex justify-center absolute bottom-10 ${
-            isOpen ? "block" : "hidden"
-          }`}
+          className={`w-full flex justify-center absolute bottom-20 ${isOpen ? "block" : "hidden"
+            }`}
         >
           <DarkButtton />
         </div>
