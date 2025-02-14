@@ -9,6 +9,7 @@ import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
 import useAppData from "../../../src/hooks/useAppData";
 import HistoryGrapics from "../../../src/components/products/HistoryGrapics";
+import Head from 'next/head';
 
 const Product = ({ query }) => {
   const { data, handleData } = useAppData();
@@ -47,64 +48,72 @@ const Product = ({ query }) => {
     }
   }, [id]);
   return (
-    <div className="w-full container flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl">
-      <div className="flex justify-center w-full  max-[600px]:flex-wrap">
-        <div className="w-1/3 p-3 flex justify-center">
-          <img className="img_prod" src={product.avatar}></img>
-        </div>
-        <div className="w-2/3 p-3">
-          <h1 className="text-sm md:text-2xl font-bold	text-light-primary">
-            {product.title}
-          </h1>
-          <p>
-            <span className="text-light-primary  text-sm cursor-pointer">
-              {product.user?.name}
-            </span>
-          </p>
-          <span className="text-[11px] md:text-sm">
-            {translateDatePtBr(product.created_at)}
-          </span>
-          <p
-            title={product.description}
-            className="text-justify text-base line-clamp-4"
-          >
-            {product.description}
-          </p>
-        </div>
-        <div className="flex flex-col p-3 text-center content-center">
-          <div className="flex flex-col p-2">
-            <span className="text-xl md:text-3xl font-bold text-light-primary">
-              {formatarReal(product.price / 100)}
-            </span>
+    <>
+      <Head>
+        <title>{product.title} - Histórico de Preços</title>
+        <meta name="description" content={`Veja o histórico de preços de ${product.title} e encontre a melhor oferta.`} />
+        <meta property="og:title" content={`${product.title} - Histórico de Preços`} />
+        <meta property="og:image" content={product.avatar} />
+      </Head>
+      <div className="w-full container flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl">
+        <div className="flex justify-center w-full  max-[600px]:flex-wrap">
+          <div className="w-1/3 p-3 flex justify-center">
+            <img className="img_prod" src={product.avatar}></img>
           </div>
-          <div className="w-[200px] mb-2">
-            <a
-              href={product.url}
-              className="text-sm md:text-2x1 bg-light-primary rounded-md p-2 px-8 text-white hover:bg-light-secondary"
+          <div className="w-2/3 p-3">
+            <h1 className="text-sm md:text-2xl font-bold	text-light-primary">
+              {product.title}
+            </h1>
+            <p>
+              <span className="text-light-primary  text-sm cursor-pointer">
+                {product.user?.name}
+              </span>
+            </p>
+            <span className="text-[11px] md:text-sm">
+              {translateDatePtBr(product.created_at)}
+            </span>
+            <p
+              title={product.description}
+              className="text-justify text-base line-clamp-4"
             >
-              Pegar promo
-            </a>
+              {product.description}
+            </p>
           </div>
-          <div className="flex justify-center text-2xl">
-            <span className="flex items-center cursor-pointer" onClick={change_star}>
-              {product.classification}
-              <AiFillStar className="text-light-primary"></AiFillStar>
-            </span>
-            <span className="flex items-center ml-2">
-              {product.total_comments}
-              <AiOutlineComment className="text-light-primary"></AiOutlineComment>
-            </span>
+          <div className="flex flex-col p-3 text-center content-center">
+            <div className="flex flex-col p-2">
+              <span className="text-xl md:text-3xl font-bold text-light-primary">
+                {formatarReal(product.price / 100)}
+              </span>
+            </div>
+            <div className="w-[200px] mb-2">
+              <a
+                href={product.url}
+                className="text-sm md:text-2x1 bg-light-primary rounded-md p-2 px-8 text-white hover:bg-light-secondary"
+              >
+                Pegar promo
+              </a>
+            </div>
+            <div className="flex justify-center text-2xl">
+              <span className="flex items-center cursor-pointer" onClick={change_star}>
+                {product.classification}
+                <AiFillStar className="text-light-primary"></AiFillStar>
+              </span>
+              <span className="flex items-center ml-2">
+                {product.total_comments}
+                <AiOutlineComment className="text-light-primary"></AiOutlineComment>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-      <HistoryGrapics data={product.history} width={600} />
-      <CommentsComponents comments={product.comments} product_id={product.id}></CommentsComponents>
-      <style jsx>{`
+        <HistoryGrapics data={product.history} width={600} />
+        <CommentsComponents comments={product.comments} product_id={product.id}></CommentsComponents>
+        <style jsx>{`
       .img_prod {
         max-height: 200px;
       }
     `}</style>
-    </div>
+      </div>
+    </>
   );
 };
 

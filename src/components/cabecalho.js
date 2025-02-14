@@ -54,11 +54,6 @@ const Cabecalho = (props) => {
   }, []);
   return (
     <header className="w-full px-2">
-      <Head>
-        <title>Achapromo.com.br</title>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta name="theme-color" content="#4CAF50" />
-      </Head>
       <div className="flex flex-wrap justify-between  items-center h-full border-b py-2 dark:border-b-gray-700 border-b-gray-300 w-full">
         <button
           onClick={() => {
@@ -69,7 +64,7 @@ const Cabecalho = (props) => {
         >
           <AiOutlineMenu size={24} />
         </button>
-        <div>
+        <div className="flex flex-col">
           <span className="cursor-pointer roboto-300 text-light-primary dark:text-dark-primary">
             <Link
               className="font-extrabold text-2xl"
@@ -79,7 +74,15 @@ const Cabecalho = (props) => {
             >
               Achapromo
             </Link>
+
           </span>
+          <span className="hidden md:block font-light text-sm">
+            Compare preços e veja histórico de hardware e periféricos
+          </span>
+          <span className="block md:hidden font-light text-xs">
+            Compare preços de hardware e periféricos
+          </span>
+
         </div>
         <div className="block sm:hidden">
           <LiaSearchDollarSolid size={28} onClick={toggleDiv} />

@@ -14,7 +14,14 @@ const Layout = ({ children }) => {
         {children}
       </main>
       <GoogleAnalytics gaId="G-9M1H3KBJLE" />
+      <div className="flex justify-center w-full p-3 text-sm">
+        <span>
+          Achapromo @ 2025 - Seu site para promos de hardware e periféricos de informática
+        </span>
+        <a
+          className="ml-2" href="mailto:contatoachapromo@gmail.com">contatoachapromo@gmail.com</a>
 
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { AiFillStar, AiOutlineComment } from "react-icons/ai";
 import axios from "../../../src/config/axiosConfig";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import CardProduct from "../../../src/components/tabs/CardProduct";
 
@@ -20,14 +20,22 @@ const Product = ({ query }) => {
     }
   }, id);
   return (
-    <div>
-      <h1 className="text-2xl text-dark-primary font-bold ">
-        Categoria: {category.title}
-      </h1>
-      {products.map((product, index) => {
-        return <CardProduct product={product} key={index}></CardProduct>;
-      })}
-    </div>
+    <>
+      <Head>
+        <title>Compare o histórico de preços de produtos da categoria: {category.title}</title>
+        <meta name="description" content={`Veja o histórico de preços dos produtos da categoria ${category.title} e encontre a melhor oferta.`} />
+        <meta property="og:title" content={`Histórico de Preços de produtos da categoria ${category.title}`} />
+      </Head>
+
+      <div>
+        <h1 className="text-2xl text-dark-primary font-bold ">
+          Categoria: {category.title}
+        </h1>
+        {products.map((product, index) => {
+          return <CardProduct product={product} key={index}></CardProduct>;
+        })}
+      </div>
+    </>
   );
 };
 
