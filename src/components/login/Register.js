@@ -2,11 +2,16 @@ import { useState } from "react";
 import axios from "../../config/axiosConfig";
 import { ToastContainer } from "react-toastify";
 import useAppData from "../../hooks/useAppData";
+import Turnstile from "react-turnstile";
 
+const SITE_KEY = "0x4AAAAAAA80od3YyJwQ3M53";
 
 export default function Register({ toogleLoginMode }) {
   const [messageValidation, setMessageValidation] = useState({});
   const { data, handleData } = useAppData();
+
+  const [captchaToken, setCaptchaToken] = useState("");
+
 
   const validate_password = (data) => {
     if (!data) {
@@ -20,6 +25,13 @@ export default function Register({ toogleLoginMode }) {
 
   const registerExec = (e) => {
     e.preventDefault();
+
+    if (!captchaToken) {
+      data.notify_error(
+        "Complete o CAPTCHA antes de continuar."
+      );
+      return;
+    }
 
     // Read the form data
     const form = e.target;
@@ -115,6 +127,8 @@ export default function Register({ toogleLoginMode }) {
             name="password_confirmation"
             type="password"
           ></input>
+          {/* Turnstile CAPTCHA */}
+          <Turnstile className="flex justify-center mt-4" sitekey={SITE_KEY} onVerify={setCaptchaToken} />
           <button
             type="submit"
             className="bg-light-primary rounded-md p-2 mt-4 hover:bg-light-secondary "
