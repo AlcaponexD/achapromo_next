@@ -28,26 +28,27 @@ const Categories = () => {
         image="/index-min.png"
         url="https://achapromo.com.br"
       />
-      <div className="flex flex-wrap justify-center h-fit">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 p-4">
         {categories.map((category, index) => {
           return (
             <Link
+              key={category.id}
               href={{
                 pathname: "/categoria/[slug]/[id]",
                 query: { id: category.id, slug: category.slug },
               }}
             >
               <span
-                key={category.id}
                 className={`
-            flex justify-center items-center w-[150px] h-[150px]
-             mr-4 mt-2 p-2 border dark:bg-dark-sidebar bg-white
-            dark:border-dark-sidebar hover:bg-slate-300 hover:dark:text-light-primary
-            dark:text-dark-text hover:text-dark-primary text-light-text  rounded-lg
-            cursor-pointer
-            `}
+                flex justify-center items-center w-full
+                p-4 border-2 border-transparent dark:bg-dark-sidebar bg-white
+                dark:border-dark-sidebar hover:border-light-primary dark:hover:border-dark-primary
+                dark:text-dark-text hover:text-dark-primary text-light-text rounded-lg
+                cursor-pointer shadow-sm hover:shadow-md transform hover:scale-105
+                transition-all duration-300 ease-in-out h-28
+                `}
               >
-                <span className="text-center">{category.title}</span>
+                <span className="text-center font-medium text-lg">{category.title}</span>
               </span>
             </Link>
           );

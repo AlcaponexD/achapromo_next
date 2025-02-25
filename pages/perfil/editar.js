@@ -115,81 +115,95 @@ const Editar = ({ user }) => {
   }, []);
 
   return (
-    <div className="container w-full">
-      <h1 className="bg-gray-200 dark:bg-gray-950 p-2 text-2xl text-light-primary border border-dark-primary rounded-md">
+    <div className="container max-w-6xl mx-auto p-4">
+      <h1 className="text-3xl font-bold text-light-primary mb-8 p-4 bg-gradient-to-r from-gray-100 to-transparent dark:from-gray-900 rounded-lg shadow-sm">
         Editar perfil
       </h1>
-      <div className="flex flex-col md:flex-row">
-        <div className="p-4 md:w-1/4 flex justify-center md:justify-start">
+      <div className="flex flex-col md:flex-row gap-8 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+        <div className="md:w-1/3 flex flex-col items-center space-y-4">
           <form
             method="patch"
             encType="multipart/form-data"
-            className="relative flex flex-col"
+            className="w-full max-w-sm flex flex-col items-center space-y-4"
             onSubmit={uploadSubmit}
           >
-            <label htmlFor="avatar" className="cursor-pointer">
-              <MdAddAPhoto size={28}></MdAddAPhoto>
-              {imagePreview && (
+            <div className="relative group cursor-pointer w-48 h-48 rounded-full overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center border-4 border-light-primary hover:border-light-secondary transition-colors duration-300">
+              <label htmlFor="avatar" className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300">
+                <MdAddAPhoto size={40} className="text-white opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300" />
+                <span className="text-white text-sm mt-2 opacity-0 group-hover:opacity-100 transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300">Alterar foto</span>
+              </label>
+              {imagePreview ? (
                 <img
                   src={imagePreview}
                   alt="Avatar"
-                  className="rounded-md w-[250px]"
+                  className="w-full h-full object-cover"
                 />
+              ) : (
+                <span className="text-gray-400">Sem foto</span>
               )}
-            </label>
+            </div>
             <input
               onChange={handleImageChange}
               type="file"
               className="hidden"
               name="avatar"
               id="avatar"
-            ></input>
+              accept="image/*"
+            />
             <button
               type="submit"
-              className="bg-light-primary rounded-md p-2 mt-4 hover:bg-light-secondary px-6"
+              className="w-full bg-light-primary text-white rounded-lg py-3 px-6 font-medium hover:bg-light-secondary transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              disabled={!selectedFile}
             >
-              Upload
+              Atualizar foto
             </button>
           </form>
         </div>
-        <form method="post" className="md:w-3/4" onSubmit={updateExec}>
-          {/* Login component  */}
-          <div className="flex flex-col p-4">
-            <span>Nome completo</span>
-            <input
-              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
-              placeholder="Seu nome completo"
-              type="text"
-              name="name"
-              defaultValue={data.user ? data.user.name : ""}
-            ></input>
-            <span>Endereço de e-mail</span>
-            <input
-              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
-              placeholder="Seu email@provedor.com.br"
-              type="email"
-              name="email"
-              defaultValue={data.user ? data.user.email : ""}
-            ></input>
-            <span>Sua senha</span>
-            <input
-              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
-              placeholder="Sua senha"
-              name="password"
-              type="password"
-            ></input>
-            <span>Repita sua senha</span>
-            <input
-              className={`p-2 ${"border-light-primary border-2 rounded-md hover:border-light-secondary"}   text-light-text`}
-              placeholder="Sua senha"
-              name="password_confirmation"
-              type="password"
-            ></input>
+        <form method="post" className="md:w-2/3" onSubmit={updateExec}>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label>
+              <input
+                className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-light-primary focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                placeholder="Seu nome completo"
+                type="text"
+                name="name"
+                defaultValue={data.user ? data.user.name : ""}
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Endereço de e-mail</label>
+              <input
+                className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-light-primary focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                placeholder="Seu email@provedor.com.br"
+                type="email"
+                name="email"
+                defaultValue={data.user ? data.user.email : ""}
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Nova senha</label>
+              <input
+                className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-light-primary focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                placeholder="Digite para alterar sua senha"
+                name="password"
+                type="password"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Confirmar nova senha</label>
+              <input
+                className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-light-primary focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                placeholder="Confirme sua nova senha"
+                name="password_confirmation"
+                type="password"
+              />
+            </div>
             <button
               type="submit"
-              className="bg-light-primary rounded-md p-2 mt-4 hover:bg-light-secondary "
+              className="w-full bg-light-primary text-white rounded-lg py-3 px-6 font-medium hover:bg-light-secondary transform hover:scale-105 transition-all duration-300"
             >
-              Editar
+              Salvar alterações
             </button>
           </div>
         </form>
@@ -206,7 +220,6 @@ const Editar = ({ user }) => {
         pauseOnHover
         theme="colored"
       />
-      {/* <ProductList></ProductList> */}
     </div>
   );
 };

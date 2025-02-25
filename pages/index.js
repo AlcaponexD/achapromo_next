@@ -20,26 +20,25 @@ const Index = (props) => {
       />
       <div>
         <main className="">
-          <div className="flex justify-normal">
+          <div className="flex flex-col sm:flex-row justify-normal bg-white dark:bg-dark-sidebar p-2 rounded-lg shadow-sm mb-4">
             <span
-              className={active_tab == 'top' ? 'bg-light-primary rounded p-1 m-2 lg:px-4 cursor-pointer' : 'border-light-primary border rounded p-1 lg:px-4 m-2 hover:bg-light-primary cursor-pointer'}
+              className={`${active_tab == 'top' ? 'bg-light-primary text-white' : 'text-gray-700 dark:text-gray-300'} rounded-md px-3 py-2 m-1 cursor-pointer transition-all duration-200 hover:bg-light-primary/10 flex-1 text-center font-medium text-sm sm:text-base`}
               onClick={() => toogleActiveBar("top")}
             >
               Melhores descontos
             </span>
             <span
-              className={active_tab == 'recommended' ? 'bg-light-primary rounded p-1 m-2 lg:px-4 cursor-pointer' : 'border-light-primary border rounded p-1 lg:px-4 m-2 hover:bg-light-primary cursor-pointer'}
+              className={`${active_tab == 'recommended' ? 'bg-light-primary text-white' : 'text-gray-700 dark:text-gray-300'} rounded-md px-3 py-2 m-1 cursor-pointer transition-all duration-200 hover:bg-light-primary/10 flex-1 text-center font-medium text-sm sm:text-base`}
               onClick={() => toogleActiveBar("recommended")}
             >
               Recomendados
             </span>
             <span
-              className={active_tab == 'news' ? 'bg-light-primary rounded p-1 m-2 lg:px-4 cursor-pointer' : 'border-light-primary border rounded p-1 lg:px-4 m-2 hover:bg-light-primary cursor-pointer'}
+              className={`${active_tab == 'news' ? 'bg-light-primary text-white' : 'text-gray-700 dark:text-gray-300'} rounded-md px-3 py-2 m-1 cursor-pointer transition-all duration-200 hover:bg-light-primary/10 flex-1 text-center font-medium text-sm sm:text-base`}
               onClick={() => toogleActiveBar("news")}
             >
               Recentes
             </span>
-
           </div>
           {active_tab == "recommended" ? (
             <FeaturedProducts></FeaturedProducts>

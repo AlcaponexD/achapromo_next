@@ -2,69 +2,50 @@ import { useRouter } from "next/router";
 import axios from '../../src/config/axiosConfig'
 import { useEffect, useState } from "react";
 import CardProduct from '../../src/components/tabs/CardProduct'
+import Pagination from "../../src/components/utils/pagination";
 
 const Search = () => {
     const router = new useRouter();
     const [products, setProducts] = useState([]);
-    const [nextPage, setNextPage] = useState(false);
-    const [page, setPage] = useState(1);
-    let per_page = 10
-    let last_term_searched;
+    const [totalPages, setTotalPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    const per_page = 10;
     const { term } = router.query;
 
     const getProducts = () => {
         axios.get("/products/search", {
             params: {
                 search: term,
-                page,
+                page: currentPage,
                 per_page
             }
         }).then((response) => {
-            last_term_searched = term;
             setProducts(response.data.products);
-            setNextPage(response.data.next_page);
+            setTotalPages(response.data.total);
         })
     }
 
-    const paginate = (type) => {
-        if (type === 'next') {
-            setPage(prevPage => prevPage + 1);
-        } else {
-            setPage(prevPage => prevPage - 1);
-        }
-
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
     }
-
 
     useEffect(() => {
         getProducts();
-    }, [term, page]);
+    }, [term, currentPage]);
+
     return (
         <div>
             {products.length < 1 ? `Nada encontrado com a palavra ${term}` : null}
             {products.map((product, index) => {
                 return <CardProduct product={product} key={index}></CardProduct>;
             })}
-            <div className="flex justify-end">
-                <ul className="flex flex-row gap-1">
-                    {page > 1 ?
-                        <li className={1 === 1 ? 'bg-dark-primary px-2 border border-dark-primary rounded-sm' : 'px-1 border border-dark-primary rounded-sm'}>
-                            <button onClick={() => paginate("previews")}>Anterior</button>
-                        </li>
-                        :
-                        null
-                    }
-
-                    {nextPage ?
-                        <li className={1 === 1 ? 'bg-dark-primary px-2 border border-dark-primary rounded-sm' : 'px-1 border border-dark-primary rounded-sm'}>
-                            <button onClick={() => paginate("next")}>Próximo</button>
-                        </li>
-                        : null
-                    }
-                </ul>
-            </div>
+            <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
         </div>
     )
 }
 
-export default Search   
+export default Search

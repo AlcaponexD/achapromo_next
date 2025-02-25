@@ -55,61 +55,74 @@ const Product = ({ query }) => {
         <meta property="og:title" content={`${product.title} - Histórico de Preços`} />
         <meta property="og:image" content={product.avatar} />
       </Head>
-      <div className="w-full container flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl">
-        <div className="flex justify-center w-full  max-[600px]:flex-wrap">
-          <div className="w-1/3 p-3 flex justify-center">
-            <img className="img_prod" src={product.avatar}></img>
+      <div className="w-full container flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl shadow-lg">
+        <div className="flex justify-center w-full max-[600px]:flex-wrap p-4">
+          <div className="w-1/3 p-3 flex justify-center items-center">
+            <img className="img_prod object-contain hover:scale-105 transition-transform duration-200" src={product.avatar} alt={product.title}></img>
           </div>
-          <div className="w-2/3 p-3">
-            <h1 className="text-sm md:text-2xl font-bold	text-light-primary">
+          <div className="w-2/3 p-3 space-y-3">
+            <h1 className="text-sm md:text-2xl font-bold text-light-primary hover:text-light-secondary transition-colors">
               {product.title}
             </h1>
-            <p>
-              <span className="text-light-primary  text-sm cursor-pointer">
+            <div className="flex items-center space-x-2">
+              <span className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer">
                 {product.user?.name}
               </span>
-            </p>
-            <span className="text-[11px] md:text-sm">
-              {translateDatePtBr(product.created_at)}
-            </span>
+              <span className="text-[11px] md:text-sm text-gray-500">
+                {translateDatePtBr(product.created_at)}
+              </span>
+            </div>
             <p
               title={product.description}
-              className="text-justify text-base line-clamp-4"
+              className="text-justify text-base line-clamp-4 hover:line-clamp-none transition-all duration-300"
             >
               {product.description}
             </p>
           </div>
-          <div className="flex flex-col p-3 text-center content-center">
-            <div className="flex flex-col p-2">
+          <div className="flex flex-col p-3 text-center content-center space-y-4">
+            <div className="flex flex-col p-2 bg-light-primary/10 dark:bg-dark-primary/10 rounded-lg">
               <span className="text-xl md:text-3xl font-bold text-light-primary">
                 {formatarReal(product.price / 100)}
               </span>
             </div>
-            <div className="w-[200px] mb-2">
+            <div className="w-[200px]">
               <a
                 href={product.url}
-                className="text-sm md:text-2x1 bg-light-primary rounded-md p-2 px-8 text-white hover:bg-light-secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm md:text-base bg-light-primary rounded-lg p-3 px-8 text-white hover:bg-light-secondary transition-colors duration-200 inline-block w-full"
               >
                 Pegar promo
               </a>
             </div>
-            <div className="flex justify-center text-2xl">
-              <span className="flex items-center cursor-pointer" onClick={change_star}>
-                {product.classification}
+            <div className="flex justify-center text-2xl space-x-4">
+              <button 
+                className={`flex items-center space-x-1 transition-transform hover:scale-110 ${!data.user ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`} 
+                onClick={change_star}
+                title={data.user ? 'Classificar produto' : 'Faça login para classificar'}
+              >
+                <span>{product.classification}</span>
                 <AiFillStar className="text-light-primary"></AiFillStar>
-              </span>
-              <span className="flex items-center ml-2">
-                {product.total_comments}
+              </button>
+              <span className="flex items-center space-x-1">
+                <span>{product.total_comments}</span>
                 <AiOutlineComment className="text-light-primary"></AiOutlineComment>
               </span>
             </div>
           </div>
         </div>
-        <HistoryGrapics data={product.history} width={600} />
-        <CommentsComponents comments={product.comments} product_id={product.id}></CommentsComponents>
+        <div className="p-4 border-t dark:border-dark-primary/20">
+          <h2 className="text-xl font-semibold mb-4">Histórico de Preços</h2>
+          <HistoryGrapics data={product.history} width={600} />
+        </div>
+        <div className="border-t dark:border-dark-primary/20">
+          <CommentsComponents comments={product.comments} product_id={product.id}></CommentsComponents>
+        </div>
         <style jsx>{`
       .img_prod {
-        max-height: 200px;
+        max-height: 300px;
+        width: auto;
+        border-radius: 8px;
       }
     `}</style>
       </div>

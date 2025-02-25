@@ -53,67 +53,70 @@ const Cabecalho = (props) => {
     getUser();
   }, []);
   return (
-    <header className="w-full px-2">
-      <div className="flex flex-wrap justify-between  items-center h-full border-b py-2 dark:border-b-gray-700 border-b-gray-300 w-full">
+    <header className="w-full px-4 py-4 bg-white dark:bg-dark-background shadow-md">
+      <div className="flex flex-wrap justify-between items-center h-full border-b py-4 dark:border-b-gray-700 border-b-gray-300 w-full mx-auto">
         <button
+          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
           onClick={() => {
             handleData({
               sidebar_open: !data.sidebar_open,
             });
           }}
+          aria-label="Toggle menu"
         >
-          <AiOutlineMenu size={24} />
+          <AiOutlineMenu size={24} className="text-gray-700 dark:text-gray-300" />
         </button>
-        <div className="flex flex-col">
-          <span className="cursor-pointer roboto-300 text-light-primary dark:text-dark-primary">
+        <div className="flex flex-col items-center md:items-start">
+          <span className="cursor-pointer text-light-primary dark:text-dark-primary transition-colors duration-200 py-1">
             <Link
-              className="font-extrabold text-2xl"
+              className="font-extrabold text-3xl hover:text-light-secondary dark:hover:text-dark-secondary"
               href={{
                 pathname: "/",
               }}
             >
               Achapromo
             </Link>
-
           </span>
-          <span className="hidden md:block font-light text-sm">
+          <span className="hidden md:block font-light text-sm text-gray-600 dark:text-gray-400">
             Compare preços e veja histórico de hardware e periféricos
           </span>
-          <span className="block md:hidden font-light text-xs">
+          <span className="block md:hidden font-light text-xs text-gray-600 dark:text-gray-400">
             Compare preços de hardware e periféricos
           </span>
-
         </div>
         <div className="block sm:hidden">
-          <LiaSearchDollarSolid size={28} onClick={toggleDiv} />
+          <button
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
+            onClick={toggleDiv}
+            aria-label="Toggle search"
+          >
+            <LiaSearchDollarSolid size={28} className="text-gray-700 dark:text-gray-300" />
+          </button>
         </div>
-        <div className="hidden md:block">
+        <div className="hidden md:block relative flex-1 max-w-xl mx-4">
           <input
-            className="text-black xl:w-96 md:w-full p-2 rounded-md border"
+            className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-light-primary focus:border-transparent transition-all duration-200"
             type="search"
             placeholder="Busque aqui uma promoção"
             onKeyPress={handleSearch}
           />
         </div>
         <div className="gap-4 cursor-pointer text-light-primary dark:text-dark-primary flex justify-center items-center">
-          <div className="relative hidden">
-            <HiBellAlert
-              size={36}
-              className="border-b-light-highlight border-b-2"
-            />
-            <span className="absolute roboto-500 top-1 right-3.5 z-10 text-white rounded-full">
-              3
-            </span>
-          </div>
           {!data.user ? (
-            <span>
-              <BiLogIn onClick={openLogin} size={38} />
-            </span>
+            <button
+              onClick={openLogin}
+              className="flex items-center space-x-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
+              aria-label="Login"
+            >
+              <BiLogIn size={28} />
+              <span className="hidden md:block text-sm font-medium">Entrar</span>
+            </button>
           ) : (
             <Link
               href={{
                 pathname: "/perfil/editar",
               }}
+              className="relative group"
             >
               <img
                 src={
@@ -121,33 +124,36 @@ const Cabecalho = (props) => {
                     ? data.user.avatar
                     : "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"
                 }
-                className="w-8 rounded-full"
-              ></img>
+                className="w-10 h-10 rounded-full border-2 border-transparent group-hover:border-light-primary transition-all duration-200 object-cover"
+                alt="User avatar"
+              />
             </Link>
           )}
-          {isVisible && (
+        </div>
+      </div>
+      {isVisible && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden">
+          <div className="relative p-4">
             <div className="relative">
               <input
-                className="block md:hidden text-black xl:w-96 md:w-full p-2 rounded-md border fixed left-2 top-2 w-[95vw]"
+                className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 pr-10"
                 type="search"
                 placeholder="Busque aqui uma promoção"
                 onKeyPress={handleSearch}
+                autoFocus
               />
-              {/* Ícone de fechar dentro do input */}
-              <AiOutlineClose
-                className="block md:hidden absolute right-4 top-[-7px] text-gray-500 cursor-pointer"
-                size={20}
+              <button
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
                 onClick={toggleDiv}
-              />
+                aria-label="Close search"
+              >
+                <AiOutlineClose size={20} className="text-gray-500" />
+              </button>
             </div>
-          )}
-
+          </div>
         </div>
-      </div>
-      <style jsx>{``}</style>
-      {loginModal ? (
-        <LoginModal open={openLogin} loginModal={loginModal}></LoginModal>
-      ) : null}
+      )}
+      {loginModal && <LoginModal open={openLogin} loginModal={loginModal} />}
     </header>
   );
 };

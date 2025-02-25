@@ -23,34 +23,33 @@ const Sidebar = ({ isOpen }) => {
   return (
     <div className="fixed h-screen z-20">
       <div
-        className={`h-full overflow-x-hidden transition-all duration-300 bg-light-sidebar dark:bg-dark-sidebar  text-white relative ${isOpen ? "w-52" : "w-0"
-          }`}
+        className={`h-full overflow-x-hidden transition-all duration-300 bg-light-sidebar dark:bg-dark-sidebar text-white relative shadow-lg backdrop-blur-sm ${isOpen ? "w-64" : "w-0"}`}
       >
-        <FaWindowClose
-          className="absolute right-1 my-2 z-10 cursor-pointer"
-          onClick={() => handleData({ sidebar_open: !data.sidebar_open })}
-          size={32}
-        ></FaWindowClose>
-        {/* Conteúdo do menu */}
+        <div className="flex justify-end p-3">
+          <FaWindowClose
+            className="text-white hover:text-light-primary transition-transform hover:scale-110 cursor-pointer"
+            onClick={() => handleData({ sidebar_open: !data.sidebar_open })}
+            size={24}
+          />
+        </div>
 
-        <ul className={`w-full py-2 `}>
+        <ul className="w-full space-y-1">
           <li
             onClick={() => {
               handleData({
                 sidebar_open: !data.sidebar_open,
               });
             }}
-            className={`mb-2 px-2 py-1 hover:opacity-80 ${router.pathname === "/" ? "bg-light-primary" : ""
-              }`}
+            className={`px-4 py-3 transition-all duration-200 hover:bg-light-primary/20 cursor-pointer rounded-r-lg ${router.pathname === "/" ? "bg-light-primary/30 border-l-4 border-light-primary font-semibold" : ""}`}
           >
             <Link
               href={{
                 pathname: "/",
               }}
-              className="text-white flex items-center"
+              className="text-white flex items-center group"
             >
-              <AiOutlineHome className="mr-4" />
-              Início
+              <AiOutlineHome className="mr-4 text-xl group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Início</span>
             </Link>
           </li>
           <li
@@ -59,17 +58,16 @@ const Sidebar = ({ isOpen }) => {
                 sidebar_open: !data.sidebar_open,
               });
             }}
-            className={`mb-2 px-2 py-1 hover:opacity-80 ${router.pathname === "/categoria/todos" ? "bg-light-primary" : ""
-              }`}
+            className={`px-4 py-3 transition-all duration-200 hover:bg-light-primary/20 cursor-pointer rounded-r-lg ${router.pathname === "/categoria/todos" ? "bg-light-primary/30 border-l-4 border-light-primary font-semibold" : ""}`}
           >
             <Link
               href={{
                 pathname: "/categoria/todos",
               }}
-              className="text-white flex items-center"
+              className="text-white flex items-center group"
             >
-              <TbCategory className="mr-4" />
-              Categorias
+              <TbCategory className="mr-4 text-xl group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Categorias</span>
             </Link>
           </li>
           {data.user ? (
@@ -79,49 +77,32 @@ const Sidebar = ({ isOpen }) => {
                   sidebar_open: !data.sidebar_open,
                 });
               }}
-              className={`mb-2 px-2 py-1 hover:opacity-80 ${router.pathname === "/perfil/editar" ? "bg-light-primary" : ""
-                }`}
+              className={`px-4 py-3 transition-all duration-200 hover:bg-light-primary/20 cursor-pointer rounded-r-lg ${router.pathname === "/perfil/editar" ? "bg-light-primary/30 border-l-4 border-light-primary font-semibold" : ""}`}
             >
               <Link
                 href={{
                   pathname: "/perfil/editar",
                 }}
-                className="text-white flex items-center"
+                className="text-white flex items-center group"
               >
-                <CgProfile className="mr-4" />
-                Perfil
+                <CgProfile className="mr-4 text-xl group-hover:scale-110 transition-transform" />
+                <span className="font-medium">Perfil</span>
               </Link>
             </li>
           ) : null}
           {data.user ? (
-            <li
-              className={`mb-2 px-2 py-1 hover:opacity-80 hidden ${router.pathname === "/" ? "bg-light-primary" : ""
-                }`}
-            >
-              <a href="#" className="text-white flex items-center">
-                <HiBellAlert className="mr-4" />
-                Alertas
-              </a>
-            </li>
-          ) : null}
-          {data.user ? (
-            <li onClick={logout} className={`mb-2 px-2 py-1 hover:opacity-80`}>
-              <a href="#" className="text-white flex items-center">
-                <BiDoorOpen className="mr-4" />
-                Sair
+            <li onClick={logout} className="px-4 py-3 transition-all duration-200 hover:bg-light-primary/20 cursor-pointer rounded-r-lg mt-4 border-t border-gray-700/30">
+              <a href="#" className="text-white flex items-center group">
+                <BiDoorOpen className="mr-4 text-xl group-hover:scale-110 transition-transform" />
+                <span className="font-medium">Sair</span>
               </a>
             </li>
           ) : null}
         </ul>
-        <div
-          className={`w-full flex justify-center absolute bottom-20 ${isOpen ? "block" : "hidden"
-            }`}
-        >
+        <div className={`w-full flex justify-center absolute bottom-8 ${isOpen ? "opacity-100" : "opacity-0"} transition-all duration-300 transform ${isOpen ? "translate-y-0" : "translate-y-4"}`}>
           <DarkButtton />
         </div>
       </div>
-
-      <style jsx>{``}</style>
     </div>
   );
 };
