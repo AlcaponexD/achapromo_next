@@ -69,7 +69,7 @@ const Cabecalho = (props) => {
         <div className="flex flex-col items-center md:items-start">
           <span className="cursor-pointer text-light-primary dark:text-dark-primary transition-colors duration-200 py-1">
             <Link
-              className="font-extrabold text-3xl hover:text-light-secondary dark:hover:text-dark-secondary"
+              className="font-extrabold text-3xl hover:text-light-secondary dark:hover:text-light-primary"
               href={{
                 pathname: "/",
               }}
@@ -131,30 +131,32 @@ const Cabecalho = (props) => {
           )}
         </div>
       </div>
-      {isVisible && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden">
-          <div className="relative p-4">
-            <div className="relative">
-              <input
-                className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 pr-10"
-                type="search"
-                placeholder="Busque aqui uma promoção"
-                onKeyPress={handleSearch}
-                autoFocus
-              />
-              <button
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
-                onClick={toggleDiv}
-                aria-label="Close search"
-              >
-                <AiOutlineClose size={20} className="text-gray-500" />
-              </button>
+      {
+        isVisible && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden">
+            <div className="relative p-4">
+              <div className="relative">
+                <input
+                  className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 pr-10"
+                  type="search"
+                  placeholder="Busque aqui uma promoção"
+                  onKeyPress={handleSearch}
+                  autoFocus
+                />
+                <button
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
+                  onClick={toggleDiv}
+                  aria-label="Close search"
+                >
+                  <AiOutlineClose size={20} className="text-gray-500" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
       {loginModal && <LoginModal open={openLogin} loginModal={loginModal} />}
-    </header>
+    </header >
   );
 };
 
