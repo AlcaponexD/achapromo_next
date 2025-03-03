@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { AiFillStar, AiOutlineComment } from "react-icons/ai";
 import axios from "../../../src/config/axiosConfig";
 import { useEffect, useState } from "react";
-import { formatarReal, translateDatePtBr } from "../../../src/utils/helper";
+import { formatarReal } from "../../../src/utils/helper";
 import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
 import useAppData from "../../../src/hooks/useAppData";
@@ -29,7 +29,6 @@ const Product = ({ query }) => {
     }
   };
 
-
   const change_star = () => {
     if (!data.user) {
       return
@@ -39,7 +38,6 @@ const Product = ({ query }) => {
     })
   }
 
-
   useEffect(() => {
     if (id) {
       axios.get(`/products/${id}`).then((response) => {
@@ -47,6 +45,7 @@ const Product = ({ query }) => {
       });
     }
   }, [id]);
+
   return (
     <>
       <Head>
@@ -64,14 +63,6 @@ const Product = ({ query }) => {
             <h1 className="text-sm md:text-2xl font-bold text-light-primary hover:text-light-secondary transition-colors">
               {product.title}
             </h1>
-            <div className="flex items-center space-x-2">
-              <span className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer">
-                {product.user?.name}
-              </span>
-              <span className="text-[11px] md:text-sm text-gray-500">
-                {translateDatePtBr(product.created_at)}
-              </span>
-            </div>
             <p
               title={product.description}
               className="text-justify text-base line-clamp-4 hover:line-clamp-none transition-all duration-300"
@@ -96,8 +87,8 @@ const Product = ({ query }) => {
               </a>
             </div>
             <div className="flex justify-center text-2xl space-x-4">
-              <button 
-                className={`flex items-center space-x-1 transition-transform hover:scale-110 ${!data.user ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`} 
+              <button
+                className={`flex items-center space-x-1 transition-transform hover:scale-110 ${!data.user ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 onClick={change_star}
                 title={data.user ? 'Classificar produto' : 'Faça login para classificar'}
               >
@@ -119,12 +110,12 @@ const Product = ({ query }) => {
           <CommentsComponents comments={product.comments} product_id={product.id}></CommentsComponents>
         </div>
         <style jsx>{`
-      .img_prod {
-        max-height: 300px;
-        width: auto;
-        border-radius: 8px;
-      }
-    `}</style>
+          .img_prod {
+            max-height: 300px;
+            width: auto;
+            border-radius: 8px;
+          }
+        `}</style>
       </div>
     </>
   );

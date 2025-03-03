@@ -13,13 +13,14 @@ const Categories = () => {
         setCategories(response.data);
       })
       .catch((err) => {
-        console.log(data);
+        console.log(err);
       });
   };
 
   useEffect(() => {
     getCategories();
   }, []);
+
   return (
     <>
       <SEO
@@ -28,33 +29,34 @@ const Categories = () => {
         image="/index-min.png"
         url="https://achapromo.com.br"
       />
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 p-4">
-        {categories.map((category, index) => {
-          return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+          Categorias
+        </h1>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {categories.map((category) => (
             <Link
               key={category.id}
               href={{
                 pathname: "/categoria/[slug]/[id]",
                 query: { id: category.id, slug: category.slug },
               }}
+              className="group"
             >
-              <span
-                className={`
-                flex justify-center items-center w-full
-                p-4 border-2 border-transparent dark:bg-dark-sidebar bg-white
-                dark:border-dark-sidebar hover:border-light-primary dark:hover:border-dark-primary
-                dark:text-dark-text hover:text-dark-primary text-light-text rounded-lg
-                cursor-pointer shadow-sm hover:shadow-md transform hover:scale-105
-                transition-all duration-300 ease-in-out h-28
-                `}
-              >
-                <span className="text-center font-medium text-lg">{category.title}</span>
-              </span>
+              <div className="bg-white dark:bg-dark-sidebar rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4 border border-gray-100 dark:border-gray-800 hover:border-light-primary dark:hover:border-dark-primary">
+                <div className="relative">
+                  <h2 className="text-base font-medium text-gray-900 dark:text-white text-center group-hover:text-light-primary dark:group-hover:text-dark-primary transition-colors duration-200 pb-2">
+                    {category.title}
+                  </h2>
+                  <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-light-primary dark:bg-dark-primary group-hover:w-full transition-all duration-200 -translate-x-1/2" />
+                </div>
+              </div>
             </Link>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </>
   );
 };
+
 export default Categories;
