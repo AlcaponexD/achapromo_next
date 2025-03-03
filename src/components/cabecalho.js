@@ -41,7 +41,8 @@ const Cabecalho = (props) => {
 
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
-      router.push(`/buscar/${e.target.value}`)
+      router.push(`/buscar/${e.target.value}`);
+      setIsVisible(false);
     }
   }
   // Função para alternar o estado
