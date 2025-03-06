@@ -6,7 +6,6 @@ import { FaStore } from "react-icons/fa";
 import axios from "../../../src/config/axiosConfig";
 import { useEffect, useState } from "react";
 import { formatarReal } from "../../../src/utils/helper";
-import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
 import useAppData from "../../../src/hooks/useAppData";
 import HistoryGrapics from "../../../src/components/products/HistoryGrapics";
@@ -43,6 +42,7 @@ const Product = ({ query }) => {
     if (id) {
       axios.get(`/products/${id}`).then((response) => {
         setProduct(response.data);
+        console.log(response.data)
       });
     }
   }, [id]);
@@ -56,24 +56,25 @@ const Product = ({ query }) => {
         <meta property="og:image" content={product.avatar} />
       </Head>
       <div className="w-full container flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl">
-        <div className="flex justify-center w-full max-[600px]:flex-wrap p-6 gap-6">
-          <div className="w-1/3 p-3 flex justify-center items-center bg-gray-50 dark:bg-dark-primary/5 rounded-xl">
+        <div className="flex justify-center w-full max-[600px]:flex-wrap p-6 gap-8">
+          <div className="w-1/3 max-[600px]:w-full p-3 flex justify-center items-center bg-gray-50 dark:bg-dark-primary/5 rounded-xl">
             <img className="img_prod object-contain hover:scale-105 transition-transform duration-300 filter hover:brightness-105" src={product.avatar} alt={product.title}></img>
           </div>
-          <div className="w-2/3 p-3 space-y-4">
-            <h1 className="text-sm md:text-2xl font-bold text-light-primary hover:text-light-secondary transition-colors leading-tight">
+          <div className="w-full md:w-2/3 p-4 space-y-6">
+            <h1 className="text-xl md:text-2xl font-bold text-light-primary hover:text-light-secondary transition-colors leading-tight">
               {product.title}
             </h1>
             <p
               title={product.description}
-              className="text-justify text-base line-clamp-4 hover:line-clamp-none transition-all duration-300 text-gray-700 dark:text-gray-300"
+              className="text-justify text-lg md:text-base line-clamp-4 hover:line-clamp-none transition-all duration-300 text-gray-700 dark:text-gray-300"
             >
               {product.description}
             </p>
           </div>
-          <div className="flex flex-col p-4 text-center content-center space-y-5 bg-gray-50 dark:bg-dark-primary/5 rounded-xl border border-gray-100 dark:border-gray-800">
+
+          <div className="flex flex-col p-4 max-[600px]:w-full text-center content-center space-y-5 bg-gray-50 dark:bg-dark-primary/5 rounded-xl border border-gray-100 dark:border-gray-800">
             <div className="flex flex-col p-3 bg-light-primary/10 dark:bg-dark-primary/10 rounded-lg backdrop-blur-sm">
-              <span className="text-xl md:text-3xl font-bold text-light-primary">
+              <span className="text-2xl md:text-3xl font-bold text-light-primary">
                 {formatarReal(product.price / 100)}
               </span>
             </div>
@@ -101,12 +102,12 @@ const Product = ({ query }) => {
                 )}
               </div>
             )}
-            <div className="w-[200px]">
+            <div className="max-[600px]:w-full w-[200px]">
               <a
                 href={product.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm md:text-base bg-light-primary rounded-lg p-3 px-8 text-white hover:bg-light-secondary transition-all duration-300 inline-block w-full font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                className="text-base md:text-base bg-light-primary rounded-lg p-3 px-8 text-white hover:bg-light-secondary transition-all duration-300 inline-block w-full font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
                 Pegar promo
               </a>
@@ -137,9 +138,17 @@ const Product = ({ query }) => {
         <style jsx>{`
           .img_prod {
             max-height: 300px;
-            width: auto;
+            min-height: 200px;
+            width: 100%;
             border-radius: 12px;
             filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            object-fit: contain;
+          }
+          @media (max-width: 600px) {
+            .img_prod {
+              max-height: 250px;
+              min-height: 150px;
+            }
           }
         `}</style>
       </div>
