@@ -66,20 +66,19 @@ const CommentsComponents = ({ comments, product_id }) => {
             return (
               <div
                 key={index}
-                className="p-4 bg-light-background dark:bg-dark-background rounded-lg transition-all duration-300 hover:shadow-md border border-gray-100 dark:border-gray-800 hover:border-light-primary/30 mb-3"
-              >
+                className="p-4 bg-light-background dark:bg-dark-background rounded-lg transition-all duration-300 hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-800 mb-3">
                 <div className="flex items-start gap-3">
                   <img className="w-10 h-10 rounded-full object-cover" src={comment.user.avatar} alt={comment.user.name} />
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex flex-col space-y-1">
                       <span className="font-medium text-dark-primary hover:text-light-primary transition-colors duration-300">
                         {comment.user.name}
                       </span>
-                      <span className="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
                         {translateDatePtBr(comment.created_at)}
                       </span>
                     </div>
-                    <p className="text-base md:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{comment.content}</p>
+                    <p className="mt-2 text-base md:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{comment.content}</p>
                   </div>
                 </div>
               </div>
