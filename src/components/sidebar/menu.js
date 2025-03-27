@@ -47,6 +47,7 @@ const Sidebar = ({ isOpen }) => {
                 pathname: "/",
               }}
               className="text-white flex items-center group"
+              title="Início"
             >
               <AiOutlineHome className="mr-4 text-xl group-hover:scale-110 transition-transform" />
               <span className="font-medium">Início</span>
@@ -64,6 +65,7 @@ const Sidebar = ({ isOpen }) => {
               href={{
                 pathname: "/categoria/todos",
               }}
+              title="Categorias"
               className="text-white flex items-center group"
             >
               <TbCategory className="mr-4 text-xl group-hover:scale-110 transition-transform" />
@@ -83,6 +85,7 @@ const Sidebar = ({ isOpen }) => {
                 href={{
                   pathname: "/perfil/editar",
                 }}
+                title="Perfil"
                 className="text-white flex items-center group"
               >
                 <CgProfile className="mr-4 text-xl group-hover:scale-110 transition-transform" />

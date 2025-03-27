@@ -22,6 +22,7 @@ export default (props) => {
   return (
     <Link
       href={dataLink}
+      title={product.title}
       className="block transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-light-primary rounded-2xl group"
     >
       <div className="flex flex-col md:flex-row p-4 border-2 dark:border-dark-sidebar mt-4 dark:bg-dark-sidebar bg-white rounded-2xl relative shadow-sm hover:shadow-lg transition-all duration-300">
@@ -33,6 +34,7 @@ export default (props) => {
               className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
               src={product.avatar}
               alt={product.title}
+              title={product.title}
               loading="lazy"
             />
           </div>

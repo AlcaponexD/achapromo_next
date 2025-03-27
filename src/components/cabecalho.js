@@ -74,6 +74,7 @@ const Cabecalho = (props) => {
               href={{
                 pathname: "/",
               }}
+              title="Achapromo - Compare preços de hardware e periféricos"
             >
               Achapromo
             </Link>

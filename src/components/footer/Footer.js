@@ -23,12 +23,12 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Links Rápidos</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
+                <Link href="/" title="Inicio" className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
                   Início
                 </Link>
               </li>
               <li>
-                <Link href="/categoria/todos" className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
+                <Link href="/categoria/todos" title='Categorias' className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
                   Categorias
                 </Link>
               </li>
@@ -41,6 +41,7 @@ const Footer = () => {
             <div className="space-y-2">
               <a
                 href="mailto:contatoachapromo@gmail.com"
+                title='Email'
                 className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200 flex items-center gap-2"
               >
                 contatoachapromo@gmail.com
@@ -56,12 +57,14 @@ const Footer = () => {
                 href="https://instagram.com/achapromo"
                 target="_blank"
                 rel="noopener noreferrer"
+                title='instagram achapromo'
                 className="text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200"
               >
                 <FaInstagram size={24} />
               </a>
               <a
                 href="#"
+                title='Facebook'
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200"
@@ -72,6 +75,7 @@ const Footer = () => {
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
+                title='X'
                 className="text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200"
               >
                 <FaXTwitter size={24} />
@@ -79,6 +83,7 @@ const Footer = () => {
               <a
                 href="#"
                 target="_blank"
+                title='Discord'
                 rel="noopener noreferrer"
                 className="text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200"
               >
@@ -95,10 +100,10 @@ const Footer = () => {
               © {currentYear} Achapromo - Todos os direitos reservados
             </p>
             <div className="flex space-x-4">
-              <Link href="/privacy" className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
+              <Link href="/privacy" title='Privacidade' className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
                 Política de Privacidade
               </Link>
-              <Link href="/terms" className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
+              <Link href="/terms" title="Termos de uso" className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
                 Termos de Uso
               </Link>
             </div>
