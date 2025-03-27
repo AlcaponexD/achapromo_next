@@ -67,6 +67,7 @@ const Product = ({ initialProduct }) => {
         <title>{`${product.title} - Histórico de Preços`}</title>
         <meta name="description" content={`Veja o histórico de preços de ${product.title} e encontre a melhor oferta.`} />
         <meta property="og:title" content={`${product.title} - Histórico de Preços`} />
+        <meta property="og:description" content={`Veja o histórico de preços de ${product.title} e encontre a melhor oferta.`} />
         <meta property="og:image" content={product.avatar} />
       </Head>
       <div className="w-full container flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl shadow-lg">
