@@ -4,9 +4,85 @@ import TopProducts from "../src/components/tabs/TopProducts";
 import NewsProducts from "../src/components/tabs/NewsProducts";
 import SEO from "../src/components/seo";
 import { FaPercent, FaThumbsUp, FaClock } from "react-icons/fa";
+import axios from "../src/config/axiosConfig";
+import CardProduct from "../src/components/tabs/CardProduct";
+import Pagination from "../src/components/utils/pagination";
 
-const Index = (props) => {
+export async function getServerSideProps() {
+  try {
+    const [topProducts, recommendedProducts, newsProducts] = await Promise.all([
+      axios.get("/products/tops", { params: { page: 1, per_page: 25 } }),
+      axios.get("/products/recommends", { params: { page: 1, per_page: 25 } }),
+      axios.get("/products/news", { params: { page: 1, per_page: 25 } })
+    ]);
+
+    return {
+      props: {
+        initialData: {
+          top: {
+            products: topProducts.data.products,
+            total: topProducts.data.total
+          },
+          recommended: {
+            products: recommendedProducts.data.products,
+            total: recommendedProducts.data.total
+          },
+          news: {
+            products: newsProducts.data.products,
+            total: newsProducts.data.total
+          }
+        }
+      }
+    };
+  } catch (error) {
+    return {
+      props: {
+        initialData: {
+          top: { products: [], total: 0 },
+          recommended: { products: [], total: 0 },
+          news: { products: [], total: 0 }
+        }
+      }
+    };
+  }
+}
+
+const Index = ({ initialData }) => {
   const [active_tab, setActiveTab] = useState("top");
+  const [products, setProducts] = useState(initialData[active_tab].products);
+  const [totalPages, setTotalPages] = useState(initialData[active_tab].total);
+  const [currentPage, setCurrentPage] = useState(1);
+  const per_page = 25;
+
+  const fetchProducts = async (tabId, page = 1) => {
+    const endpoints = {
+      top: "/products/tops",
+      recommended: "/products/recommends",
+      news: "/products/news"
+    };
+
+    try {
+      const response = await axios.get(endpoints[tabId], {
+        params: { page, per_page }
+      });
+      setProducts(response.data.products);
+      setTotalPages(response.data.total);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    setCurrentPage(1);
+    setProducts(initialData[tabId].products);
+    setTotalPages(initialData[tabId].total);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    fetchProducts(active_tab, page);
+  };
 
   const tabs = [
     {
