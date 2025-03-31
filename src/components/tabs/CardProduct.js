@@ -55,9 +55,9 @@ export default (props) => {
           </p>
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div className="hidden md:flex items-center gap-2">
+            <div className="flex items-center gap-2">
               <FaStore className="text-light-primary" />
-              <span className="text-base font-semibold text-dark-primary">
+              <span className="text-base font-semibold text-dark-primary dark:text-gray-200">
                 {product.store.title}
               </span>
             </div>
