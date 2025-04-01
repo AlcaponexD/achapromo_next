@@ -112,6 +112,33 @@ const Index = ({ initialData }) => {
         description="Encontre os melhores preços de hardware e periféricos de informática. Compare valores e veja o histórico de preços para comprar no momento certo!"
         image="/index-min.png"
         url="https://achapromo.com.br"
+        jsonLdData={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "AchaPromo - Compare preços e veja histórico de hardware e periféricos",
+          "description": "Encontre os melhores preços de hardware e periféricos de informática. Compare valores e veja o histórico de preços para comprar no momento certo!",
+          "url": "https://achapromo.com.br",
+          "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Melhores descontos"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Recomendados"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Recentes"
+              }
+            ]
+          }
+        }}
       />
       <div>
         <main className="mt-4">

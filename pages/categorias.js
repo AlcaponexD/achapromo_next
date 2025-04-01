@@ -9,7 +9,15 @@ const Categories = ({ categories }) => {
                 title="AchaPromo - Compare preços e veja histórico de hardware e periféricos"
                 description="Encontre os melhores preços de hardware e periféricos de informática. Compare valores e veja o histórico de preços para comprar no momento certo!"
                 image="/index-min.png"
-                url="https://achapromo.com.br"
+                url="https://achapromo.com.br/categorias"
+                jsonLdData={{
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": "Categorias de Produtos - AchaPromo",
+                    "description": "Navegue por todas as categorias de produtos disponíveis no AchaPromo e encontre as melhores ofertas.",
+                    "url": "https://achapromo.com.br/categorias",
+                    "numberOfItems": categories.length
+                }}
             />
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">

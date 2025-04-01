@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import Script from 'next/script';
 
-export default function SEO({ title, description, image, url }) {
-    const jsonLd = {
+export default function SEO({ title, description, image, url, jsonLdData }) {
+    // Default JSON-LD para o site
+    const defaultJsonLd = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "AchaPromo",
@@ -17,6 +18,9 @@ export default function SEO({ title, description, image, url }) {
             "query-input": "required name=search_term_string"
         }
     };
+
+    // Usar JSON-LD personalizado se fornecido, caso contrário usar o padrão
+    const jsonLd = jsonLdData || defaultJsonLd;
 
     return (
         <Head>

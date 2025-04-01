@@ -3,20 +3,18 @@ import { Line } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 import { AiFillStar, AiOutlineComment } from "react-icons/ai";
 import axios from "../../../src/config/axiosConfig";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { formatarReal, translateDatePtBr } from "../../../src/utils/helper";
 import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
 import useAppData from "../../../src/hooks/useAppData";
 import HistoryGrapics from "../../../src/components/products/HistoryGrapics";
 import Head from 'next/head';
-import DiscountBadge from "../../../src/components/products/DiscountBadge";
 
-const Product = ({ query }) => {
+const Product = ({ productData }) => {
   const { data, handleData } = useAppData();
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(productData);
   const router = useRouter();
-  const { id } = router.query;
 
   const changeStarsCountFromTrigger = (action) => {
     if (action === 'up') {
@@ -39,37 +37,52 @@ const Product = ({ query }) => {
       changeStarsCountFromTrigger(response.data)
     })
   }
-
-
-  useEffect(() => {
-    if (id) {
-      axios.get(`/products/${id}`).then((response) => {
-        setProduct(response.data);
-      });
-    }
-  }, [id]);
   return (
     <>
       <Head>
-        <title>{product.title} - Histórico de Preços</title>
-        <meta name="description" content={`Veja o histórico de preços de ${product.title} e encontre a melhor oferta.`} />
-        <meta property="og:title" content={`${product.title} - Histórico de Preços`} />
+        <title>{product.title} - Histórico de Preços | AchaPromo</title>
+        <meta name="description" content={`Veja o histórico de preços de ${product.title} e encontre a melhor oferta. Compare preços e economize na sua compra!`} />
+        <meta property="og:title" content={`${product.title} - Histórico de Preços | AchaPromo`} />
+        <meta property="og:description" content={`Veja o histórico de preços de ${product.title} e encontre a melhor oferta. Compare preços e economize na sua compra!`} />
         <meta property="og:image" content={product.avatar} />
-        image.png      </Head>
+        <meta property="og:url" content={`https://achapromo.com.br/produto/${router.query.slug}/${product.id}`} />
+        <meta property="og:type" content="product" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${product.title} - Histórico de Preços | AchaPromo`} />
+        <meta name="twitter:description" content={`Veja o histórico de preços de ${product.title} e encontre a melhor oferta.`} />
+        <meta name="twitter:image" content={product.avatar} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": product.title,
+              "image": product.avatar,
+              "description": product.description,
+              "offers": {
+                "@type": "Offer",
+                "price": (product.price / 100).toFixed(2),
+                "priceCurrency": "BRL",
+                "url": product.url
+              }
+            })
+          }}
+        />
+      </Head>
       <div className="w-full container mx-auto flex mt-4 flex-col dark:bg-dark-sidebar bg-white rounded-2xl shadow-lg overflow-hidden">
         <div className="flex flex-wrap p-6 gap-6">
           <div className="w-full md:w-1/3 flex justify-center items-start">
-            <div className="relative group w-full aspect-square bg-gray-50 dark:bg-dark-background rounded-lg overflow-hidden max-w-[300px] ">
-              <DiscountBadge percentage={product.discount_percentage} />
+            <div className="relative group w-full aspect-square bg-gray-50 dark:bg-dark-background rounded-lg overflow-hidden">
               <img
-                className="w-full h-full object-contain hover:scale-105 transition-transform duration-300 ease-in-out mx-auto"
+                className="w-full h-full object-contain hover:scale-105 transition-transform duration-300 ease-in-out"
                 src={product.avatar}
                 alt={product.title}
               />
             </div>
           </div>
           <div className="w-full md:w-[calc(66.666667%-3rem)] space-y-4">
-            <h1 className="text-xl md:text-2xl font-bold text-light-primary hover:text-light-secondary transition-colors">
+            <h1 className="text-xl md:text-3xl font-bold text-light-primary hover:text-light-secondary transition-colors">
               {product.title}
             </h1>
             <div className="flex items-center space-x-3 text-sm">
@@ -80,7 +93,11 @@ const Product = ({ query }) => {
                 {translateDatePtBr(product.created_at)}
               </span>
             </div>
-
+            <div className="bg-light-primary/5 dark:bg-dark-primary/5 rounded-lg p-4">
+              <p className="text-base text-gray-700 dark:text-gray-300 text-justify line-clamp-4 hover:line-clamp-none transition-all duration-300">
+                {product.description}
+              </p>
+            </div>
             <div className="flex flex-wrap gap-4 items-center justify-between p-4 bg-light-primary/10 dark:bg-dark-primary/10 rounded-lg">
               <div className="flex flex-col items-start gap-1">
                 <span className="text-sm text-gray-600 dark:text-gray-400">Preço atual</span>
@@ -113,17 +130,6 @@ const Product = ({ query }) => {
                 </div>
               </div>
             </div>
-            <div className="bg-light-primary/5 dark:bg-dark-primary/5 rounded-lg pl-3 p-2">
-              {product.store && (
-                <div className="flex items-center gap-2 text-sm text-light-primary">
-                  <span className="font-medium">Loja:</span>
-                  <span className="font-bold">{product.store.title}</span>
-                </div>
-              )}
-              <p className="text-base text-gray-700 dark:text-gray-300 text-justify line-clamp-4 hover:line-clamp-none transition-all duration-300">
-                {product.description}
-              </p>
-            </div>
           </div>
         </div>
         <div className="p-6 border-t dark:border-dark-primary/20">
@@ -146,5 +152,23 @@ const Product = ({ query }) => {
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+
+  try {
+    const response = await axios.get(`/products/${id}`);
+    return {
+      props: {
+        productData: response.data,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return {
+      notFound: true,
+    };
+  }
+}
 
 export default Product;
