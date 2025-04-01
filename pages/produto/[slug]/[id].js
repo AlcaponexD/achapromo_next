@@ -9,6 +9,7 @@ import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
 import useAppData from "../../../src/hooks/useAppData";
 import HistoryGrapics from "../../../src/components/products/HistoryGrapics";
+import DiscountBadge from "../../../src/components/products/DiscountBadge";
 import Head from 'next/head';
 
 const Product = ({ productData }) => {
@@ -73,7 +74,8 @@ const Product = ({ productData }) => {
       <div className="w-full container mx-auto flex mt-4 flex-col dark:bg-dark-sidebar bg-white rounded-2xl shadow-lg overflow-hidden">
         <div className="flex flex-wrap p-6 gap-6">
           <div className="w-full md:w-1/3 flex justify-center items-start">
-            <div className="relative group w-full aspect-square bg-gray-50 dark:bg-dark-background rounded-lg overflow-hidden">
+            <div className="relative group max-w-[400px] aspect-square bg-gray-50 dark:bg-dark-background rounded-lg overflow-hidden">
+              <DiscountBadge percentage={product.discount_percentage} />
               <img
                 className="w-full h-full object-contain hover:scale-105 transition-transform duration-300 ease-in-out"
                 src={product.avatar}
@@ -82,7 +84,7 @@ const Product = ({ productData }) => {
             </div>
           </div>
           <div className="w-full md:w-[calc(66.666667%-3rem)] space-y-4">
-            <h1 className="text-xl md:text-3xl font-bold text-light-primary hover:text-light-secondary transition-colors">
+            <h1 className="text-xl md:text-2xl font-bold text-light-primary hover:text-light-secondary transition-colors">
               {product.title}
             </h1>
             <div className="flex items-center space-x-3 text-sm">
@@ -93,15 +95,11 @@ const Product = ({ productData }) => {
                 {translateDatePtBr(product.created_at)}
               </span>
             </div>
-            <div className="bg-light-primary/5 dark:bg-dark-primary/5 rounded-lg p-4">
-              <p className="text-base text-gray-700 dark:text-gray-300 text-justify line-clamp-4 hover:line-clamp-none transition-all duration-300">
-                {product.description}
-              </p>
-            </div>
+
             <div className="flex flex-wrap gap-4 items-center justify-between p-4 bg-light-primary/10 dark:bg-dark-primary/10 rounded-lg">
               <div className="flex flex-col items-start gap-1">
                 <span className="text-sm text-gray-600 dark:text-gray-400">Preço atual</span>
-                <span className="text-2xl md:text-4xl font-bold text-light-primary">
+                <span className="text-2xl md:text-3xl font-bold text-light-primary">
                   {formatarReal(product.price / 100)}
                 </span>
               </div>
@@ -129,6 +127,11 @@ const Product = ({ productData }) => {
                   </span>
                 </div>
               </div>
+            </div>
+            <div className="bg-light-primary/5 dark:bg-dark-primary/5 rounded-lg p-2">
+              <p className="text-base font-bold text-gray-700 dark:text-gray-300 text-justify line-clamp-4 hover:line-clamp-none transition-all duration-300">
+                {product.store.title}
+              </p>
             </div>
           </div>
         </div>
