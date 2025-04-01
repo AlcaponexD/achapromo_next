@@ -2,15 +2,24 @@ import { useRouter } from "next/router";
 import axios from "../../../src/config/axiosConfig";
 import Head from "next/head";
 import CardProduct from "../../../src/components/tabs/CardProduct";
+import Pagination from "../../../src/components/utils/pagination";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
+  const { page = 1, per_page = 20 } = context.query;
   try {
-    const response = await axios.get(`/categories/${id}`);
+    const response = await axios.get(`/categories/${id}`, {
+      params: {
+        page,
+        per_page
+      }
+    });
     return {
       props: {
         products: response.data.products,
-        category: response.data.category
+        category: response.data.category,
+        totalPages: response.data.pagination.totalPages || 1,
+        currentPage: response.data.pagination.page || parseInt(page)
       }
     };
   } catch (error) {
@@ -20,11 +29,18 @@ export async function getServerSideProps(context) {
   }
 }
 
-const Product = ({ products, category }) => {
+const Product = ({ products, category, totalPages, currentPage }) => {
   const router = useRouter();
   if (router.isFallback) {
     return <div>Carregando...</div>;
   }
+
+  const handlePageChange = (page) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page }
+    });
+  };
 
   return (
     <>
@@ -60,6 +76,11 @@ const Product = ({ products, category }) => {
         {products.map((product, index) => {
           return <CardProduct product={product} key={index} />;
         })}
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </div>
     </>
   );
