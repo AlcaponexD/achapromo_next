@@ -54,7 +54,7 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Redes Sociais</h4>
             <div className="flex space-x-4">
               <a
-                href="https://instagram.com/achapromo"
+                href="https://www.instagram.com/achapromo.com.br"
                 target="_blank"
                 rel="noopener noreferrer"
                 title='instagram achapromo'
@@ -63,7 +63,7 @@ const Footer = () => {
                 <FaInstagram size={24} />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/achapromo.br"
                 title='Facebook'
                 target="_blank"
                 rel="noopener noreferrer"
@@ -72,7 +72,7 @@ const Footer = () => {
                 <FaLinkedin size={24} />
               </a>
               <a
-                href="#"
+                href="https://x.com/CAchapromo91665"
                 target="_blank"
                 rel="noopener noreferrer"
                 title='X'
@@ -81,7 +81,7 @@ const Footer = () => {
                 <FaXTwitter size={24} />
               </a>
               <a
-                href="#"
+                href="https://discord.gg/sjwGPPyhUJ"
                 target="_blank"
                 title='Discord'
                 rel="noopener noreferrer"
