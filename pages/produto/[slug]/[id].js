@@ -55,9 +55,9 @@ const Product = ({ product }) => {
               {productState.title}
             </h1>
             <div className="flex items-center space-x-2">
-              <span className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer">
+              {/* <span className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer">
                 {productState.user?.name}
-              </span>
+              </span> */}
               <span className="text-[11px] md:text-sm text-gray-500">
                 {translateDatePtBr(productState.created_at)}
               </span>
