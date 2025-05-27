@@ -3,15 +3,20 @@ import axios from "../../../src/config/axiosConfig";
 import Head from "next/head";
 import CardProduct from "../../../src/components/tabs/CardProduct";
 import Pagination from "../../../src/components/utils/pagination";
+import OrderSelect from "../../../src/components/utils/OrderSelect";
+import DiscountBadge from "../../../src/components/products/DiscountBadge";
+import { useState } from "react";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const { page = 1, per_page = 20 } = context.query;
+  const { page = 1, per_page = 20, order_by = "discount", order_direction = "desc" } = context.query;
   try {
     const response = await axios.get(`/categories/${id}`, {
       params: {
         page,
-        per_page
+        per_page,
+        order_by,
+        order_direction
       }
     });
     return {
@@ -31,6 +36,11 @@ export async function getServerSideProps(context) {
 
 const Product = ({ products, category, totalPages, currentPage }) => {
   const router = useRouter();
+
+  console.log(products)
+  const [orderBy, setOrderBy] = useState("discount");
+  const [orderDirection, setOrderDirection] = useState("desc");
+
   if (router.isFallback) {
     return <div>Carregando...</div>;
   }
@@ -39,6 +49,15 @@ const Product = ({ products, category, totalPages, currentPage }) => {
     router.push({
       pathname: router.pathname,
       query: { ...router.query, page }
+    });
+  };
+
+  const handleOrderChange = ({ order_by, order_direction }) => {
+    setOrderBy(order_by);
+    setOrderDirection(order_direction);
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, order_by, order_direction, page: 1 }
     });
   };
 
@@ -68,14 +87,17 @@ const Product = ({ products, category, totalPages, currentPage }) => {
           }}
         />
       </Head>
-
       <div>
+        <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
         <h1 className="text-2xl text-dark-primary font-bold ">
           Categoria: {category.title}
         </h1>
-        {products.map((product, index) => {
-          return <CardProduct product={product} key={index} />;
-        })}
+        {products.map((product, index) => (
+          <div key={index} className="relative">
+            <DiscountBadge percentage={product.discount} />
+            <CardProduct product={product} />
+          </div>
+        ))}
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
