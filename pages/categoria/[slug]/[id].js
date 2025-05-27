@@ -36,10 +36,11 @@ export async function getServerSideProps(context) {
 
 const Product = ({ products, category, totalPages, currentPage }) => {
   const router = useRouter();
-
-  console.log(products)
-  const [orderBy, setOrderBy] = useState("discount");
-  const [orderDirection, setOrderDirection] = useState("desc");
+  // Pega o valor inicial da query ou usa o padrão
+  const initialOrderBy = router.query.order_by || "discount";
+  const initialOrderDirection = router.query.order_direction || "desc";
+  const [orderBy, setOrderBy] = useState(initialOrderBy);
+  const [orderDirection, setOrderDirection] = useState(initialOrderDirection);
 
   if (router.isFallback) {
     return <div>Carregando...</div>;
@@ -55,6 +56,7 @@ const Product = ({ products, category, totalPages, currentPage }) => {
   const handleOrderChange = ({ order_by, order_direction }) => {
     setOrderBy(order_by);
     setOrderDirection(order_direction);
+    // Agora adiciona order_by/order_direction na URL para SSR
     router.push({
       pathname: router.pathname,
       query: { ...router.query, order_by, order_direction, page: 1 }
