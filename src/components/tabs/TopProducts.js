@@ -1,44 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CardProduct from "./CardProduct";
-import axios from "../../config/axiosConfig";
 import Pagination from "../utils/pagination";
-export default (props) => {
-  const [products, setProducts] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
+import OrderSelect from "../utils/OrderSelect";
+
+const TopProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOrderDirection }) => {
+  const [products, setProducts] = useState(initialProducts);
+  const [totalPages, setTotalPages] = useState(initialTotal);
   const [currentPage, setCurrentPage] = useState(1);
+  const [orderBy, setOrderBy] = useState(initialOrderBy || "price");
+  const [orderDirection, setOrderDirection] = useState(initialOrderDirection || "asc");
   const per_page = 25;
 
-  const getProducts = (page = currentPage) => {
-    axios
-      .get("/products/tops", {
-        params: {
-          page,
-          per_page,
-        },
-      })
-      .then((response) => {
-        setProducts(response.data.products);
-        setTotalPages(response.data.total);
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar produtos:", error);
-      });
+  const getProducts = async (page = 1, order_by = orderBy, order_direction = orderDirection) => {
+    const axios = (await import("../../config/axiosConfig")).default;
+    const response = await axios.get("/products/tops", {
+      params: {
+        page,
+        per_page,
+        order_by,
+        order_direction,
+      },
+    });
+    setProducts(response.data.products);
+    setTotalPages(response.data.total);
+  };
+
+  const handleOrderChange = ({ order_by, order_direction }) => {
+    setOrderBy(order_by);
+    setOrderDirection(order_direction);
+    setCurrentPage(1);
+    getProducts(1, order_by, order_direction);
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    getProducts(page);
+    getProducts(page, orderBy, orderDirection);
   };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
     <div className="container w-screen p-2 ">
-      {products.map((product, index) => (
-        <CardProduct product={product} key={index} />
-      ))}
+      <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
+      {Array.isArray(products) && products.length > 0 ? (
+        products.map((product, index) => (
+          <CardProduct product={product} key={index} />
+        ))
+      ) : (
+        <div className="text-center text-gray-500 dark:text-gray-400 py-8">Nenhum produto encontrado.</div>
+      )}
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
@@ -47,3 +55,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default TopProducts;

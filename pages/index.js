@@ -89,19 +89,40 @@ const Index = ({ initialData }) => {
       id: "top",
       label: "Melhores descontos",
       icon: <FaPercent />,
-      component: <TopProducts />
+      component: (
+        <TopProducts
+          initialProducts={initialData.top.products}
+          initialTotal={initialData.top.total}
+          initialOrderBy="discount_percentage"
+          initialOrderDirection="desc"
+        />
+      ),
     },
     {
       id: "recommended",
       label: "Recomendados",
       icon: <FaThumbsUp />,
-      component: <FeaturedProducts />
+      component: (
+        <FeaturedProducts
+          initialProducts={initialData.recommended.products}
+          initialTotal={initialData.recommended.total}
+          initialOrderBy="price"
+          initialOrderDirection="asc"
+        />
+      ),
     },
     {
       id: "news",
       label: "Recentes",
       icon: <FaClock />,
-      component: <NewsProducts />
+      component: (
+        <NewsProducts
+          initialProducts={initialData.news.products}
+          initialTotal={initialData.news.total}
+          initialOrderBy="price"
+          initialOrderDirection="asc"
+        />
+      ),
     }
   ];
 
