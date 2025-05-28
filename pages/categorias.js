@@ -6,8 +6,8 @@ const Categories = ({ categories }) => {
     return (
         <>
             <SEO
-                title="AchaPromo - Compare preços e veja histórico de hardware e periféricos"
-                description="Encontre os melhores preços de hardware e periféricos de informática. Compare valores e veja o histórico de preços para comprar no momento certo!"
+                title="Categorias de Produtos | AchaPromo - Compare preços e veja histórico"
+                description="Navegue por todas as categorias de produtos de hardware e periféricos no AchaPromo. Compare preços, veja histórico e encontre as melhores ofertas de informática."
                 image="/index-min.png"
                 url="https://achapromo.com.br/categorias"
                 jsonLdData={{

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import CardProduct from '../../src/components/tabs/CardProduct'
 import Pagination from "../../src/components/utils/pagination";
 import OrderSelect from "../../src/components/utils/OrderSelect";
+import SEO from '../../src/components/seo';
 
 const Search = () => {
     const router = new useRouter();
@@ -47,18 +48,33 @@ const Search = () => {
     }, [term, currentPage]);
 
     return (
-        <div>
-            <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
-            {products.length < 1 ? `Nada encontrado com a palavra ${term}` : null}
-            {products.map((product, index) => {
-                return <CardProduct product={product} key={index}></CardProduct>;
-            })}
-            <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
+        <>
+            <SEO
+                title={`Resultados para "${term || ''}" | AchaPromo`}
+                description={`Veja ofertas e promoções encontradas para "${term || ''}". Compare preços, confira histórico e encontre o melhor negócio em tecnologia.`}
+                url={`https://achapromo.com.br/buscar/${term || ''}`}
+                image={products[0]?.image || '/favicon.ico'}
             />
-        </div>
+            <div>
+                <h1 className="text-2xl font-bold mb-2">{products.length > 0 ? `Resultados para "${term}"` : `Nada encontrado para "${term}"`}</h1>
+                <p className="mb-4 text-gray-600">
+                    {products.length > 0
+                        ? `${products.length} produto${products.length > 1 ? 's' : ''} encontrado${products.length > 1 ? 's' : ''} para "${term}".`
+                        : `Tente buscar por outro termo ou confira as categorias.`}
+                </p>
+                <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                    {products.map((product, index) => (
+                        <CardProduct product={product} key={index} />
+                    ))}
+                </div>
+                <Pagination
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                />
+            </div>
+        </>
     )
 }
 

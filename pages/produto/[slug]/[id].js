@@ -9,7 +9,7 @@ import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
 import useAppData from "../../../src/hooks/useAppData";
 import HistoryGrapics from "../../../src/components/products/HistoryGrapics";
-import Head from 'next/head';
+import SEO from '../../../src/components/seo';
 
 const Product = ({ product }) => {
   const { data, handleData } = useAppData();
@@ -39,19 +39,34 @@ const Product = ({ product }) => {
 
   return (
     <>
-      <Head>
-        <title>{productState.title} - Histórico de Preços</title>
-        <meta name="description" content={`Veja o histórico de preços de ${productState.title} e encontre a melhor oferta.`} />
-        <meta property="og:title" content={`${productState.title} - Histórico de Preços`} />
-        <meta property="og:image" content={productState.avatar} />
-      </Head>
+      <SEO
+        title={`${productState.title} - Histórico de Preços | AchaPromo`}
+        description={`Veja o histórico de preços de ${productState.title} e encontre a melhor oferta. Compare promoções, acompanhe variações e economize!`}
+        url={`https://achapromo.com.br/produto/${productState.slug || ''}/${productState.id}`}
+        image={productState.avatar}
+        jsonLdData={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": productState.title,
+          "image": productState.avatar,
+          "description": productState.description,
+          "sku": productState.id,
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "BRL",
+            "price": (productState.price / 100).toFixed(2),
+            "availability": "https://schema.org/InStock",
+            "url": productState.url
+          }
+        }}
+      />
       <div className="w-full container flex mt-4 max-[600px]:flex-wrap flex-col dark:bg-dark-sidebar bg-white rounded-2xl shadow-lg">
         <div className="flex justify-center w-full max-[600px]:flex-wrap p-4">
           <div className="w-1/3 p-3 flex justify-center items-center">
-            <img className="img_prod object-contain hover:scale-105 transition-transform duration-200" src={productState.avatar} alt={productState.title}></img>
+            <img className="img_prod object-contain hover:scale-105 transition-transform duration-200" src={productState.avatar} title={productState.title} alt={productState.title}></img>
           </div>
           <div className="w-2/3 p-3 space-y-3">
-            <h1 className="text-sm md:text-2xl font-bold text-light-primary hover:text-light-secondary transition-colors">
+            <h1 className="text-sm md:text-2xl font-bold text-light-primary hover:text-light-seconday transitiron-colors">
               {productState.title}
             </h1>
             <div className="flex items-center space-x-2">
@@ -78,6 +93,7 @@ const Product = ({ product }) => {
             <div className="w-[200px]">
               <a
                 href={productState.url}
+                title={`Verificar o produto ${productState.title}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm md:text-base bg-light-primary rounded-lg p-3 px-8 text-white hover:bg-light-secondary transition-colors duration-200 inline-block w-full"
