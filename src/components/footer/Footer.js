@@ -103,8 +103,8 @@ const Footer = () => {
               <Link href="/privacy" title='Privacidade' className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
                 Política de Privacidade
               </Link>
-              <Link href="/terms" title="Termos de uso" className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
-                Termos de Uso
+              <Link href="https://blog.achapromo.com.br" title="Termos de uso" className="text-sm text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200">
+                Blog
               </Link>
             </div>
           </div>
