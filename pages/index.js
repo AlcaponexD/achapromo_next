@@ -129,15 +129,15 @@ const Index = ({ initialData }) => {
   return (
     <>
       <SEO
-        title="AchaPromo - Compare preços e veja histórico de hardware e periféricos"
-        description="Encontre os melhores preços de hardware e periféricos de informática. Compare valores e veja o histórico de preços para comprar no momento certo!"
+        title="Histórico de Preços de Hardware e Periféricos | AchaPromo"
+        description="Histórico de preços de hardware e periféricos: compare valores, acompanhe promoções e descubra o melhor momento para comprar. Veja gráficos e tendências de preço!"
         image="/index-min.png"
         url="https://achapromo.com.br"
         jsonLdData={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          "name": "AchaPromo - Compare preços e veja histórico de hardware e periféricos",
-          "description": "Encontre os melhores preços de hardware e periféricos de informática. Compare valores e veja o histórico de preços para comprar no momento certo!",
+          "name": "Histórico de Preços de Hardware e Periféricos | AchaPromo",
+          "description": "Histórico de preços de hardware e periféricos: compare valores, acompanhe promoções e descubra o melhor momento para comprar.",
           "url": "https://achapromo.com.br",
           "mainEntity": {
             "@type": "ItemList",
@@ -145,16 +145,21 @@ const Index = ({ initialData }) => {
               {
                 "@type": "ListItem",
                 "position": 1,
-                "name": "Melhores descontos"
+                "name": "Histórico de Preços"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Recomendados"
+                "name": "Melhores descontos"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
+                "name": "Recomendados"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
                 "name": "Recentes"
               }
             ]
@@ -163,6 +168,13 @@ const Index = ({ initialData }) => {
       />
       <div>
         <main className="mt-4">
+          {/* Parágrafo SEO no topo */}
+          <section className="mb-6 p-4 bg-white dark:bg-dark-sidebar rounded-xl shadow-sm">
+            <h1 className="text-2xl font-bold mb-2">Histórico de Preços de Hardware e Periféricos</h1>
+            <p className="text-gray-700 dark:text-gray-300">
+              Acompanhe o histórico de preços de hardware e periféricos, compare valores e descubra o melhor momento para comprar. Nosso site oferece gráficos de preço, tendências e promoções para você economizar sempre!
+            </p>
+          </section>
           {/* Tabs Navigation */}
           <div className="flex flex-col sm:flex-row justify-normal bg-white dark:bg-dark-sidebar p-2 rounded-xl shadow-sm mb-6">
             {tabs.map((tab) => (

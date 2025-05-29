@@ -67,8 +67,11 @@ const Product = ({ product }) => {
           </div>
           <div className="w-2/3 p-3 space-y-3">
             <h1 className="text-sm md:text-2xl font-bold text-light-primary hover:text-light-seconday transitiron-colors">
-              {productState.title}
+              Histórico de Preços {productState.title}
             </h1>
+            <p className="text-gray-700 dark:text-gray-300 text-base mb-2">
+              Veja o histórico de preços da {productState.title}, acompanhe as variações, compare promoções e descubra o melhor momento para comprar este produto!
+            </p>
             <div className="flex items-center space-x-2">
               <span className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer">
                 {productState.store?.title || 'Loja Desconhecida'}
