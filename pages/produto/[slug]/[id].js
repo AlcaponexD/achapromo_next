@@ -42,7 +42,7 @@ const Product = ({ product }) => {
     <>
       <SEO
         title={`${truncateTitle(productState.title, 35)} | AchaPromo`}
-        description={`Histórico de preços ${truncateTitle(productState.title, 150)}. Compare ofertas, acompanhe variações e economize na melhor promoção!`}
+        description={`Histórico de preços ${truncateTitle(productState.title, 110)}. Compare ofertas e economize`}
         url={`https://achapromo.com.br/produto/${productState.slug || ''}/${productState.id}`}
         image={productState.avatar}
         updatedTime={productState.updated_at || productState.created_at}
