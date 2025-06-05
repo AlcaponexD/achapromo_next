@@ -42,12 +42,12 @@ export default (props) => {
 
         <div className="flex-1 p-4">
           <div className="flex flex-col md:flex-row md:justify-between gap-2 mb-3">
-            <h1 className="font-bold text-sm md:text-lg xl:text-xl text-dark-primary dark:text-white line-clamp-2 group-hover:text-light-primary transition-colors duration-300">
+            <h2 className="font-bold text-sm md:text-lg xl:text-xl text-dark-primary dark:text-white line-clamp-2 group-hover:text-light-primary transition-colors duration-300">
               {product.title}
-            </h1>
-            <h2 className="text-dark-primary text-lg md:text-2xl font-bold whitespace-nowrap">
-              {formatarReal(product.price / 100)}
             </h2>
+            <h3 className="text-dark-primary text-lg md:text-2xl font-bold whitespace-nowrap">
+              {formatarReal(product.price / 100)}
+            </h3>
           </div>
 
           <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">

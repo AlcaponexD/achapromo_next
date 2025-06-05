@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { AiFillStar, AiOutlineComment } from "react-icons/ai";
 import axios from "../../../src/config/axiosConfig";
 import { useEffect, useState } from "react";
-import { formatarReal, translateDatePtBr } from "../../../src/utils/helper";
+// Importe a função
+import { formatarReal, translateDatePtBr, truncateTitle } from "../../../src/utils/helper";
 import Comments from "../../../src/components/products/CommentsComponent";
 import CommentsComponents from "../../../src/components/products/CommentsComponent";
 import useAppData from "../../../src/hooks/useAppData";
@@ -40,7 +41,8 @@ const Product = ({ product }) => {
   return (
     <>
       <SEO
-        title={`${productState.title} - Histórico de Preços | AchaPromo`}
+        // Na linha 38, modifique o title:
+        title={`${truncateTitle(productState.title, 54)} | AchaPromo`}
         description={`Veja o histórico de preços de ${productState.title} e encontre a melhor oferta. Compare promoções, acompanhe variações e economize!`}
         url={`https://achapromo.com.br/produto/${productState.slug || ''}/${productState.id}`}
         image={productState.avatar}
@@ -67,7 +69,7 @@ const Product = ({ product }) => {
           </div>
           <div className="w-2/3 p-3 space-y-3">
             <h1 className="text-sm md:text-2xl font-bold text-light-primary hover:text-light-seconday transitiron-colors">
-              Histórico de Preços {productState.title}
+              {productState.title}
             </h1>
             <p className="text-gray-700 dark:text-gray-300 text-base mb-2">
               Veja o histórico de preços da {productState.title}, acompanhe as variações, compare promoções e descubra o melhor momento para comprar este produto!
@@ -134,7 +136,7 @@ const Product = ({ product }) => {
         border-radius: 8px;
       }
     `}</style>
-      </div>
+      </div >
     </>
   );
 };

@@ -36,6 +36,34 @@ export function cleanNumber(input) {
   // Remove todos os caracteres não numéricos usando uma expressão regular
   return input.replace(/[^0-9]/g, "");
 }
+
+export function truncateTitle(title, maxLength = 50) {
+  if (!title || title.length <= maxLength) {
+    return title;
+  }
+
+  // Palavras menos importantes que podem ser removidas
+  const stopWords = ['com', 'para', 'de', 'da', 'do', 'em', 'na', 'no', 'e', 'ou', 'a', 'o', 'as', 'os'];
+
+  // Primeiro tenta remover palavras desnecessárias
+  let words = title.split(' ');
+  let filteredWords = words.filter(word =>
+    !stopWords.includes(word.toLowerCase()) || words.indexOf(word) < 3 // Mantém as 3 primeiras palavras
+  );
+
+  let result = filteredWords.join(' ');
+
+  // Se ainda estiver longo, corta mantendo palavras completas
+  if (result.length > maxLength) {
+    result = result.substring(0, maxLength);
+    const lastSpace = result.lastIndexOf(' ');
+    if (lastSpace > 0) {
+      result = result.substring(0, lastSpace);
+    }
+  }
+
+  return result;
+}
 export function translateDatePtBr(data) {
   const diasSemana = [
     "Domingo",
