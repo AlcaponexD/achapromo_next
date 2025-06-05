@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Script from 'next/script';
 
-export default function SEO({ title, description, image, url, jsonLdData }) {
+export default function SEO({ title, description, image, url, jsonLdData, updatedTime }) {
     // Default JSON-LD para o site
     const defaultJsonLd = {
         "@context": "https://schema.org",
@@ -41,6 +41,7 @@ export default function SEO({ title, description, image, url, jsonLdData }) {
             <meta property="og:image" content={image} />
             <meta property="og:locale" content="pt_BR" />
             <meta property="og:site_name" content="AchaPromo" />
+            {updatedTime && <meta property="og:updated_time" content={updatedTime} />}
 
             {/* Twitter Card */}
             <meta name="twitter:card" content="summary_large_image" />

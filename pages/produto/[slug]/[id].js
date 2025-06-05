@@ -41,11 +41,11 @@ const Product = ({ product }) => {
   return (
     <>
       <SEO
-        // Na linha 38, modifique o title:
-        title={`${truncateTitle(productState.title, 54)} | AchaPromo`}
-        description={`Veja o histórico de preços de ${productState.title} e encontre a melhor oferta. Compare promoções, acompanhe variações e economize!`}
+        title={`${truncateTitle(productState.title, 35)} | AchaPromo`}
+        description={`Histórico de preços ${truncateTitle(productState.title, 150)}. Compare ofertas, acompanhe variações e economize na melhor promoção!`}
         url={`https://achapromo.com.br/produto/${productState.slug || ''}/${productState.id}`}
         image={productState.avatar}
+        updatedTime={productState.updated_at || productState.created_at}
         jsonLdData={{
           "@context": "https://schema.org",
           "@type": "Product",
@@ -71,7 +71,7 @@ const Product = ({ product }) => {
             <h1 className="text-sm md:text-2xl font-bold text-light-primary hover:text-light-seconday transitiron-colors">
               {productState.title}
             </h1>
-            <p className="text-gray-700 dark:text-gray-300 text-base mb-2">
+            <p className="text-gray-700 dark:text-gray-300 text-xs md:text-base mb-2">
               Veja o histórico de preços da {productState.title}, acompanhe as variações, compare promoções e descubra o melhor momento para comprar este produto!
             </p>
             <div className="flex items-center space-x-2">

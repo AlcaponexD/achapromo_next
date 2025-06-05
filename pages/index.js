@@ -169,7 +169,7 @@ const Index = ({ initialData }) => {
       <div>
         <main className="mt-4">
           {/* Parágrafo SEO no topo */}
-          <section className="mb-6 p-4 bg-white dark:bg-dark-sidebar rounded-xl shadow-sm">
+          <section className="mb-6 p-4 bg-white dark:bg-dark-sidebar rounded-xl shadow-sm  hidden md:block">
             <h1 className="text-2xl font-bold mb-2">Histórico de Preços de Hardware e Periféricos</h1>
             <p className="text-gray-700 dark:text-gray-300">
               Acompanhe o histórico de preços de hardware e periféricos, compare valores e descubra o melhor momento para comprar. Nosso site oferece gráficos de preço, tendências e promoções para você economizar sempre!
