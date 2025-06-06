@@ -3,20 +3,93 @@
 @tailwind utilities;
 @tailwind screens;
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;1,900&display=swap");
-.roboto-300 {
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+/* Configurações de fonte */
+.roboto {
   font-family: "Roboto", sans-serif;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Pesos de fonte */
+.font-light {
   font-weight: 300;
 }
-.roboto-500 {
-  font-family: "Roboto", sans-serif;
+
+.font-regular {
+  font-weight: 400;
+}
+
+.font-medium {
   font-weight: 500;
 }
-.roboto-900 {
-  font-family: "Roboto", sans-serif;
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-black {
   font-weight: 900;
 }
+
+/* Configuração padrão */
 * {
   font-family: "Roboto", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+/* Classes de utilidade para animações */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+}
+
+.shine-effect:hover::after {
+  animation: shine 1s;
+}
+
+/* Transições suaves */
+.transition-all-smooth {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efeito de elevação */
+.elevation-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.elevation-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }

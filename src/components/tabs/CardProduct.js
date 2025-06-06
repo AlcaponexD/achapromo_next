@@ -25,7 +25,7 @@ export default (props) => {
       title={product.title}
       className="block transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-light-primary rounded-2xl group"
     >
-      <div className="flex flex-col md:flex-row p-4 border-2 dark:border-dark-sidebar mt-4 dark:bg-dark-sidebar bg-white rounded-2xl relative shadow-sm hover:shadow-lg transition-all duration-300">
+      <div className="flex flex-col md:flex-row p-4 mt-4 dark:bg-dark-sidebar bg-white rounded-2xl relative shadow-sm hover:shadow-lg transition-all duration-300 border border-transparent hover:border-dark-primary">
         <DiscountBadge percentage={product.discount_percentage} />
 
         <div className="flex items-center justify-center w-full md:w-[180px] md:border-r-2 dark:border-dark-sidebar p-2 mb-4 md:mb-0">
@@ -42,12 +42,12 @@ export default (props) => {
 
         <div className="flex-1 p-4">
           <div className="flex flex-col md:flex-row md:justify-between gap-2 mb-3">
-            <h2 className="font-bold text-sm md:text-lg xl:text-xl text-dark-primary dark:text-white line-clamp-2 group-hover:text-light-primary transition-colors duration-300">
+            <h1 className="font-bold text-sm md:text-lg xl:text-xl text-dark-primary dark:text-white line-clamp-2 group-hover:text-light-primary transition-colors duration-300">
               {product.title}
-            </h2>
-            <h3 className="text-dark-primary text-lg md:text-2xl font-bold whitespace-nowrap">
+            </h1>
+            <h2 className="text-dark-primary text-lg md:text-2xl font-bold whitespace-nowrap">
               {formatarReal(product.price / 100)}
-            </h3>
+            </h2>
           </div>
 
           <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
@@ -56,7 +56,7 @@ export default (props) => {
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div className="flex items-center gap-2">
-              <FaStore className="text-light-primary" />
+              <FaStore className="text-light-primary" /> Vendido por
               <span className="text-base font-semibold text-dark-primary dark:text-gray-200">
                 {product.store.title}
               </span>

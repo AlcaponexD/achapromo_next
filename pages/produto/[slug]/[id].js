@@ -75,6 +75,7 @@ const Product = ({ product }) => {
               Veja o histórico de preços da {productState.title}, acompanhe as variações, compare promoções e descubra o melhor momento para comprar este produto!
             </p>
             <div className="flex items-center space-x-2">
+
               <span className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer">
                 {productState.store?.title || 'Loja Desconhecida'}
               </span>

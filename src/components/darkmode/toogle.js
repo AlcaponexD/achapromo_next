@@ -4,10 +4,25 @@ function DarkModeToggle() {
   const [isDarkMode, setIsDarkMode] = useState(null);
 
   useEffect(() => {
-    const dark_mode = localStorage.getItem("dark_mode") === "true";
+    // Verifica se existe uma preferência salva no localStorage
+    const savedPreference = localStorage.getItem("dark_mode");
+
+    // Se não existir preferência salva, define como true (modo escuro)
+    // Se existir, usa a preferência salva
+    const dark_mode = savedPreference === null ? true : savedPreference === "true";
+
     setIsDarkMode(dark_mode);
+
+    // Aplica o modo escuro conforme a preferência
     if (dark_mode) {
-      toggleDarkMode();
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    // Salva a preferência no localStorage se for a primeira visita
+    if (savedPreference === null) {
+      localStorage.setItem("dark_mode", true);
     }
   }, []);
 

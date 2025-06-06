@@ -27,7 +27,6 @@ export function formatarReal(numero) {
   };
   return numero.toLocaleString("pt-BR", formato);
 }
-
 export function cleanNumber(input) {
   if (typeof input !== "string") {
     return "";
@@ -36,7 +35,6 @@ export function cleanNumber(input) {
   // Remove todos os caracteres não numéricos usando uma expressão regular
   return input.replace(/[^0-9]/g, "");
 }
-
 export function truncateTitle(title, maxLength = 50) {
   if (!title || title.length <= maxLength) {
     return title;
@@ -98,8 +96,6 @@ export function translateDatePtBr(data) {
 
   return `${diaSemana}, ${dia} de ${mes} de ${ano} as ${arr_date[0]}`;
 }
-
-
 export function translateDateMonthYear(data) {
 
   const meses = [
