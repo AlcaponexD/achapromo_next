@@ -130,7 +130,7 @@ const Index = ({ initialData }) => {
     <>
       <SEO
         title="Histórico de Preços de Hardware e Periféricos | AchaPromo"
-        description="Histórico de preços de hardware e periféricos: compare valores, acompanhe promoções e descubra o melhor momento para comprar. Veja gráficos e tendências de preço!"
+        description="Histórico de preços de hardware e periféricos: compare valores, acompanhe promoções e descubra o melhor momento para comprar."
         image="/index-min.png"
         url="https://achapromo.com.br"
         jsonLdData={{
