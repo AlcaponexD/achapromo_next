@@ -2,6 +2,9 @@ import Head from 'next/head';
 import Script from 'next/script';
 
 export default function SEO({ title, description, image, url, jsonLdData, updatedTime }) {
+    // Gerar data de atualização se não for fornecida
+    const lastModified = updatedTime || new Date().toISOString();
+
     // Default JSON-LD para o site
     const defaultJsonLd = {
         "@context": "https://schema.org",
@@ -9,6 +12,7 @@ export default function SEO({ title, description, image, url, jsonLdData, update
         "name": "AchaPromo",
         "url": url,
         "description": description,
+        "dateModified": lastModified,
         "potentialAction": {
             "@type": "SearchAction",
             "target": {
@@ -22,6 +26,11 @@ export default function SEO({ title, description, image, url, jsonLdData, update
     // Usar JSON-LD personalizado se fornecido, caso contrário usar o padrão
     const jsonLd = jsonLdData || defaultJsonLd;
 
+    // Adicionar dateModified ao JSON-LD se não estiver presente
+    if (!jsonLd.dateModified) {
+        jsonLd.dateModified = lastModified;
+    }
+
     return (
         <Head>
             <title>{title}</title>
@@ -33,6 +42,9 @@ export default function SEO({ title, description, image, url, jsonLdData, update
             <meta name="language" content="pt-BR" />
             <meta name="revisit-after" content="1 days" />
 
+            {/* Meta tag Last-Modified para indicar quando o conteúdo foi atualizado */}
+            <meta httpEquiv="Last-Modified" content={lastModified} />
+
             {/* Open Graph (Facebook, LinkedIn) */}
             <meta property="og:type" content="website" />
             <meta property="og:url" content={url} />
@@ -41,7 +53,7 @@ export default function SEO({ title, description, image, url, jsonLdData, update
             <meta property="og:image" content={image} />
             <meta property="og:locale" content="pt_BR" />
             <meta property="og:site_name" content="AchaPromo" />
-            {updatedTime && <meta property="og:updated_time" content={updatedTime} />}
+            <meta property="og:updated_time" content={lastModified} />
 
             {/* Twitter Card */}
             <meta name="twitter:card" content="summary_large_image" />
