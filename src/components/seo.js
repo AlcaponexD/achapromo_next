@@ -72,20 +72,6 @@ export default function SEO({ title, description, image, url, jsonLdData, update
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-
-            <Script
-                id="gtm-head"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                    __html: `
-            (function(w,l){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'}); 
-            var f=d.createElement(s), j=d.getElementsByTagName(s)[0]; f.async=true; 
-            f.src='https://www.googletagmanager.com/gtm.js?id=GTM-KLK5JJX3'; 
-            j.parentNode.insertBefore(f,j);
-          })(window, 'dataLayer');
-          `,
-                }}
-            />
         </Head>
     );
 }
