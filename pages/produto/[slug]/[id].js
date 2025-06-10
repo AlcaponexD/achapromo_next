@@ -12,6 +12,7 @@ import useAppData from "../../../src/hooks/useAppData";
 import HistoryGrapics from "../../../src/components/products/HistoryGrapics";
 import SEO from '../../../src/components/seo';
 
+
 const Product = ({ product }) => {
   const { data, handleData } = useAppData();
   const router = useRouter();
@@ -146,17 +147,8 @@ export async function getServerSideProps(context) {
   const { id } = context.params;
 
   try {
-    // Importar axios no servidor
-    const axiosServer = require('axios');
-    const baseURL = process.env.NEXT_PUBLIC_API_URL || 'https://api.achapromo.com.br';
 
-    const response = await axiosServer.create({
-      baseURL,
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    }).get(`/products/${id}`);
-
+    const response = await axios.get(`/products/${id}`);
     return {
       props: {
         product: response.data,
