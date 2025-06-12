@@ -4,27 +4,38 @@ import { useEffect, useState } from "react";
 import CardProduct from '../../src/components/tabs/CardProduct'
 import Pagination from "../../src/components/utils/pagination";
 import OrderSelect from "../../src/components/utils/OrderSelect";
+import PriceFilter from '../../src/components/utils/PriceFilter';
 import SEO from '../../src/components/seo';
 
 const Search = () => {
-    const router = new useRouter();
+    const router = useRouter();
     const [products, setProducts] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [orderBy, setOrderBy] = useState("price");
     const [orderDirection, setOrderDirection] = useState("asc");
+    const [priceFilters, setPriceFilters] = useState({});
     const per_page = 10;
     const { term } = router.query;
 
-    const getProducts = (order_by = orderBy, order_direction = orderDirection, page = currentPage) => {
+    const getProducts = (order_by = orderBy, order_direction = orderDirection, page = currentPage, filters = priceFilters) => {
+        const params = {
+            search: term,
+            page,
+            per_page,
+            order_by,
+            order_direction
+        };
+
+        if (filters.from) {
+            params.from = filters.from;
+        }
+        if (filters.to) {
+            params.to = filters.to;
+        }
+
         axios.get("/products/search", {
-            params: {
-                search: term,
-                page,
-                per_page,
-                order_by,
-                order_direction
-            }
+            params
         }).then((response) => {
             setProducts(response.data.products);
             setTotalPages(response.data.total);
@@ -35,16 +46,22 @@ const Search = () => {
         setOrderBy(order_by);
         setOrderDirection(order_direction);
         setCurrentPage(1);
-        getProducts(order_by, order_direction, 1);
+        getProducts(order_by, order_direction, 1, priceFilters);
     }
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
-        getProducts(orderBy, orderDirection, page);
+        getProducts(orderBy, orderDirection, page, priceFilters);
+    }
+
+    const handleFilterChange = (filters) => {
+        setPriceFilters(filters);
+        setCurrentPage(1);
+        getProducts(orderBy, orderDirection, 1, filters);
     }
 
     useEffect(() => {
-        getProducts(orderBy, orderDirection, currentPage);
+        getProducts(orderBy, orderDirection, currentPage, priceFilters);
     }, [term, currentPage]);
 
     return (
@@ -62,7 +79,10 @@ const Search = () => {
                         ? `${products.length} produto${products.length > 1 ? 's' : ''} encontrado${products.length > 1 ? 's' : ''} para "${term}".`
                         : `Tente buscar por outro termo ou confira as categorias.`}
                 </p>
-                <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
+                <div className="flex flex-col gap-4 mb-4">
+                    <PriceFilter onFilterChange={handleFilterChange} />
+                    <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
+                </div>
                 <div className="mt-4">
                     {products.map((product, index) => (
                         <CardProduct product={product} key={index} />
