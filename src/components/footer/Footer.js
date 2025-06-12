@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaGithub, FaInstagram, FaLinkedin, FaDiscord } from 'react-icons/fa';
+import { FaGithub, FaInstagram, FaLinkedin, FaDiscord, FaFacebook } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
@@ -69,7 +69,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="text-gray-600 dark:text-gray-400 hover:text-light-primary dark:hover:text-dark-primary transition-colors duration-200"
               >
-                <FaLinkedin size={24} />
+                <FaFacebook size={24} />
               </a>
               <a
                 href="https://x.com/CAchapromo91665"
