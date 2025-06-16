@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import axios from '../../src/config/axiosConfig'
 import { useEffect, useState } from "react";
-import CardProduct from '../../src/components/tabs/CardProduct'
+import CardProduct from '../../src/components/tabs/CardProduct';
+import AdSenseCard from '../../src/components/tabs/AdSenseCard';
 import Pagination from "../../src/components/utils/pagination";
 import OrderSelect from "../../src/components/utils/OrderSelect";
 import PriceFilter from '../../src/components/utils/PriceFilter';
@@ -84,9 +85,13 @@ const Search = () => {
                     <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
                 </div>
                 <div className="mt-4">
-                    {products.map((product, index) => (
-                        <CardProduct product={product} key={index} />
-                    ))}
+                    {products.flatMap((product, index) => {
+                        const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
+                        if ((index + 1) % 7 === 0) {
+                            items.push(<AdSenseCard key={`adsense-search-${index}`} adSlot="ca-pub-5495811870853736" />); // Substitua YOUR_AD_SLOT_ID_HERE pelo seu ID de slot
+                        }
+                        return items;
+                    })}
                 </div>
                 <Pagination
                     totalPages={totalPages}

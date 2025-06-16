@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CardProduct from "./CardProduct";
 import Pagination from "../utils/pagination";
 import OrderSelect from "../utils/OrderSelect";
 import PriceFilter from "../utils/PriceFilter";
+import AdSenseCard from "./AdSenseCard";
 
 const NewsProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOrderDirection }) => {
   const [products, setProducts] = useState(initialProducts);
@@ -13,6 +14,8 @@ const NewsProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOr
   const [priceFilters, setPriceFilters] = useState({});
   const per_page = 25;
 
+  // useEffect para carregar o script do AdSense foi removido daqui
+
   const getProducts = async (page = 1, order_by = orderBy, order_direction = orderDirection, filters = priceFilters) => {
     const axios = (await import("../../config/axiosConfig")).default;
     const params = {
@@ -21,7 +24,7 @@ const NewsProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOr
       order_by,
       order_direction,
     };
-    
+
     // Adiciona filtros de preço se existirem
     if (filters.from !== undefined) {
       params.from = filters.from;
@@ -29,7 +32,7 @@ const NewsProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOr
     if (filters.to !== undefined) {
       params.to = filters.to;
     }
-    
+
     const response = await axios.get("/products/news", { params });
     setProducts(response.data.products);
     setTotalPages(response.data.total);
@@ -57,9 +60,12 @@ const NewsProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOr
     <div className="container w-screen p-2">
       <PriceFilter onFilterChange={handleFilterChange} />
       <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
-      {products.map((product, index) => (
-        <CardProduct product={product} key={index} />
-      ))}
+      {products.map((product, index) => {
+        if ((index + 1) % 7 === 0) {
+          return <AdSenseCard key={`adsense-${index}`} adSlot="ca-pub-5495811870853736" />;
+        }
+        return <CardProduct product={product} key={product.id || `product-${index}`} />;
+      })}
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}

@@ -6,6 +6,7 @@ import Pagination from "../../../src/components/utils/pagination";
 import OrderSelect from "../../../src/components/utils/OrderSelect";
 import DiscountBadge from "../../../src/components/products/DiscountBadge";
 import { useState } from "react";
+import AdSenseCard from "../../../src/components/tabs/AdSenseCard";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -96,8 +97,10 @@ const Product = ({ products, category, totalPages, currentPage }) => {
         </h1>
         {products.map((product, index) => (
           <div key={index} className="relative">
-            <DiscountBadge percentage={product.discount} />
             <CardProduct product={product} />
+            {(index + 1) % 7 === 0 && (
+              <AdSenseCard key={`adsense-${index}`} adSlot="ca-pub-5495811870853736" />
+            )}
           </div>
         ))}
         <Pagination

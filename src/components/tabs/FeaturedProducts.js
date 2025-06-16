@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CardProduct from "./CardProduct";
+import AdSenseCard from './AdSenseCard';
 import Pagination from "../utils/pagination";
 import PriceFilter from "../utils/PriceFilter";
 
@@ -16,7 +17,7 @@ const FeaturedProducts = ({ initialProducts, initialTotal }) => {
       page,
       per_page,
     };
-    
+
     // Adiciona filtros de preço se existirem
     if (filters.from !== undefined) {
       params.from = filters.from;
@@ -24,7 +25,7 @@ const FeaturedProducts = ({ initialProducts, initialTotal }) => {
     if (filters.to !== undefined) {
       params.to = filters.to;
     }
-    
+
     const response = await axios.get("/products/recommends", { params });
     setProducts(response.data.products);
     setTotalPages(response.data.total);
@@ -44,9 +45,13 @@ const FeaturedProducts = ({ initialProducts, initialTotal }) => {
   return (
     <div className="container w-screen p-2">
       <PriceFilter onFilterChange={handleFilterChange} />
-      {products.map((product, index) => (
-        <CardProduct product={product} key={index} />
-      ))}
+      {products.flatMap((product, index) => {
+        const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
+        if ((index + 1) % 7 === 0) {
+          items.push(<AdSenseCard key={`adsense-featured-${index}`} adSlot="ca-pub-5495811870853736" />); // Substitua YOUR_AD_SLOT_ID_HERE pelo seu ID de slot
+        }
+        return items;
+      })}
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}

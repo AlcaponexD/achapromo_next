@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CardProduct from "./CardProduct";
+import AdSenseCard from './AdSenseCard';
 import Pagination from "../utils/pagination";
 import OrderSelect from "../utils/OrderSelect";
 import PriceFilter from "../utils/PriceFilter";
@@ -21,7 +22,7 @@ const TopProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOrd
       order_by,
       order_direction,
     };
-    
+
     // Adiciona filtros de preço se existirem
     if (filters.from !== undefined) {
       params.from = filters.from;
@@ -29,7 +30,7 @@ const TopProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOrd
     if (filters.to !== undefined) {
       params.to = filters.to;
     }
-    
+
     const response = await axios.get("/products/tops", { params });
     setProducts(response.data.products);
     setTotalPages(response.data.total);
@@ -58,9 +59,13 @@ const TopProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOrd
       <PriceFilter onFilterChange={handleFilterChange} />
       <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
       {Array.isArray(products) && products.length > 0 ? (
-        products.map((product, index) => (
-          <CardProduct product={product} key={index} />
-        ))
+        products.flatMap((product, index) => {
+          const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
+          if ((index + 1) % 7 === 0) {
+            items.push(<AdSenseCard key={`adsense-top-${index}`} adSlot="ca-pub-5495811870853736" />); // Substitua YOUR_AD_SLOT_ID_HERE pelo seu ID de slot
+          }
+          return items;
+        })
       ) : (
         <div className="text-center text-gray-500 dark:text-gray-400 py-8">Nenhum produto encontrado.</div>
       )}
