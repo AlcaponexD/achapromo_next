@@ -8,15 +8,15 @@ const PriceFilter = ({ onFilterChange, initialFrom = '', initialTo = '' }) => {
   // Função para aplicar máscara de preço em real
   const formatCurrency = (value) => {
     if (!value) return '';
-    
+
     // Remove tudo que não é número
     const numbers = value.replace(/\D/g, '');
-    
+
     if (!numbers) return '';
-    
+
     // Converte para centavos e depois para reais
     const amount = parseFloat(numbers) / 100;
-    
+
     // Formata como moeda brasileira
     return amount.toLocaleString('pt-BR', {
       style: 'currency',
@@ -28,14 +28,14 @@ const PriceFilter = ({ onFilterChange, initialFrom = '', initialTo = '' }) => {
   // Função para remover máscara e converter valor para número
   const parsePrice = (value) => {
     if (!value || value.trim() === '') return null;
-    
+
     // Remove símbolos de moeda, espaços e pontos de milhares
     const cleanValue = value.toString()
       .replace(/R\$\s?/g, '')
       .replace(/\./g, '')
       .replace(',', '.')
       .trim();
-    
+
     const parsed = parseFloat(cleanValue);
     return isNaN(parsed) || parsed < 0 ? null : parsed;
   };
@@ -54,24 +54,24 @@ const PriceFilter = ({ onFilterChange, initialFrom = '', initialTo = '' }) => {
 
   const handleApplyFilter = () => {
     const filters = {};
-    
+
     const fromValue = convertToApiFormat(from);
     const toValue = convertToApiFormat(to);
-    
+
     if (fromValue !== null) {
       filters.from = fromValue;
     }
-    
+
     if (toValue !== null) {
       filters.to = toValue;
     }
-    
+
     // Validação: 'from' não pode ser maior que 'to'
     if (fromValue !== null && toValue !== null && fromValue > toValue) {
       alert('O valor mínimo não pode ser maior que o valor máximo.');
       return;
     }
-    
+
     onFilterChange(filters);
   };
 
@@ -100,9 +100,8 @@ const PriceFilter = ({ onFilterChange, initialFrom = '', initialTo = '' }) => {
           )}
         </div>
         <svg
-          className={`w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${
-            isExpanded ? 'rotate-180' : ''
-          }`}
+          className={`w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''
+            }`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -110,7 +109,7 @@ const PriceFilter = ({ onFilterChange, initialFrom = '', initialTo = '' }) => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      
+
       {isExpanded && (
         <div className="px-4 pb-4 border-t border-gray-200 dark:border-gray-700">
           <div className="pt-3 space-y-3">
@@ -140,18 +139,18 @@ const PriceFilter = ({ onFilterChange, initialFrom = '', initialTo = '' }) => {
                 />
               </div>
             </div>
-            
-            <div className="flex gap-2 pt-2">
+
+            <div className="flex gap-2 pt-2 justify-end">
               <button
                 onClick={handleApplyFilter}
-                className="flex-1 px-4 py-2 bg-light-primary hover:bg-light-secondary dark:bg-dark-primary dark:hover:bg-green-600 text-white text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary focus:ring-offset-2"
+                className="max-w-[250px] flex-1 px-4 py-2 bg-light-primary hover:bg-light-secondary dark:bg-dark-primary dark:hover:bg-green-600 text-white text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary focus:ring-offset-2"
               >
                 Aplicar Filtro
               </button>
               {hasActiveFilters && (
                 <button
                   onClick={handleClearFilter}
-                  className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                  className="max-w-[250px] px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                 >
                   Limpar
                 </button>
