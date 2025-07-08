@@ -119,5 +119,5 @@ export function translateDateMonthYear(data) {
   const ano = date.getFullYear();
 
 
-  return `${dia} de ${mes} de ${ano} `;
+  return `${mes} de ${ano} `;
 }

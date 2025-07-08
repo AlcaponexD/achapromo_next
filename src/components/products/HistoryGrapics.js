@@ -21,14 +21,11 @@ const HistoryGrapics = ({ data, width }) => {
             return item.created_at;
         });
 
-        console.log(labels);
-        console.log(data);
-
         setCfg({
             labels,
             datasets: [
                 {
-                    label: "Histórico de variação preço",
+                    label: "Histórico de variação preço mínimo",
                     data: prices, // Usa os valores brutos aqui
                     borderColor: "#408042",
                     backgroundColor: "#4CAF50"

@@ -20,15 +20,11 @@ export default (props) => {
   }
 
   return (
-    <Link
-      href={dataLink}
-      title={product.title}
-      className="block transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-light-primary rounded-2xl group"
-    >
+    <div className="block transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-light-primary rounded-2xl group">
       <div className="flex flex-col md:flex-row p-4 mt-4 dark:bg-dark-sidebar bg-white rounded-2xl relative shadow-sm hover:shadow-lg transition-all duration-300 border border-transparent hover:border-dark-primary">
         <DiscountBadge percentage={product.discount_percentage} />
 
-        <div className="flex items-center justify-center w-full md:w-[180px] md:border-r-2 dark:border-dark-sidebar p-2 mb-4 md:mb-0">
+        <Link href={dataLink} className="flex items-center justify-center w-full md:w-[180px] md:border-r-2 dark:border-dark-sidebar p-2 mb-4 md:mb-0">
           <div className="relative w-full aspect-square max-w-[180px] overflow-hidden rounded-lg">
             <img
               className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
@@ -38,13 +34,15 @@ export default (props) => {
               loading="lazy"
             />
           </div>
-        </div>
+        </Link>
 
         <div className="flex-1 p-4">
           <div className="flex flex-col md:flex-row md:justify-between gap-2 mb-3">
-            <h2 className="font-bold text-sm md:text-lg xl:text-xl text-dark-primary dark:text-white line-clamp-2 group-hover:text-light-primary transition-colors duration-300">
-              {product.title}
-            </h2>
+            <Link href={dataLink}>
+              <h2 className="font-bold text-sm md:text-lg xl:text-xl text-dark-primary dark:text-white line-clamp-2 group-hover:text-light-primary transition-colors duration-300 hover:text-light-primary cursor-pointer">
+                {product.title}
+              </h2>
+            </Link>
             <h3 className="text-dark-primary text-lg md:text-2xl font-bold whitespace-nowrap">
               {formatarReal(product.price / 100)}
             </h3>
@@ -64,7 +62,6 @@ export default (props) => {
                     query: { id: product.store.id, slug: string_to_slug(product.store.title) },
                   }}
                   className="text-base font-semibold text-dark-primary dark:text-gray-200 hover:text-light-primary transition-colors duration-300"
-                  onClick={(e) => e.stopPropagation()}
                 >
                   {product.store.title}
                 </Link>
@@ -84,13 +81,13 @@ export default (props) => {
                 <FaStar />
                 {product ? product.classification ?? 0 : 0} Estrelas
               </span>
-              <span className="inline-flex items-center gap-2 bg-blue-600 text-white rounded-full py-2 px-4 text-sm font-medium transition-all duration-300 hover:bg-blue-700 w-full md:w-auto justify-center md:justify-start group-hover:bg-blue-700">
+              <Link href={dataLink} className="inline-flex items-center gap-2 bg-blue-600 text-white rounded-full py-2 px-4 text-sm font-medium transition-all duration-300 hover:bg-blue-700 w-full md:w-auto justify-center md:justify-start group-hover:bg-blue-700">
                 Ver produto
-              </span>
+              </Link>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };

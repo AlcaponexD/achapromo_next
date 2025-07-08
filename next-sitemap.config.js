@@ -52,7 +52,6 @@ module.exports = {
                     };
 
                     if (p.avatar) {
-                        console.log("Avatar : ", p.avatar)
                         product_payload.images.push({
                             loc: p.avatar,
                             title: p.title || 'Produto',
@@ -75,6 +74,16 @@ module.exports = {
             });
         }
 
+        const stores = await fetchAllStores();
+        for (const s of stores) {
+            paths.push({
+                loc: `/loja/${string_to_slug(s.title)}/${s.id}`,
+                lastmod: new Date().toISOString(),
+                changefreq: 'daily',
+                priority: 0.7,
+            });
+        }
+
         return paths;
     },
 };
@@ -85,6 +94,16 @@ async function fetchAllCategories() {
         return data || [];
     } catch (err) {
         console.error('[SITEMAP] Falha ao buscar categorias:', err.message);
+        return [];
+    }
+}
+
+async function fetchAllStores() {
+    try {
+        const { data } = await axios.get('https://api.achapromo.com.br/store');
+        return data || [];
+    } catch (err) {
+        console.error('[SITEMAP] Falha ao buscar lojas:', err.message);
         return [];
     }
 }
