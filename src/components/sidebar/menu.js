@@ -7,6 +7,7 @@ import Link from "next/link";
 import useAppData from "../../hooks/useAppData";
 import { FaWindowClose } from "react-icons/fa";
 import { TbCategory } from "react-icons/tb";
+import { FaStore } from "react-icons/fa";
 import { useRouter } from "next/router";
 
 const Sidebar = ({ isOpen }) => {
@@ -70,6 +71,25 @@ const Sidebar = ({ isOpen }) => {
             >
               <TbCategory className="mr-4 text-xl group-hover:scale-110 transition-transform" />
               <span className="font-medium">Categorias</span>
+            </Link>
+          </li>
+          <li
+            onClick={() => {
+              handleData({
+                sidebar_open: !data.sidebar_open,
+              });
+            }}
+            className={`px-4 py-3 transition-all duration-200 hover:bg-light-primary/20 cursor-pointer rounded-r-lg ${router.pathname === "/loja/todos" ? "bg-light-primary/30 border-l-4 border-light-primary font-semibold" : ""}`}
+          >
+            <Link
+              href={{
+                pathname: "/loja/todos",
+              }}
+              title="Lojas"
+              className="text-white flex items-center group"
+            >
+              <FaStore className="mr-4 text-xl group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Lojas</span>
             </Link>
           </li>
           {data.user ? (

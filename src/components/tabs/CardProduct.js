@@ -57,9 +57,22 @@ export default (props) => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div className="flex items-center gap-2">
               <FaStore className="text-light-primary" /> Vendido por
-              <span className="text-base font-semibold text-dark-primary dark:text-gray-200">
-                {product.store.title}
-              </span>
+              {product.store && product.store.id ? (
+                <Link
+                  href={{
+                    pathname: "/loja/[slug]/[id]",
+                    query: { id: product.store.id, slug: string_to_slug(product.store.title) },
+                  }}
+                  className="text-base font-semibold text-dark-primary dark:text-gray-200 hover:text-light-primary transition-colors duration-300"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {product.store.title}
+                </Link>
+              ) : (
+                <span className="text-base font-semibold text-dark-primary dark:text-gray-200">
+                  {product.store?.title || "Loja desconhecida"}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-wrap gap-2 items-center w-full md:w-auto">

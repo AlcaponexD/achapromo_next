@@ -1,0 +1,172 @@
+import { useRouter } from 'next/router';
+import axios from '../../../src/config/axiosConfig';
+import { useEffect, useState } from 'react';
+import CardProduct from '../../../src/components/tabs/CardProduct';
+import AdSenseCard from '../../../src/components/tabs/AdSenseCard';
+import Pagination from '../../../src/components/utils/pagination';
+import OrderSelect from '../../../src/components/utils/OrderSelect';
+import PriceFilter from '../../../src/components/utils/PriceFilter';
+import SEO from '../../../src/components/seo';
+
+function string_to_slug(str) {
+  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.toLowerCase();
+
+  // remove accents, swap ñ for n, etc
+  var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+  var to = "aaaaeeeeiiiioooouuuunc------";
+  for (var i = 0, l = from.length; i < l; i++) {
+    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+  }
+
+  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+    .replace(/-+/g, '-'); // collapse dashes
+
+  return str;
+}
+
+export async function getServerSideProps({ params }) {
+  const { id } = params;
+
+  try {
+    const response = await axios.get(`/store/${id}`);
+    const storeData = response.data;
+
+    return {
+      props: {
+        store: storeData.products[0].store || {},
+        initialProducts: storeData.products || [],
+        initialTotalPages: storeData.total || 1
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching store data:', error);
+  }
+}
+
+const StorePage = ({ store, initialProducts, initialTotalPages }) => {
+  const router = useRouter();
+  const [products, setProducts] = useState(initialProducts);
+  const [totalPages, setTotalPages] = useState(initialTotalPages);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [orderBy, setOrderBy] = useState('discount_percentage');
+  const [orderDirection, setOrderDirection] = useState('desc');
+  const [priceFilters, setPriceFilters] = useState({});
+  const per_page = 10;
+  const { id } = router.query;
+
+  const getProducts = (order_by = orderBy, order_direction = orderDirection, page = currentPage, filters = priceFilters) => {
+    const params = {
+      page,
+      per_page,
+      order_by,
+      order_direction
+    };
+
+    if (filters.from) {
+      params.from = filters.from;
+    }
+    if (filters.to) {
+      params.to = filters.to;
+    }
+
+    axios.get(`/store/${id}`, {
+      params
+    }).then((response) => {
+      setProducts(response.data.products);
+      setTotalPages(response.data.total);
+    }).catch((error) => {
+      console.error('Error fetching products:', error);
+    });
+  };
+
+  const handleOrderChange = ({ order_by, order_direction }) => {
+    setOrderBy(order_by);
+    setOrderDirection(order_direction);
+    setCurrentPage(1);
+    getProducts(order_by, order_direction, 1, priceFilters);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    getProducts(orderBy, orderDirection, page, priceFilters);
+  };
+
+  const handleFilterChange = (filters) => {
+    setPriceFilters(filters);
+    setCurrentPage(1);
+    getProducts(orderBy, orderDirection, 1, filters);
+  };
+
+  useEffect(() => {
+    if (id) {
+      getProducts(orderBy, orderDirection, currentPage, priceFilters);
+    }
+  }, [id]);
+
+  if (router.isFallback) {
+    return <div>Carregando...</div>;
+  };
+
+  return (
+    <>
+      <SEO
+        title={`Histórico dos produtos ${store.title} | AchaPromo`}
+        description={`Histórico dos produtos da ${store.title}. veja histórico e encontre as melhores ofertas em tecnologia.`}
+        url={`https://achapromo.com.br/loja/${string_to_slug(store.title)}/${store.id}`}
+        image={'/favicon.ico'}
+      />
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div>
+              <h1 className="text-3xl font-bold text-dark-primary">{store.title}</h1>
+              <p className="text-gray-600"> Confira o histórico de produtos encontrados</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 mb-6">
+          <PriceFilter onFilterChange={handleFilterChange} />
+          <OrderSelect
+            orderBy={orderBy}
+            orderDirection={orderDirection}
+            onChange={handleOrderChange}
+          />
+        </div>
+
+        <div className="mt-4">
+          {products.flatMap((product, index) => {
+            const items = [
+              <CardProduct
+                product={product}
+                key={product.id || `product-${index}`}
+              />
+            ];
+
+            // Add AdSense every 7 products
+            if ((index + 1) % 7 === 0) {
+              items.push(
+                <AdSenseCard
+                  key={`adsense-store-${index}`}
+                  adSlot="ca-pub-5495811870853736"
+                />
+              );
+            }
+
+            return items;
+          })}
+        </div>
+
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      </div>
+    </>
+  );
+};
+
+export default StorePage;

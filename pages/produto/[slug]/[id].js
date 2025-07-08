@@ -1,6 +1,7 @@
 import "chart.js/auto";
 import { Line } from 'react-chartjs-2';
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { AiFillStar, AiOutlineComment } from "react-icons/ai";
 import axios from "../../../src/config/axiosConfig";
 import { useEffect, useState } from "react";
@@ -12,6 +13,7 @@ import useAppData from "../../../src/hooks/useAppData";
 import HistoryGrapics from "../../../src/components/products/HistoryGrapics";
 import SEO from '../../../src/components/seo';
 
+import { string_to_slug } from "../../../src/utils/helper";
 
 const Product = ({ product }) => {
   const { data, handleData } = useAppData();
@@ -77,9 +79,21 @@ const Product = ({ product }) => {
             </p>
             <div className="flex items-center space-x-2">
 
-              <span className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer">
-                {productState.store?.title || 'Loja Desconhecida'}
-              </span>
+              {productState.store?.id ? (
+                <Link
+                  href={{
+                    pathname: "/loja/[slug]/[id]",
+                    query: { id: productState.store.id, slug: string_to_slug(productState.store.title) },
+                  }}
+                  className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer"
+                >
+                  {productState.store.title}
+                </Link>
+              ) : (
+                <span className="text-light-primary text-sm hover:text-light-secondary transition-colors cursor-pointer">
+                  Loja Desconhecida
+                </span>
+              )}
               <span className="text-[11px] md:text-sm text-gray-500">
                 {translateDatePtBr(productState.created_at)}
               </span>

@@ -24,6 +24,7 @@ module.exports = {
         '/perfil/editar',
         '/perfil/review',
         '/produto/novo',
+        '/perfil/top',
     ],
     robotsTxtOptions: {
         policies: [
@@ -41,12 +42,26 @@ module.exports = {
         for (const tipo of endProds) {
             const produtos = await fetchAllProducts(tipo);
             for (const p of produtos) {
-                paths.push({
-                    loc: `/produto/${string_to_slug(p.title)}/${p.id}`,
-                    lastmod: new Date().toISOString(),
-                    changefreq: 'daily',
-                    priority: 0.7,
-                });
+                if (p.id && p.title) {
+                    const product_payload = {
+                        loc: `/produto/${string_to_slug(p.title)}/${p.id}`,
+                        lastmod: new Date().toISOString(),
+                        changefreq: 'daily',
+                        priority: 0.7,
+                        images: []
+                    };
+
+                    if (p.avatar) {
+                        console.log("Avatar : ", p.avatar)
+                        product_payload.images.push({
+                            loc: p.avatar,
+                            title: p.title || 'Produto',
+                            caption: p.description || p.title || 'Produto em promoção'
+                        });
+                    }
+
+                    paths.push(product_payload);
+                }
             }
         }
 
@@ -86,6 +101,11 @@ async function fetchAllProducts(tipo) {
             });
 
             if (!data.products || data.products.length === 0) break;
+
+            // Debug: verificar estrutura dos produtos
+            if (produtos.length === 0 && data.products.length > 0) {
+                console.log('[SITEMAP DEBUG] Estrutura do primeiro produto:', JSON.stringify(data.products[0], null, 2));
+            }
 
             produtos.push(...data.products);
             if (data.products.length < perPage) break;
