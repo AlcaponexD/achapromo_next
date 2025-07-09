@@ -14,7 +14,10 @@ const CategoryFilter = ({ onFilterChange, initialCategory = '' }) => {
             try {
                 setLoading(true);
                 const response = await axios.get('/categories');
-                setCategories(response.data || []);
+                const sortedCategories = (response.data || []).sort((a, b) => 
+                    a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' })
+                );
+                setCategories(sortedCategories);
                 setError(null);
             } catch (err) {
                 console.error('Erro ao buscar categorias:', err);
