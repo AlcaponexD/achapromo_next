@@ -6,6 +6,7 @@ import AdSenseCard from '../../../src/components/tabs/AdSenseCard';
 import Pagination from '../../../src/components/utils/pagination';
 import OrderSelect from '../../../src/components/utils/OrderSelect';
 import PriceFilter from '../../../src/components/utils/PriceFilter';
+import CategoryFilter from '../../../src/components/utils/CategoryFilter';
 import SEO from '../../../src/components/seo';
 
 function string_to_slug(str) {
@@ -53,10 +54,11 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
   const [orderBy, setOrderBy] = useState('discount_percentage');
   const [orderDirection, setOrderDirection] = useState('desc');
   const [priceFilters, setPriceFilters] = useState({});
+  const [categoryFilters, setCategoryFilters] = useState({});
   const per_page = 10;
   const { id } = router.query;
 
-  const getProducts = (order_by = orderBy, order_direction = orderDirection, page = currentPage, filters = priceFilters) => {
+  const getProducts = (order_by = orderBy, order_direction = orderDirection, page = currentPage, filters = priceFilters, categoryFilter = categoryFilters) => {
     const params = {
       page,
       per_page,
@@ -69,6 +71,9 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
     }
     if (filters.to) {
       params.to = filters.to;
+    }
+    if (categoryFilter.category) {
+      params.category = categoryFilter.category;
     }
 
     axios.get(`/store/${id}`, {
@@ -85,23 +90,29 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
     setOrderBy(order_by);
     setOrderDirection(order_direction);
     setCurrentPage(1);
-    getProducts(order_by, order_direction, 1, priceFilters);
+    getProducts(order_by, order_direction, 1, priceFilters, categoryFilters);
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    getProducts(orderBy, orderDirection, page, priceFilters);
+    getProducts(orderBy, orderDirection, page, priceFilters, categoryFilters);
   };
 
   const handleFilterChange = (filters) => {
     setPriceFilters(filters);
     setCurrentPage(1);
-    getProducts(orderBy, orderDirection, 1, filters);
+    getProducts(orderBy, orderDirection, 1, filters, categoryFilters);
+  };
+
+  const handleCategoryFilterChange = (filters) => {
+    setCategoryFilters(filters);
+    setCurrentPage(1);
+    getProducts(orderBy, orderDirection, 1, priceFilters, filters);
   };
 
   useEffect(() => {
     if (id) {
-      getProducts(orderBy, orderDirection, currentPage, priceFilters);
+      getProducts(orderBy, orderDirection, currentPage, priceFilters, categoryFilters);
     }
   }, [id]);
 
@@ -128,6 +139,7 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
         </div>
 
         <div className="flex flex-col gap-4 mb-6">
+          <CategoryFilter onFilterChange={handleCategoryFilterChange} />
           <PriceFilter onFilterChange={handleFilterChange} />
           <OrderSelect
             orderBy={orderBy}
