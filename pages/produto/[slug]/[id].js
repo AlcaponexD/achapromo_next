@@ -19,6 +19,7 @@ const Product = ({ product }) => {
   const { data, handleData } = useAppData();
   const router = useRouter();
   const [productState, setProductState] = useState(product);
+  const isExpired = productState.published === '0';
 
   const changeStarsCountFromTrigger = (action) => {
     if (action === 'up') {
@@ -112,15 +113,21 @@ const Product = ({ product }) => {
               </span>
             </div>
             <div className="w-[200px]">
-              <a
-                href={productState.url}
-                title={`Verificar o produto ${productState.title}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm md:text-base bg-light-primary rounded-lg p-3 px-8 text-white hover:bg-light-secondary transition-colors duration-200 inline-block w-full"
-              >
-                Pegar promo
-              </a>
+              {isExpired ? (
+                <div className="text-sm md:text-base bg-gray-500 rounded-lg p-3 px-8 text-white cursor-not-allowed inline-block w-full">
+                  Oferta expirada
+                </div>
+              ) : (
+                <a
+                  href={productState.url}
+                  title={`Verificar o produto ${productState.title}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm md:text-base bg-light-primary rounded-lg p-3 px-8 text-white hover:bg-light-secondary transition-colors duration-200 inline-block w-full"
+                >
+                  Pegar promo
+                </a>
+              )}
             </div>
             <div className="flex justify-center text-2xl space-x-4">
               <button

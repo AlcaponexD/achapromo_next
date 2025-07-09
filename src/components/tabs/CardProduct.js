@@ -4,11 +4,13 @@ import {
   formatarReal,
 } from "../../utils/helper";
 import DiscountBadge from "../products/DiscountBadge";
+import ExpiredBadge from "../products/ExpiredBadge";
 import { FaStar, FaComments, FaStore } from "react-icons/fa";
 
 export default (props) => {
   const product = props.product;
   const product_slug = string_to_slug(product.title);
+  const isExpired = product.published === '0';
 
   let dataLink = {
     pathname: "/produto/[slug]/[id]",
@@ -22,7 +24,11 @@ export default (props) => {
   return (
     <div className="block transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-light-primary rounded-2xl group">
       <div className="flex flex-col md:flex-row p-4 mt-4 dark:bg-dark-sidebar bg-white rounded-2xl relative shadow-sm hover:shadow-lg transition-all duration-300 border border-transparent hover:border-dark-primary">
-        <DiscountBadge percentage={product.discount_percentage} />
+        {isExpired ? (
+          <ExpiredBadge isExpired={isExpired} />
+        ) : (
+          <DiscountBadge percentage={product.discount_percentage} />
+        )}
 
         <Link href={dataLink} className="flex items-center justify-center w-full md:w-[180px] md:border-r-2 dark:border-dark-sidebar p-2 mb-4 md:mb-0">
           <div className="relative w-full aspect-square max-w-[180px] overflow-hidden rounded-lg">
