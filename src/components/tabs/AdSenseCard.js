@@ -11,6 +11,8 @@ const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot, adFormat = 
       return;
     }
 
+    return
+
     const pushAd = () => {
       try {
         // Verificar se o script do AdSense foi carregado
@@ -50,6 +52,7 @@ const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot, adFormat = 
     );
   }
 
+  return (<div></div>)
   return (
     <div className="my-4 p-4 shadow-lg rounded-lg border border-gray-200 bg-white dark:bg-gray-800 text-center flex flex-col justify-center items-center min-h-[250px] w-full max-w-full">
       {!adLoaded && (
