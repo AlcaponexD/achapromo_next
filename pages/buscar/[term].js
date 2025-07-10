@@ -88,7 +88,7 @@ const Search = () => {
                     {products.flatMap((product, index) => {
                         const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
                         if ((index + 1) % 7 === 0) {
-                            items.push(<AdSenseCard key={`adsense-search-${index}`} adSlot="ca-pub-5495811870853736" />); // Substitua YOUR_AD_SLOT_ID_HERE pelo seu ID de slot
+                            items.push(<AdSenseCard key={`adsense-search-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />);
                         }
                         return items;
                     })}

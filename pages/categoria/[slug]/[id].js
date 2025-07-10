@@ -99,7 +99,7 @@ const Product = ({ products, category, totalPages, currentPage }) => {
           <div key={index} className="relative">
             <CardProduct product={product} />
             {(index + 1) % 7 === 0 && (
-              <AdSenseCard key={`adsense-${index}`} adSlot="ca-pub-5495811870853736" />
+              <AdSenseCard key={`adsense-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />
             )}
           </div>
         ))}

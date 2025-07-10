@@ -5,8 +5,7 @@ import CardProduct from '../../../src/components/tabs/CardProduct';
 import AdSenseCard from '../../../src/components/tabs/AdSenseCard';
 import Pagination from '../../../src/components/utils/pagination';
 import OrderSelect from '../../../src/components/utils/OrderSelect';
-import PriceFilter from '../../../src/components/utils/PriceFilter';
-import CategoryFilter from '../../../src/components/utils/CategoryFilter';
+import CombinedFilter from '../../../src/components/utils/CombinedFilter';
 import SEO from '../../../src/components/seo';
 
 function string_to_slug(str) {
@@ -99,15 +98,10 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
   };
 
   const handleFilterChange = (filters) => {
-    setPriceFilters(filters);
+    setPriceFilters({ from: filters.from, to: filters.to });
+    setCategoryFilters({ category: filters.category });
     setCurrentPage(1);
-    getProducts(orderBy, orderDirection, 1, filters, categoryFilters);
-  };
-
-  const handleCategoryFilterChange = (filters) => {
-    setCategoryFilters(filters);
-    setCurrentPage(1);
-    getProducts(orderBy, orderDirection, 1, priceFilters, filters);
+    getProducts(orderBy, orderDirection, 1, { from: filters.from, to: filters.to }, { category: filters.category });
   };
 
   useEffect(() => {
@@ -139,8 +133,12 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
         </div>
 
         <div className="flex flex-col gap-4 mb-6">
-          <CategoryFilter onFilterChange={handleCategoryFilterChange} />
-          <PriceFilter onFilterChange={handleFilterChange} />
+          <CombinedFilter 
+            onFilterChange={handleFilterChange}
+            initialFrom={priceFilters.from ? (priceFilters.from / 100).toFixed(2).replace('.', ',') : ''}
+            initialTo={priceFilters.to ? (priceFilters.to / 100).toFixed(2).replace('.', ',') : ''}
+            initialCategory={categoryFilters.category || ''}
+          />
           <OrderSelect
             orderBy={orderBy}
             orderDirection={orderDirection}
