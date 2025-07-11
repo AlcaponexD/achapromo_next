@@ -58,7 +58,7 @@ module.exports = {
 
                     if (p.avatar) {
                         product_payload.images.push({
-                            loc: { href: p.avatar },
+                            loc: { href: `<![CDATA[${p.avatar}]]>` },
                             title: `<![CDATA[${p.title}]]>`,
                             caption: `<![CDATA[${p.title}]]>`
                         });
@@ -116,7 +116,7 @@ module.exports = {
 
                         if (p.avatar) {
                             product_payload.images.push({
-                                loc: { href: p.avatar },
+                                loc: { href: `<![CDATA[${p.avatar}]]>` },
                                 title: `<![CDATA[${p.title}]]>`,
                                 caption: `<![CDATA[${p.title}]]>`
                             });
