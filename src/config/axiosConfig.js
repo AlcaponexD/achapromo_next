@@ -5,7 +5,7 @@ const BASE_URL = "https://api.achapromo.com.br";
 
 const instance = axios.create({
   baseURL: BASE_URL,
-  timeout: 40000,
+  timeout: 10000, // ✅ 10 segundos é mais adequado
   headers: {
     "Content-Type": "application/json",
   },

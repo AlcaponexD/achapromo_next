@@ -158,10 +158,12 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
             // Add AdSense every 7 products
             if ((index + 1) % 7 === 0) {
               items.push(
-                <AdSenseCard
-                  key={`adsense-store-${index}`}
-                  adSlot="ca-pub-5495811870853736"
-                />
+                // <AdSenseCard
+                //     key={`adsense-${index}`}
+                //     adSlot="1051614758"
+                //     adFormat="fluid"
+                //     adLayoutKey="-e1-5a+hn-rt+au"
+                // />
               );
             }
 

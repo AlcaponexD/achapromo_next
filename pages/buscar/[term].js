@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import axios from '../../src/config/axiosConfig'
 import { useEffect, useState } from "react";
 import CardProduct from '../../src/components/tabs/CardProduct';
-import AdSenseCard from '../../src/components/tabs/AdSenseCard';
+// import AdSenseCard from '../../src/components/tabs/AdSenseCard';
 import Pagination from "../../src/components/utils/pagination";
 import OrderSelect from "../../src/components/utils/OrderSelect";
 import PriceFilter from '../../src/components/utils/PriceFilter';
@@ -87,9 +87,9 @@ const Search = () => {
                 <div className="mt-4">
                     {products.flatMap((product, index) => {
                         const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
-                        if ((index + 1) % 7 === 0) {
-                            items.push(<AdSenseCard key={`adsense-search-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />);
-                        }
+                        // if ((index + 1) % 7 === 0) {
+                        //     items.push(<AdSenseCard key={`adsense-search-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />);
+                        // }
                         return items;
                     })}
                 </div>

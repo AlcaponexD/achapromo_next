@@ -98,9 +98,6 @@ const Product = ({ products, category, totalPages, currentPage }) => {
         {products.map((product, index) => (
           <div key={index} className="relative">
             <CardProduct product={product} />
-            {(index + 1) % 7 === 0 && (
-              <AdSenseCard key={`adsense-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />
-            )}
           </div>
         ))}
         <Pagination

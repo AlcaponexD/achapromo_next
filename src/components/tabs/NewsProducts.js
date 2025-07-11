@@ -3,7 +3,7 @@ import CardProduct from "./CardProduct";
 import Pagination from "../utils/pagination";
 import OrderSelect from "../utils/OrderSelect";
 import PriceFilter from "../utils/PriceFilter";
-import AdSenseCard from "./AdSenseCard";
+// import AdSenseCard from "./AdSenseCard";
 
 const NewsProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOrderDirection }) => {
   const [products, setProducts] = useState(initialProducts);
@@ -62,7 +62,7 @@ const NewsProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOr
       <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
       {products.map((product, index) => {
         if ((index + 1) % 7 === 0) {
-          return <AdSenseCard key={`adsense-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />;
+          // return <AdSenseCard key={`adsense-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />;
         }
         return <CardProduct product={product} key={product.id || `product-${index}`} />;
       })}

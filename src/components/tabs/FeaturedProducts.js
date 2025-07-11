@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import CardProduct from "./CardProduct";
-import AdSenseCard from './AdSenseCard';
+import React, { useState } from 'react';
+import CardProduct from './CardProduct';
+// import AdSenseCard from './AdSenseCard';
 import Pagination from "../utils/pagination";
 import PriceFilter from "../utils/PriceFilter";
 
@@ -47,9 +47,9 @@ const FeaturedProducts = ({ initialProducts, initialTotal }) => {
       <PriceFilter onFilterChange={handleFilterChange} />
       {products.flatMap((product, index) => {
         const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
-        if ((index + 1) % 7 === 0) {
-          items.push(<AdSenseCard key={`adsense-featured-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />);
-        }
+        // if ((index + 1) % 7 === 0) {
+        //     items.push(<AdSenseCard key={`adsense-featured-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />);
+        // }
         return items;
       })}
       <Pagination
