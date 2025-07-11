@@ -45,8 +45,36 @@ const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot = "699287141
 
   if (error) {
     return (
-      <div className="my-4 p-4 shadow-lg rounded-lg border border-red-200 bg-red-50 text-center flex flex-col justify-center items-center min-h-[250px] w-full max-w-full">
-        <p className="text-red-600 text-sm">Erro no anúncio: {error}</p>
+      <div className="my-4 p-4 shadow-lg rounded-lg border border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 text-center flex flex-col justify-center items-center min-h-[250px] w-full max-w-full">
+        <div className="mb-3">
+          <svg className="w-12 h-12 text-blue-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <h3 className="text-blue-800 font-semibold text-lg mb-2">📢 Apoie o AchaPromo!</h3>
+        <p className="text-blue-700 text-sm mb-3 max-w-sm leading-relaxed">
+          Para manter nosso site <strong>gratuito</strong> e continuar oferecendo as melhores ofertas, precisamos da sua ajuda!
+        </p>
+        <div className="bg-white/70 rounded-lg p-3 mb-3 border border-blue-200">
+          <p className="text-blue-800 text-sm font-medium mb-1">🛡️ AdBlock detectado</p>
+          <p className="text-blue-600 text-xs">
+            Considere desabilitar seu bloqueador de anúncios para o AchaPromo. Nossos anúncios são seguros e relevantes!
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-2 text-xs text-blue-600">
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+            Anúncios seguros
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+            Conteúdo gratuito
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+            Melhores ofertas
+          </span>
+        </div>
       </div>
     );
   }
