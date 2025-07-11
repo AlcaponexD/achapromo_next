@@ -60,7 +60,7 @@ module.exports = {
                         product_payload.images.push({
                             loc: { href: p.avatar },
                             title: `<![CDATA[${p.title}]]>`,
-                            caption: p.description || p.title || 'Produto em promoção'
+                            caption: `<![CDATA[${p.title}]]>`
                         });
                     }
 
@@ -118,7 +118,7 @@ module.exports = {
                             product_payload.images.push({
                                 loc: { href: p.avatar },
                                 title: `<![CDATA[${p.title}]]>`,
-                                caption: p.description || p.title || `Produto da ${s.title}`
+                                caption: `<![CDATA[${p.title}]]>`
                             });
                         }
 
@@ -181,6 +181,33 @@ async function fetchAllProducts(tipo) {
             page++;
         } catch (err) {
             console.error(`[SITEMAP] Erro ao buscar produtos (${tipo}):`, err.message);
+            break;
+        }
+    }
+
+    return produtos;
+}
+
+async function fetchProductsByStore(storeId) {
+    const produtos = [];
+    const perPage = 1000;
+    let page = 1;
+    const maxPages = 99; // Limitar para evitar timeout
+
+    while (page <= maxPages) {
+        try {
+            const { data } = await axios.get(`https://api.achapromo.com.br/store/${storeId}`, {
+                params: { page, per_page: perPage },
+            });
+
+            if (!data.products || data.products.length === 0) break;
+
+            produtos.push(...data.products);
+            if (data.products.length < perPage) break;
+
+            page++;
+        } catch (err) {
+            console.error(`[SITEMAP] Erro ao buscar produtos da loja ${storeId}:`, err.message);
             break;
         }
     }
