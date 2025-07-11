@@ -1,18 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot, adFormat = 'auto', adResponsive = 'true', adLayoutKey }) => {
+const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot = "6992871410", adFormat = 'auto', adResponsive = 'true' }) => {
   const adRef = useRef(null);
   const [adLoaded, setAdLoaded] = useState(false);
   const [error, setError] = useState(null);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
-    if (!adSlot) {
-      setError('AdSlot é obrigatório');
-      return;
-    }
-
-    return
-
     const pushAd = () => {
       try {
         // Verificar se o script do AdSense foi carregado
@@ -22,8 +16,8 @@ const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot, adFormat = 
         }
 
         if (!window.adsbygoogle) {
-          console.log('Script do AdSense ainda não carregado, tentando novamente...');
-          setTimeout(pushAd, 500);
+          console.log('Script do AdSense não carregado');
+          setError('Script do AdSense não disponível');
           return;
         }
 
@@ -38,10 +32,15 @@ const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot, adFormat = 
       }
     };
 
-    // Delay para garantir que o DOM esteja pronto
-    const timer = setTimeout(pushAd, 1000);
+    // Delay para garantir que o script foi carregado
+    timeoutRef.current = setTimeout(pushAd, 500);
 
-    return () => clearTimeout(timer);
+    // Cleanup adequado
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [adSlot]);
 
   if (error) {
@@ -52,7 +51,6 @@ const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot, adFormat = 
     );
   }
 
-  return (<div></div>)
   return (
     <div className="my-4 p-4 shadow-lg rounded-lg border border-gray-200 bg-white dark:bg-gray-800 text-center flex flex-col justify-center items-center min-h-[250px] w-full max-w-full">
       {!adLoaded && (
@@ -72,7 +70,6 @@ const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot, adFormat = 
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={adResponsive}
-        {...(adLayoutKey && { 'data-ad-layout-key': adLayoutKey })}
       ></ins>
     </div>
   );

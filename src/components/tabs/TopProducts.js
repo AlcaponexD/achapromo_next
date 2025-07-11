@@ -61,8 +61,8 @@ const TopProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOrd
       {Array.isArray(products) && products.length > 0 ? (
         products.flatMap((product, index) => {
           const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
-          if ((index + 1) % 7 === 0) {
-            // items.push(<AdSenseCard key={`adsense-top-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />);
+          if (index === 7) {
+            items.push(<AdSenseCard key={`adsense-top-${index}`} />);
           }
           return items;
         })

@@ -133,7 +133,7 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
         </div>
 
         <div className="flex flex-col gap-4 mb-6">
-          <CombinedFilter 
+          <CombinedFilter
             onFilterChange={handleFilterChange}
             initialFrom={priceFilters.from ? (priceFilters.from / 100).toFixed(2).replace('.', ',') : ''}
             initialTo={priceFilters.to ? (priceFilters.to / 100).toFixed(2).replace('.', ',') : ''}
@@ -155,15 +155,11 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
               />
             ];
 
-            // Add AdSense every 7 products
-            if ((index + 1) % 7 === 0) {
+            if (index === 7) {
               items.push(
-                // <AdSenseCard
-                //     key={`adsense-${index}`}
-                //     adSlot="1051614758"
-                //     adFormat="fluid"
-                //     adLayoutKey="-e1-5a+hn-rt+au"
-                // />
+                <AdSenseCard
+                  key={`adsense-store-${index}`}
+                />
               );
             }
 

@@ -95,11 +95,13 @@ const Product = ({ products, category, totalPages, currentPage }) => {
         <h1 className="text-2xl text-dark-primary font-bold ">
           Categoria: {category.title}
         </h1>
-        {products.map((product, index) => (
-          <div key={index} className="relative">
-            <CardProduct product={product} />
-          </div>
-        ))}
+        {products.flatMap((product, index) => {
+          const items = [<CardProduct product={product} key={index} />];
+          if (index === 7) {
+            items.push(<AdSenseCard key={`adsense-category-${index}`} />);
+          }
+          return items;
+        })}
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}

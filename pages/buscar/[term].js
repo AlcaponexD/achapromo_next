@@ -87,8 +87,8 @@ const Search = () => {
                 <div className="mt-4">
                     {products.flatMap((product, index) => {
                         const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
-                        // if ((index + 1) % 7 === 0) {
-                        //     items.push(<AdSenseCard key={`adsense-search-${index}`} adSlot="1051614758" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />);
+                        // if (index === 7) {
+                        //     items.push(<AdSenseCard key={`adsense-search-${index}`} adSlot="6992871410" adFormat="fluid" adLayoutKey="-e1-5a+hn-rt+au" />);
                         // }
                         return items;
                     })}
