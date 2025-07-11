@@ -58,7 +58,7 @@ module.exports = {
 
                     if (p.avatar) {
                         product_payload.images.push({
-                            loc: p.avatar,
+                            loc: { href: p.avatar },
                             title: p.title || 'Produto',
                             caption: p.description || p.title || 'Produto em promoção'
                         });
@@ -116,7 +116,7 @@ module.exports = {
 
                         if (p.avatar) {
                             product_payload.images.push({
-                                loc: p.avatar,
+                                loc: { href: p.avatar },
                                 title: p.title || 'Produto',
                                 caption: p.description || p.title || `Produto da ${s.title}`
                             });
@@ -170,6 +170,11 @@ async function fetchAllProducts(tipo) {
 
             if (!data.products || data.products.length === 0) break;
 
+            // Debug: verificar estrutura dos produtos
+            if (produtos.length === 0 && data.products.length > 0) {
+                console.log('[SITEMAP DEBUG] Estrutura do primeiro produto:', JSON.stringify(data.products[0], null, 2));
+            }
+
             produtos.push(...data.products);
             if (data.products.length < perPage) break;
 
@@ -187,7 +192,7 @@ async function fetchProductsByStore(storeId) {
     const produtos = [];
     const perPage = 1000;
     let page = 1;
-    const maxPages = 100; // Limitar para evitar timeout
+    const maxPages = 99; // Limitar para evitar timeout
 
     while (page <= maxPages) {
         try {
