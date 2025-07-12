@@ -47,7 +47,7 @@ const FeaturedProducts = ({ initialProducts, initialTotal }) => {
       <PriceFilter onFilterChange={handleFilterChange} />
       {products.flatMap((product, index) => {
         const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
-        if (index === 7) {
+        if (index === 4) {
           items.push(<AdSenseCard key={`adsense-featured-${index}`} />);
         }
         return items;

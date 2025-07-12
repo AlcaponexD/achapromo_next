@@ -53,7 +53,7 @@ const AdSenseCard = ({ adClient = "ca-pub-5495811870853736", adSlot = "699287141
         </div>
         <h3 className="text-blue-800 font-semibold text-lg mb-2">📢 Apoie o AchaPromo!</h3>
         <p className="text-blue-700 text-sm mb-3 max-w-sm leading-relaxed">
-          Para manter nosso site <strong>gratuito</strong> e continuar oferecendo as melhores ofertas, precisamos da sua ajuda!
+          Para manter nosso site <strong>online</strong> e continuar ajudando você a encontrar as melhores ofertas, precisamos da sua ajuda!
         </p>
         <div className="bg-white/70 rounded-lg p-3 mb-3 border border-blue-200">
           <p className="text-blue-800 text-sm font-medium mb-1">🛡️ AdBlock detectado</p>

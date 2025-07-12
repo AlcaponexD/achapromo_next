@@ -155,7 +155,7 @@ const StorePage = ({ store, initialProducts, initialTotalPages }) => {
               />
             ];
 
-            if (index === 7) {
+            if (index === 4) {
               items.push(
                 <AdSenseCard
                   key={`adsense-store-${index}`}

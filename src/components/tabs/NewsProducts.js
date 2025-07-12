@@ -62,7 +62,7 @@ const NewsProducts = ({ initialProducts, initialTotal, initialOrderBy, initialOr
       <OrderSelect orderBy={orderBy} orderDirection={orderDirection} onChange={handleOrderChange} />
       {products.flatMap((product, index) => {
         const items = [<CardProduct product={product} key={product.id || `product-${index}`} />];
-        if (index === 7) {
+        if (index === 4) {
           items.push(<AdSenseCard key={`adsense-news-${index}`} />);
         }
         return items;

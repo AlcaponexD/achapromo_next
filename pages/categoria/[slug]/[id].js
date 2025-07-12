@@ -97,7 +97,7 @@ const Product = ({ products, category, totalPages, currentPage }) => {
         </h1>
         {products.flatMap((product, index) => {
           const items = [<CardProduct product={product} key={index} />];
-          if (index === 7) {
+          if (index === 4) {
             items.push(<AdSenseCard key={`adsense-category-${index}`} />);
           }
           return items;
